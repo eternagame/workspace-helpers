@@ -1,20 +1,19 @@
 module.exports = {
-    extends: require.resolve('./typescript'),
-    overrides: [
-      {
-        files: ['*.vuex?'],
-        extends: [
-          'plugin:vue/vue3-recommended',
-          'plugin:@typescript-eslint/recommended',
-          'plugin:@typescript-eslint/recommended-requiring-type-checking',
-          'airbnb-base',
-          'airbnb-typescript/base',
-          'prettier',
-          require.resolve('./rules/javascript'),
-          require.resolve('./rules/typescript'),
-          require.resolve('./rules/vue'),
-        ],
-      },
-    ],
-  };
-  
+  extends: require.resolve('./typescript'),
+  overrides: [
+    {
+      files: ['*.vuex?'],
+      extends: [
+        'plugin:vue/vue3-recommended',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:@typescript-eslint/recommended-requiring-type-checking',
+        'airbnb-base',
+        'airbnb-typescript/base',
+        'prettier',
+        require.resolve('./rules/javascript'),
+        require.resolve('./rules/typescript'),
+        require.resolve('./rules/vue'),
+      ],
+    },
+  ],
+};

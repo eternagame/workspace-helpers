@@ -31,7 +31,9 @@
   "nx": {
     "targets": {
       "build": {
-        "outputs": ["packages/eslint-config/dist"]
+        "outputs": [
+          "packages/eslint-config/dist"
+        ]
       }
     }
   }

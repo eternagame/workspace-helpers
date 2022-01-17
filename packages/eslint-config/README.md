@@ -1,21 +1,26 @@
 # @luxaritas/eslint-config
+
 Semi-opinionated ESLint configuration
 
 ## Installation
+
 Note that the following are marked as optional peer dependencies, so you need to explicitly
 install them if using the relevant configs (in order to avoid downloading them when you aren't):
-* `eslint-config-airbnb-typescript` (for the typescript configurations)
-* `eslint-config-airbnb-vue` (for the vue configurations)
-* `@nrwl/eslint-plugin-nx` (for the nx configs)
+
+- `eslint-config-airbnb-typescript` (for the typescript configurations)
+- `eslint-config-airbnb-vue` (for the vue configurations)
+- `@nrwl/eslint-plugin-nx` (for the nx configs)
 
 ## Configuration
+
 There are six sets of configurations available:
-* `@luxaritas/javascript` (core)
-* `@luxaritas/typescript` (core)
-* `@luxaritas/vue3-javascript` (core)
-* `@luxaritas/vue3-typescript` (core)
-* `@luxaritas/nx-javascript`
-* `@luxaritas/nx-typescript`
+
+- `@luxaritas/javascript` (core)
+- `@luxaritas/typescript` (core)
+- `@luxaritas/vue3-javascript` (core)
+- `@luxaritas/vue3-typescript` (core)
+- `@luxaritas/nx-javascript`
+- `@luxaritas/nx-typescript`
 
 Note that `@luxaritas/typescript` extends `@luxaritas/javascript`, `@luxaritas/vue3-javascript` extends
 `@luxaritas/javascript`, and `@luxaritas/vue3-typescript` extends `@luxaritas/typescript`, so you should
@@ -26,6 +31,7 @@ use any of the core configs and if you use `@luxaritas/nx-typescript` you must u
 typescript core configs (as they override rules in the relevant js/ts airbnb config).
 
 ## Background/Rationale/Design
+
 Core configurations are based on my preferred combination of airbnb + prettier. Typescript core
 configurations also take advantage of typescript-eslint (with all recommended rules, including those
 requiring type checking) and airbnb-typescript to handle conflicting definitions. The vue3 configs

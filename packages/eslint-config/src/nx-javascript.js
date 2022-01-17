@@ -1,8 +1,8 @@
 module.exports = {
-    overrides: [
-      {
-        files: ['*.jsx?'],
-        ...require('./rules/nx')(false),
-      },
-    ],
+  overrides: [
+    {
+      files: ['*.jsx?'],
+      ...require('./rules/nx')(false),
+    },
+  ],
 };
