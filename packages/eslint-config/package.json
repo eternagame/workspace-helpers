@@ -1,0 +1,38 @@
+{
+  "name": "@luxaritas/eslint-config",
+  "description": "Semi-opinionated ESLint configuration",
+  "author": "Jonathan Romano <jonathan@luxaritas.com>",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "shx mkdir -p dist && shx cp -r src/* package.json README.md dist",
+    "lint": "eslint src/"
+  },
+  "peerDependencies": {
+    "@nrwl/eslint-plugin-nx": "^13.0.0",
+    "eslint": "^8.0.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^16.0.0",
+    "eslint-config-prettier": "^8.0.0",
+    "eslint-plugin-import": "^2.0.0",
+    "eslint-plugin-vue": "^8.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@nrwl/eslint-plugin-nx": {
+      "optional": true
+    },
+    "eslint-config-airbnb-typescript": {
+      "optional": true
+    },
+    "eslint-config-airbnb-vue": {
+      "optional": true
+    }
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": ["packages/eslint-config/dist"]
+      }
+    }
+  }
+}

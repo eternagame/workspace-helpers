@@ -1,0 +1,7 @@
+{
+    "root": true,
+    "extends": [
+        "./packages/eslint-config/src/typescript",
+        "./packages/eslint-config/src/nx-typescript"
+    ]
+}
