@@ -1,9 +1,9 @@
 {
-  "name": "@luxaritas/workspace-helpers",
+  "name": "@eternagame/workspace-helpers",
   "description": "Workspace helpers for JS projects",
   "author": "Jonathan Romano <jonathan@luxaritas.com>",
   "version": "0.0.0",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "private": true,
   "scripts": {
     "_lint-workspace": "npx eslint --ignore-path .gitignore --ignore-pattern packages/",
@@ -11,8 +11,8 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@luxaritas/distify": "file:packages/distify",
-    "@luxaritas/eslint-plugin": "file:packages/eslint-plugin",
+    "@eternagame/distify": "file:packages/distify",
+    "@eternagame/eslint-plugin": "file:packages/eslint-plugin",
     "@nrwl/cli": "13.7.2",
     "@nrwl/eslint-plugin-nx": "13.7.2",
     "@nrwl/tao": "13.7.2",

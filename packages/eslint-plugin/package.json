@@ -1,9 +1,9 @@
 {
-  "name": "@luxaritas/eslint-plugin",
+  "name": "@eternagame/eslint-plugin",
   "description": "Semi-opinionated ESLint configuration",
   "author": "Jonathan Romano <jonathan@luxaritas.com>",
   "version": "1.0.0",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "scripts": {
     "lint": "eslint src/"
   },

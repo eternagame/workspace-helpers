@@ -1,4 +1,4 @@
-# @luxaritas/eslint-plugin
+# @eternagame/eslint-plugin
 
 Semi-opinionated ESLint configuration
 
@@ -15,19 +15,19 @@ install them if using the relevant configs (in order to avoid downloading them w
 
 There are six sets of configurations available:
 
-- `plugin:@luxaritas/javascript` (core)
-- `plugin:@luxaritas/typescript` (core)
-- `plugin:@luxaritas/vue3-javascript` (core)
-- `plugin:@luxaritas/vue3-typescript` (core)
-- `plugin:@luxaritas/nx-javascript`
-- `plugin:@luxaritas/nx-typescript`
+- `plugin:@eternagame/javascript` (core)
+- `plugin:@eternagame/typescript` (core)
+- `plugin:@eternagame/vue3-javascript` (core)
+- `plugin:@eternagame/vue3-typescript` (core)
+- `plugin:@eternagame/nx-javascript`
+- `plugin:@eternagame/nx-typescript`
 
-Note that `@luxaritas/typescript` extends `@luxaritas/javascript`, `@luxaritas/vue3-javascript` extends
-`@luxaritas/javascript`, and `@luxaritas/vue3-typescript` extends `@luxaritas/typescript`, so you should
+Note that `@eternagame/typescript` extends `@eternagame/javascript`, `@eternagame/vue3-javascript` extends
+`@eternagame/javascript`, and `@eternagame/vue3-typescript` extends `@eternagame/typescript`, so you should
 pick whichever of the core configs has the greatest superset of features you want to work with.
 
-The nx configurations must be added separately, but if you use `@luxaritas/nx-javascript` you must
-use any of the core configs and if you use `@luxaritas/nx-typescript` you must use one of the
+The nx configurations must be added separately, but if you use `@eternagame/nx-javascript` you must
+use any of the core configs and if you use `@eternagame/nx-typescript` you must use one of the
 typescript core configs (as they override rules in the relevant js/ts airbnb config).
 
 ## Background/Rationale/Design

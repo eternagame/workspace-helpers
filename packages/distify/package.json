@@ -1,10 +1,12 @@
 {
-  "name": "@luxaritas/distify",
+  "name": "@eternagame/distify",
   "description": "Lightweight build step for static assets",
   "author": "Jonathan Romano <jonathan@luxaritas.com>",
   "version": "1.0.0",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "scripts": {
+    "prepublishOnly": "shx cp ../../LICENSE . && nx build",
+    "postpublish": "shx rm LICENSE",
     "prebuild": "shx rm -rf dist",
     "build": "tsc -p tsconfig.build.json",
     "postbuild": "shx chmod +x dist/index.js",

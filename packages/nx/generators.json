@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "name": "luxaritas/nx",
+  "name": "eternagame/nx",
   "version": "1.0.0",
   "generators": {
     "preset": {

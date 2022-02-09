@@ -1,6 +1,6 @@
 {
   "extends": "@nrwl/workspace/presets/npm.json",
-  "npmScope": "luxaritas",
+  "npmScope": "eternagame",
   "affected": {
     "defaultBase": "main"
   },
