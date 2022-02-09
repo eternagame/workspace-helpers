@@ -4,11 +4,11 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['*.jsx?'],
+      files: ['*.js', '*.jsx'],
       extends: [
         'airbnb-base',
         'prettier',
-        require.resolve('./rules/javascript'),
+        require.resolve('./base-rules/javascript'),
       ],
     },
   ],

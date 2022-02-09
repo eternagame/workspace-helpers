@@ -1,0 +1,28 @@
+{
+  "name": "@luxaritas/distify",
+  "description": "Lightweight build step for static assets",
+  "author": "Jonathan Romano <jonathan@luxaritas.com>",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "shx rm -rf dist",
+    "build": "tsc -p tsconfig.build.json",
+    "postbuild": "shx chmod +x dist/index.js",
+    "lint": "eslint src/"
+  },
+  "bin": {
+    "distify": "./dist/index.js"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": [
+          "packages/distify/dist"
+        ]
+      }
+    }
+  },
+  "dependencies": {
+    "fast-glob": "^3.2.11"
+  }
+}

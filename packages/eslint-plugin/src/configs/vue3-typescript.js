@@ -2,7 +2,7 @@ module.exports = {
   extends: require.resolve('./typescript'),
   overrides: [
     {
-      files: ['*.vuex?'],
+      files: ['*.vue'],
       extends: [
         'plugin:vue/vue3-recommended',
         'plugin:@typescript-eslint/recommended',
@@ -10,9 +10,9 @@ module.exports = {
         'airbnb-base',
         'airbnb-typescript/base',
         'prettier',
-        require.resolve('./rules/javascript'),
-        require.resolve('./rules/typescript'),
-        require.resolve('./rules/vue'),
+        require.resolve('./base-rules/javascript'),
+        require.resolve('./base-rules/typescript'),
+        require.resolve('./base-rules/vue'),
       ],
     },
   ],

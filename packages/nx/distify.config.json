@@ -1,0 +1,5 @@
+{
+  "sourceGlobs": ["**/files/**/*", "**/schema.json"],
+  "outputPath": "dist",
+  "sourceRoot": "src"
+}

@@ -1,4 +1,4 @@
-# @luxaritas/eslint-config
+# @luxaritas/eslint-plugin
 
 Semi-opinionated ESLint configuration
 
@@ -15,12 +15,12 @@ install them if using the relevant configs (in order to avoid downloading them w
 
 There are six sets of configurations available:
 
-- `@luxaritas/javascript` (core)
-- `@luxaritas/typescript` (core)
-- `@luxaritas/vue3-javascript` (core)
-- `@luxaritas/vue3-typescript` (core)
-- `@luxaritas/nx-javascript`
-- `@luxaritas/nx-typescript`
+- `plugin:@luxaritas/javascript` (core)
+- `plugin:@luxaritas/typescript` (core)
+- `plugin:@luxaritas/vue3-javascript` (core)
+- `plugin:@luxaritas/vue3-typescript` (core)
+- `plugin:@luxaritas/nx-javascript`
+- `plugin:@luxaritas/nx-typescript`
 
 Note that `@luxaritas/typescript` extends `@luxaritas/javascript`, `@luxaritas/vue3-javascript` extends
 `@luxaritas/javascript`, and `@luxaritas/vue3-typescript` extends `@luxaritas/typescript`, so you should
@@ -40,7 +40,7 @@ using relatively standard configurations for each technology.
 
 As I use nx monorepos, I've also included the additional configuration I make for that setting.
 
-Under `src/rules`, you will find additional rule customizations I have opted for. Each change is
+Under `src/configs/base-rules`, you will find additional rule customizations I have opted for. Each change is
 documented with specific rationale, but in general reflects my personal experience with what I find
 useful for my workflow and stylistic preferences.
 
@@ -49,5 +49,5 @@ only applies to js/jsx files, and the typescript config uses that plus a separat
 for ts/tsx files, rather than the js configuration applying for js and ts then overriding specific
 parts of the config for ts files. This is to cleanly handle issues with mixed codebases in addition
 to the specific ordering requirements of the various base configurations used in the core configurations.
-Shared configuration is still made available in `src/rules` (and in the case of parserOptions, the
+Shared configuration is still made available in `src/configs/base-rules` (and in the case of parserOptions, the
 javascript config which is included in all other core configs).

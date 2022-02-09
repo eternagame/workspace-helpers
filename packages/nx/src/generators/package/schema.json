@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "Package",
+  "cli": "nx",
+  "title": "Adds new package to Nx workspace",
+  "type": "object",
+  "properties": {}
+}

@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "Preset",
+  "cli": "nx",
+  "title": "Initializes an Nx workspace",
+  "type": "object",
+  "properties": {}
+}

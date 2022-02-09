@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "luxaritas/nx",
+  "version": "1.0.0",
+  "generators": {
+    "preset": {
+      "factory": "./dist/generators/preset/preset",
+      "schema": "./dist/generators/preset/schema.json",
+      "description": "Initializes an Nx workspace"
+    },
+    "package": {
+      "factory": "./dist/generators/package/package",
+      "schema": "./dist/generators/package/schema.json",
+      "description": "Initializes an Nx workspace"
+    }
+  }
+}

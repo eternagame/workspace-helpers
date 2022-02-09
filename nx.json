@@ -10,6 +10,7 @@
       "options": {
         "cacheableOperations": [
           "build",
+          "build-incremental",
           "lint",
           "test",
           "e2e"
