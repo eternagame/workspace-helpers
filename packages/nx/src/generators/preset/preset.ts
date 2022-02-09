@@ -85,8 +85,7 @@ function updateCoreFiles(tree: Tree) {
   if (!oldIgnoreFile) throw new Error('Git ignore file not found');
   const newContent = oldIgnoreFile
     .toString()
-    .replace(/^\/node_modules$/m, 'node_modules')
-    .replace(/\/out-tsc(\n\*\.tsbuildinfo)?/m, '/out-tsc\n*.tsbuildinfo');
+    .replace(/^\/node_modules$/m, 'node_modules');
   tree.write('.gitignore', newContent);
 }
 
