@@ -4,6 +4,16 @@
   "affected": {
     "defaultBase": "main"
   },
+  "implicitDependencies": {
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    ".eslintrc.js": "*",
+    "tsconfig.base.json": "*",
+    ".github/workflows/ci.yml": "*",
+    "nx.json": "*"
+  },
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
