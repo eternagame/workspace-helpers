@@ -53,8 +53,11 @@ To scaffold a new package, run `npx nx generate @eternagame/nx:package`. You may
 
 When updating Nx plugins (or dependencies that are managed by Nx plugins), the plugins may have
 changes to configurations or other changes that should be made when updating. The process of updating
-packages and making changes is automated, and can be done via `npx nx migrate` and then `npx nx migrate --run-migrations`
-after reviewing the changes to be made in the migrations.json. Never update these packages
+packages and making changes is automated, and can be done via `npx nx migrate latest` and then (if necessary)
+`npx nx migrate --run-migrations` after reviewing the changes to be made in the migrations.json. Never update these packages
 "manually" (without using this command). Remove the migrations.json file before committing changes.
 
 For updating other dependencies, you may want to use `npx npm-check-updates --deep --peer`
+
+If you're on a unix-like system and want to remove all nested node_modules folders,
+you can run `find . -type d -name node_modules -prune | xargs rm -r`
