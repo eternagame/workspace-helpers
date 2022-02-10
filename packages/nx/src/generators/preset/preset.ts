@@ -79,6 +79,7 @@ function addDependencies(tree: Tree, options: NormalizedSchema) {
       jest: '^27.5.0',
       '@types/jest': '^27.4.0',
       'ts-jest': '^27.1.3',
+      '@typescript-eslint/eslint-plugin': '^5.11.0',
     }
   );
 }
