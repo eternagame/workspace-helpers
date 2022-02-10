@@ -8,7 +8,9 @@ import {
   readWorkspaceConfiguration,
   updateWorkspaceConfiguration,
   readJson,
+  joinPathFragments,
 } from '@nrwl/devkit';
+import { chmodSync } from 'fs';
 import * as path from 'path';
 
 interface Schema {
@@ -188,6 +190,8 @@ export default async function generate(tree: Tree, options: Schema) {
   addFiles(tree, normalizedOptions);
   await formatFiles(tree);
   return () => {
+    // ENsure pre-commit hook is executable
+    chmodSync(joinPathFragments(tree.root, '.husky/pre-commit'), 0o755);
     installPackagesTask(tree);
   };
 }
