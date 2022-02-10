@@ -4,5 +4,31 @@
   "cli": "nx",
   "title": "Adds new package to Nx workspace",
   "type": "object",
-  "properties": {}
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Package name",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name of your npm package?",
+      "pattern": "^[a-zA-Z].*$"
+    },
+    "description": {
+      "type": "string",
+      "description": "Package description",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "Provide a brief description for the package",
+      "pattern": "^[\\w ]*$"
+    },
+    "directory": {
+      "type": "string",
+      "description": "A directory where the lib is placed"
+    }
+  },
+  "required": ["name", "description"]
 }

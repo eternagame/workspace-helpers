@@ -1,0 +1,14 @@
+{
+  "name": "<%= importPath %>",
+  "description": "<%= description %>",
+  "version": "1.0.0",
+  "license": "BSD-3-Clause",
+  "scripts": {
+    "prepublishOnly": "shx cp ../../LICENSE . && nx build",
+    "postpublish": "shx rm LICENSE",
+    "prebuild": "shx rm -rf dist",
+    "build": "tsc -p tsconfig.build.json",
+    "lint": "eslint src/"
+  },
+  "main": "./dist/index.js"
+}
