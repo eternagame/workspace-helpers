@@ -44,7 +44,7 @@ function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
 function addFiles(tree: Tree, options: NormalizedSchema) {
   const templateOptions = {
     ...options,
-    template: '',
+    tmpl: '',
   };
   generateFiles(
     tree,
