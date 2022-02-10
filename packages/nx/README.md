@@ -8,4 +8,4 @@ Opinionated Nx utilities
   `create-nx-workspace --preset core` rather than specifying `@eternagame/nx` as the preset to allow
   all modifications from the core preset to be applied (see [this issue](https://github.com/nrwl/nx/issues/8917)
   for information on why this is necessary).
-- package - Adds an empty package to an Nx workspace
+- package - Adds an empty package to an Nx workspace configured for Typescript

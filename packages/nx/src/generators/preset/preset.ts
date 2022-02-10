@@ -7,6 +7,7 @@ import {
   addDependenciesToPackageJson,
   readWorkspaceConfiguration,
   updateWorkspaceConfiguration,
+  readJson,
 } from '@nrwl/devkit';
 import * as path from 'path';
 
@@ -22,23 +23,43 @@ function normalizeOptions(options: Schema): NormalizedSchema {
   };
 }
 
+function inOperator<K extends string, T>(
+  k: K,
+  o: T
+): o is T & Record<K, unknown> {
+  return o && typeof o === 'object' && k in o;
+}
+
 function addDependencies(tree: Tree) {
+  const currentPackage = readJson(tree, 'package.json') as unknown;
+  if (
+    !inOperator('devDependencies', currentPackage) ||
+    !inOperator('@nrwl/workspace', currentPackage.devDependencies) ||
+    typeof currentPackage.devDependencies['@nrwl/workspace'] !== 'string'
+  ) {
+    throw new Error(
+      '@nrwl/workspace is not present in package.json, so nx version is unable to be resolved'
+    );
+  }
+
+  const nxVersion = currentPackage.devDependencies['@nrwl/workspace'];
+
   addDependenciesToPackageJson(
     tree,
     {},
     {
-      '@nrwl/eslint-plugin-nx': '*',
-      eslint: '*',
-      'eslint-config-airbnb-base': '*',
-      'eslint-config-airbnb-typescript': '*',
-      'eslint-config-prettier': '*',
-      'eslint-plugin-import': '*',
-      husky: '7',
-      'lint-staged': '12',
-      micromatch: '4',
-      jest: '*',
-      '@types/jest': '*',
-      'ts-jest': '*',
+      '@nrwl/eslint-plugin-nx': nxVersion,
+      eslint: '^8.8.0',
+      'eslint-config-airbnb-base': '^15.0.0',
+      'eslint-config-airbnb-typescript': '^16.1.0',
+      'eslint-config-prettier': '^8.3.0',
+      'eslint-plugin-import': '^2.25.4',
+      husky: '^7.0.4',
+      'lint-staged': '^12.3.3',
+      micromatch: '^4.0.4',
+      jest: '^27.5.0',
+      '@types/jest': '^27.4.0',
+      'ts-jest': '^27.1.3',
     }
   );
 }
@@ -91,10 +112,19 @@ function updateCoreFiles(tree: Tree) {
 
 function updateNxFiles(tree: Tree) {
   const workspace = readWorkspaceConfiguration(tree);
-  // This is complicated enough to be too much of a pain to properly typecheck, and I'm confident enough that nx will make it exist
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-non-null-assertion
-  const ops = workspace.tasksRunnerOptions!['default']!.options
-    .cacheableOperations as string[];
+
+  // Type validation
+  const opts = workspace.tasksRunnerOptions;
+  if (!opts) throw new Error('Task runner options missing in nx.json');
+  if (!opts['default'])
+    throw new Error('Default task runner options missing in nx.json');
+  const defaultOpts = opts['default'].options as unknown;
+  if (!inOperator('cacheableOperations', defaultOpts))
+    throw new Error('Cacheable operations missing in nx.json');
+  const ops = defaultOpts.cacheableOperations;
+  if (!Array.isArray(ops))
+    throw new Error('Cacheable operations in nx.json is not an array');
+
   if (!ops.includes('build-incremental')) ops.push('build-incremental');
   updateWorkspaceConfiguration(tree, workspace);
 

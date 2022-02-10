@@ -9,6 +9,8 @@
     "postpublish": "shx rm LICENSE",
     "prebuild": "shx rm -rf dist",
     "build": "tsc -p tsconfig.build.json && distify",
+    "test": "jest",
+    "test:cov": "jest --coverage",
     "lint": "eslint src/"
   },
   "generators": "./generators.json",
@@ -24,5 +26,9 @@
         ]
       }
     }
+  },
+  "devDependencies": {
+    "@eternagame/jest": "^1.0.0",
+    "@nrwl/workspace": "^13.8.0"
   }
 }
