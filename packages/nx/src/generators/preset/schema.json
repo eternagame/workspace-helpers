@@ -4,5 +4,27 @@
   "cli": "nx",
   "title": "Initializes an Nx workspace",
   "type": "object",
-  "properties": {}
+  "properties": {
+    "description": {
+      "type": "string",
+      "description": "Workspace description",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "Provide a brief description for the workspace",
+      "pattern": "^[\\w ]*$"
+    },
+    "skipDiscordLink": {
+      "type": "boolean",
+      "description": "Whether to skip adding a link to the Eterna Discord in the README",
+      "default": false
+    },
+    "copyrightHolder": {
+      "type": "string",
+      "description": "Who should be designated as holding the copyright in the LICENSE file",
+      "default": "Eterna Commons"
+    }
+  },
+  "required": ["description"]
 }

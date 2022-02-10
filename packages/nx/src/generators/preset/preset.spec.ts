@@ -25,6 +25,10 @@ describe('preset', () => {
   });
 
   it('should work', async () => {
-    await generate(tree, {});
+    await generate(tree, {
+      copyrightHolder: 'Eterna Commons',
+      description: 'My cool workspace',
+      skipDiscordLink: false,
+    });
   });
 });

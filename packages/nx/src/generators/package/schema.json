@@ -20,7 +20,7 @@
       "description": "Package description",
       "$default": {
         "$source": "argv",
-        "index": 0
+        "index": 1
       },
       "x-prompt": "Provide a brief description for the package",
       "pattern": "^[\\w ]*$"

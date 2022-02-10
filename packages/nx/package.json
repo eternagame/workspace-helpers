@@ -28,7 +28,7 @@
     }
   },
   "devDependencies": {
-    "@eternagame/jest": "^1.0.0",
+    "@eternagame/jest": "*",
     "@nrwl/workspace": "^13.8.0"
   }
 }

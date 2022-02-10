@@ -13,6 +13,7 @@
   "devDependencies": {
     "@eternagame/distify": "file:packages/distify",
     "@eternagame/eslint-plugin": "file:packages/eslint-plugin",
+    "@eternagame/jest": "file:packages/jest",
     "@nrwl/cli": "13.7.2",
     "@nrwl/eslint-plugin-nx": "13.7.2",
     "@nrwl/tao": "13.7.2",

@@ -1,17 +1,12 @@
-# Eterna Workspace Helpers
+# <%= workspaceName %>
 
-Helper packages for JS projects
+<%= description %>
 
+<% if (!skipDiscordLink) { %>
 Interested in development? Join the discussion on the Eterna Discord!
 
 [![Eterna Discord](https://discord.com/api/guilds/702618517589065758/widget.png?style=banner2)](https://discord.gg/KYeTwux)
-
-## Components
-
-- [`@eternagame/eslint-plugin`](./packages/eslint-plugin) - Semi-opinionated ESLint configuration
-- [`@eternagame/jest`](./packages/jest) - Opinionated Jest utilities
-- [`@eternagame/nx`](./packages/nx) - Opinionated Nx utilities
-- [`@eternagame/distify`](./packages/distify) - Lightweight build step for static assets
+<% } %>
 
 ## Setup
 

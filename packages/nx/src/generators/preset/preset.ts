@@ -11,16 +11,16 @@ import {
 } from '@nrwl/devkit';
 import * as path from 'path';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface Schema {}
+interface Schema {
+  copyrightHolder: string;
+  description: string;
+  skipDiscordLink: boolean;
+}
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface NormalizedSchema extends Schema {}
-
-function normalizeOptions(options: Schema): NormalizedSchema {
-  return {
-    ...options,
-  };
+interface NormalizedSchema extends Schema {
+  copyrightYear: number;
+  nxVersion: string;
+  workspaceName: string;
 }
 
 function inOperator<K extends string, T>(
@@ -30,7 +30,7 @@ function inOperator<K extends string, T>(
   return o && typeof o === 'object' && k in o;
 }
 
-function addDependencies(tree: Tree) {
+function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
   const currentPackage = readJson(tree, 'package.json') as unknown;
   if (
     !inOperator('devDependencies', currentPackage) ||
@@ -42,13 +42,29 @@ function addDependencies(tree: Tree) {
     );
   }
 
-  const nxVersion = currentPackage.devDependencies['@nrwl/workspace'];
+  if (
+    !inOperator('name', currentPackage) ||
+    typeof currentPackage.name !== 'string'
+  ) {
+    throw new Error(
+      '@nrwl/workspace is not present in package.json, so nx version is unable to be resolved'
+    );
+  }
 
+  return {
+    ...options,
+    copyrightYear: new Date().getFullYear(),
+    nxVersion: currentPackage.devDependencies['@nrwl/workspace'],
+    workspaceName: currentPackage.name,
+  };
+}
+
+function addDependencies(tree: Tree, options: NormalizedSchema) {
   addDependenciesToPackageJson(
     tree,
     {},
     {
-      '@nrwl/eslint-plugin-nx': nxVersion,
+      '@nrwl/eslint-plugin-nx': options.nxVersion,
       eslint: '^8.8.0',
       'eslint-config-airbnb-base': '^15.0.0',
       'eslint-config-airbnb-typescript': '^16.1.0',
@@ -150,8 +166,8 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
 }
 
 export default async function generate(tree: Tree, options: Schema) {
-  const normalizedOptions = normalizeOptions(options);
-  addDependencies(tree);
+  const normalizedOptions = normalizeOptions(tree, options);
+  addDependencies(tree, normalizedOptions);
   updateCoreFiles(tree);
   updateNxFiles(tree);
   updatePrettierFiles(tree);
