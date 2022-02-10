@@ -8,7 +8,12 @@
     "postpublish": "shx rm LICENSE",
     "prebuild": "shx rm -rf dist",
     "build": "tsc -p tsconfig.build.json",
+    "test": "jest",
+    "test:cov": "jest --coverage",
     "lint": "eslint src/"
   },
-  "main": "./dist/index.js"
+  "main": "./dist/index.js",
+  "devDependencies": {
+    "@eternagame/jest": "^1.0.0"
+  }
 }
