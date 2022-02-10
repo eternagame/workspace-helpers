@@ -130,7 +130,7 @@ function updateCoreFiles(tree: Tree) {
 function updateNxFiles(tree: Tree) {
   const workspace = readWorkspaceConfiguration(tree);
 
-  // Type validation
+  // Type validation - cacheable operations
   const opts = workspace.tasksRunnerOptions;
   if (!opts) throw new Error('Task runner options missing in nx.json');
   if (!opts['default'])
@@ -142,7 +142,20 @@ function updateNxFiles(tree: Tree) {
   if (!Array.isArray(ops))
     throw new Error('Cacheable operations in nx.json is not an array');
 
+  workspace.implicitDependencies = {
+    'package.json': {
+      dependencies: '*',
+      devDependencies: '*',
+    },
+    '.eslintrc.js': '*',
+    'tsconfig.base.json': '*',
+    '.github/workflows/ci.yml': '*',
+    'nx.json': '*',
+  };
+
+  // Add build-incremental as a cacheable operation
   if (!ops.includes('build-incremental')) ops.push('build-incremental');
+
   updateWorkspaceConfiguration(tree, workspace);
 
   tree.delete('workspace.json');
