@@ -1,0 +1,11 @@
+{
+  "extends": "@eternagame/tsconfig/tsconfig.node.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": ".",
+    "module": "commonjs",
+    "preserveValueImports": false,
+    "importHelpers": false
+  },
+  "include": ["**/*.ts"]
+}
