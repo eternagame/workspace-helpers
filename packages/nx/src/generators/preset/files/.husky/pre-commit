@@ -1,12 +1,12 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+# Build
+npx nx affected --target=build --uncommitted
+# Test
+npx nx affected --target=test --uncommitted
 # Do any checks that should either be tied to the files that are staged (without relying on nx) or
 # require (re-)staging files after automated changes
 npx lint-staged
 # nx integrity check
 npx nx workspace-lint
-# Build
-npx nx affected --target=build --uncommitted
-# Test
-npx nx affected --target=test --uncommitted
