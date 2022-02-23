@@ -66,9 +66,9 @@ function addDependencies(tree: Tree, options: NormalizedSchema) {
     tree,
     {},
     {
-      '@eternagame/eslint-plugin': '^1.0.0',
-      '@eternagame/jest': '^1.0.0',
-      '@eternagame/tsconfig': '^1.0.0',
+      '@eternagame/eslint-plugin': '^1.1.0',
+      '@eternagame/jest': '^1.1.0',
+      '@eternagame/tsconfig': '^1.1.0',
       '@nrwl/eslint-plugin-nx': options.nxVersion,
       eslint: '^8.8.0',
       'eslint-config-airbnb-base': '^15.0.0',

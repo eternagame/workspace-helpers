@@ -2,7 +2,7 @@
   "name": "@eternagame/distify",
   "description": "Lightweight build step for static assets",
   "author": "Jonathan Romano <jonathan@luxaritas.com>",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "BSD-3-Clause",
   "type": "module",
   "scripts": {
