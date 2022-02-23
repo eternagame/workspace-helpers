@@ -1,20 +1,10 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "$id": "Preset",
+  "$id": "License",
   "cli": "nx",
-  "title": "Initializes an Nx workspace",
+  "title": "Re-licenses an Nx workspace",
   "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Workspace description",
-      "$default": {
-        "$source": "argv",
-        "index": 0
-      },
-      "x-prompt": "Provide a brief description for the workspace",
-      "pattern": "^[\\w ]*$"
-    },
     "license": {
       "type": "string",
       "description": "Repository license",
@@ -40,12 +30,7 @@
       "type": "string",
       "description": "Who should be designated as holding the copyright in the LICENSE file",
       "x-prompt": "If you've specified a license, who is the copyright holder?"
-    },
-    "readmeProlog": {
-      "type": "string",
-      "description": "Additional information to add as part of the high-level description in the README",
-      "default": ""
     }
   },
-  "required": ["description"]
+  "required": ["license", "copyrightHolder"]
 }

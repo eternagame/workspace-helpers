@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "$id": "Preset",
+  "$id": "PresetEterna",
   "cli": "nx",
-  "title": "Initializes an Nx workspace",
+  "title": "Initializes an Nx workspace for use as part of the Eterna project",
   "type": "object",
   "properties": {
     "description": {
@@ -18,16 +18,15 @@
     "license": {
       "type": "string",
       "description": "Repository license",
-      "enum": ["MIT", "BSD3", "Custom", "None"],
+      "enum": ["BSD3", "EternaNoncommercial", "None"],
       "x-prompt": {
         "message": "Which license would you like to use?",
         "type": "list",
         "items": [
-          { "value": "MIT", "label": "MIT" },
           { "value": "BSD3", "label": "BSD 3-Clause" },
           {
-            "value": "Custom",
-            "label": "Include no default license, but specify SEE LICENSE IN LICENSE in the package.json"
+            "value": "EternaNoncommercial",
+            "label": "Eterna Noncommercial License"
           },
           {
             "value": "None",
@@ -35,16 +34,6 @@
           }
         ]
       }
-    },
-    "copyrightHolder": {
-      "type": "string",
-      "description": "Who should be designated as holding the copyright in the LICENSE file",
-      "x-prompt": "If you've specified a license, who is the copyright holder?"
-    },
-    "readmeProlog": {
-      "type": "string",
-      "description": "Additional information to add as part of the high-level description in the README",
-      "default": ""
     }
   },
   "required": ["description"]

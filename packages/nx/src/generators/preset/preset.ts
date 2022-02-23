@@ -1,3 +1,5 @@
+import path from 'path';
+import { chmodSync } from 'fs';
 import {
   formatFiles,
   generateFiles,
@@ -10,17 +12,16 @@ import {
   joinPathFragments,
   type Tree,
 } from '@nrwl/devkit';
-import { chmodSync } from 'fs';
-import * as path from 'path';
+import generateLicense from '../license/license';
 
 interface Schema {
-  copyrightHolder: string;
   description: string;
-  skipDiscordLink: boolean;
+  license: 'MIT' | 'BSD3' | 'Custom' | 'None';
+  copyrightHolder: string;
+  readmeProlog: string;
 }
 
 interface NormalizedSchema extends Schema {
-  copyrightYear: number;
   nxVersion: string;
   workspaceName: string;
 }
@@ -55,7 +56,6 @@ function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
 
   return {
     ...options,
-    copyrightYear: new Date().getFullYear(),
     nxVersion: currentPackage.devDependencies['@nrwl/workspace'],
     workspaceName: currentPackage.name,
   };
@@ -189,6 +189,10 @@ export default async function generate(tree: Tree, options: Schema) {
   updateNxFiles(tree);
   updatePrettierFiles(tree);
   addFiles(tree, normalizedOptions);
+  generateLicense(tree, {
+    license: options.license,
+    copyrightHolder: options.copyrightHolder,
+  });
   await formatFiles(tree);
   return () => {
     // ENsure pre-commit hook is executable

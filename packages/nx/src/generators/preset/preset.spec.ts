@@ -27,7 +27,8 @@ describe('preset', () => {
     await generate(tree, {
       copyrightHolder: 'Eterna Commons',
       description: 'My cool workspace',
-      skipDiscordLink: false,
+      license: 'BSD3',
+      readmeProlog: '',
     });
   });
 });

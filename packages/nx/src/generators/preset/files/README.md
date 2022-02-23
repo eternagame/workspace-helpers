@@ -2,11 +2,7 @@
 
 <%= description %>
 
-<% if (!skipDiscordLink) { %>
-Interested in development? Join the discussion on the Eterna Discord!
-
-[![Eterna Discord](https://discord.com/api/guilds/702618517589065758/widget.png?style=banner2)](https://discord.gg/KYeTwux)
-<% } %>
+<%= readmeProlog %>
 
 ## Setup
 

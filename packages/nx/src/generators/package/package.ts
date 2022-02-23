@@ -5,9 +5,11 @@ import {
   installPackagesTask,
   joinPathFragments,
   names,
+  readJson,
   type Tree,
 } from '@nrwl/devkit';
 import * as path from 'path';
+import { updateProjectForLicense } from '../license/license';
 
 interface Schema {
   name: string;
@@ -18,6 +20,7 @@ interface Schema {
 interface NormalizedSchema extends Schema {
   importPath: string;
   projectRoot: string;
+  packageLicense: string | null;
 }
 
 function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
@@ -33,11 +36,15 @@ function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
 
   const projectRoot = joinPathFragments(libsDir, projectDirectory);
 
+  const json = readJson<Record<string, undefined>>(tree, 'package.json');
+  const packageLicense = (json['license'] ?? null) as string | null;
+
   return {
     ...options,
     name: names(options.name).fileName,
     importPath,
     projectRoot,
+    packageLicense,
   };
 }
 
@@ -52,6 +59,8 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
     options.projectRoot,
     templateOptions
   );
+  updateProjectForLicense(tree, options.projectRoot, options.packageLicense);
+
   return () => {
     installPackagesTask(tree);
   };
