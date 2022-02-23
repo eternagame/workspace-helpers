@@ -4,7 +4,7 @@ import type { Tree } from '@nrwl/devkit';
 import generatePreset from '../preset/preset';
 
 const COPYRIGHT_HOLDER = 'Eterna Commons';
-const README_PROLOG = `'Interested in development? Join the discussion on the Eterna Discord!
+const README_PROLOG = `Interested in development? Join the discussion on the Eterna Discord!
 
 [![Eterna Discord](https://discord.com/api/guilds/702618517589065758/widget.png?style=banner2)](https://discord.gg/KYeTwux)`;
 

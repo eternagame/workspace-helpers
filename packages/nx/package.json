@@ -2,7 +2,7 @@
   "name": "@eternagame/nx",
   "description": "Opinionated Nx utilities",
   "author": "Jonathan Romano <jonathan@luxaritas.com>",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "license": "BSD-3-Clause",
   "scripts": {
     "prepublishOnly": "shx cp ../../LICENSE . && nx build",
