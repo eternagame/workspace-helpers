@@ -11,20 +11,21 @@
     "declaration": true,
     "declarationMap": true,
     "importHelpers": true,
-    // Needed for Vue <script setup>
+    // Needed for Vue <script setup>, included here for consistency across our codebases
     "preserveValueImports": true,
     // Since we have preserveValueImports enabled, this will ensure that we don't import values
     // when we only need the types
     "importsNotUsedAsValues": "error",
 
     // Language and Environment
-    "target": "es2020",
+    // Our target and built-ins reflect the lowest common denominator we need to support for
+    // isomorphic projects. Currently, that is determined by what Node 12 (oldest LTS) supports.
+    "target": "es2019",
+    "lib": ["es2019", "es2020.promise", "es2020.bigint", "es2020.string"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     // This will be automatically enabled for target ES2022, but we'll enable it now for future-proofing
     "useDefineForClassFields": true,
-    // If jsx gets used within Vue code
-    "jsx": "preserve",
 
     // Projects
     "composite": true,

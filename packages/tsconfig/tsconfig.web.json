@@ -5,6 +5,8 @@
     // We transpile/bundle our web projects (eg with Vite), so we can rely on it to handle
     // transpiling/polyfilling newer JS features (we'll assume we've correctly configured it)
     "target": "ESNext",
-    "lib": ["esnext", "DOM", "DOM.Iterable"]
+    "lib": ["esnext", "DOM", "DOM.Iterable"],
+    // If we want to use jsx, we'll rely on our transpiler/bundler to translate it
+    "jsx": "preserve"
   }
 }

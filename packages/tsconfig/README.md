@@ -16,6 +16,10 @@ Add one of the available configurations to your `tsconfig.json`:
   ```json
   "extends": "@eternagame/tsconfig/tsconfig.web.json"
   ```
+- Configuration for jest when used in a runtime-agnostic environment
+  ```json
+  "extends": "@eternagame/tsconfig/tsconfig.jest.json"
+  ```
 - Configuration for jest when used with a Node environment
   ```json
   "extends": "@eternagame/tsconfig/tsconfig.jest-node.json"

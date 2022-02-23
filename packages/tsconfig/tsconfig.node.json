@@ -3,7 +3,9 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     // We're relying on tsc to build our node apps, so we need to set typescript to use the latest
-    // version of features that node supports
+    // version of features that node supports. This also winds up being our lowest common denominator
+    // for isomorphic packages, so when the target and libs here are bumped, they should also be bumped
+    // in the base tsconfig.json
     // Note: This can change to es2020 once support for node 12 is dropped
     "target": "es2019",
     "lib": ["es2019", "es2020.promise", "es2020.bigint", "es2020.string"],
