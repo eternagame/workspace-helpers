@@ -130,7 +130,8 @@ function updateCoreFiles(tree: Tree) {
   const newContent = oldIgnoreFile
     .toString()
     .replace(/^\/node_modules$/m, 'node_modules')
-    .replace(/^\/dist$/m, 'dist');
+    .replace(/^\/dist$/m, 'dist')
+    .replace(/^\/coverage$/m, 'coverage');
   tree.write('.gitignore', newContent);
 
   if (tree.exists('tsconfig.base.json')) {
