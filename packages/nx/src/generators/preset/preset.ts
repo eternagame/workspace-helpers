@@ -122,12 +122,17 @@ function updateCoreFiles(tree: Tree) {
     );
   }
   /* eslint-enable no-param-reassign */
+
   const oldIgnoreFile = tree.read('.gitignore');
   if (!oldIgnoreFile) throw new Error('Git ignore file not found');
   const newContent = oldIgnoreFile
     .toString()
     .replace(/^\/node_modules$/m, 'node_modules');
   tree.write('.gitignore', newContent);
+
+  if (tree.exists('tsconfig.base.json')) {
+    tree.delete('tsconfig.base.json');
+  }
 }
 
 function updateNxFiles(tree: Tree) {
