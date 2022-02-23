@@ -1,5 +1,5 @@
 {
-  "extends": "@eternagame/tsconfig/tsconfig.node.json",
+  "extends": "@eternagame/tsconfig/tsconfig.json",
   "compilerOptions": {
     "rootDir": "src",
     "baseUrl": "src",

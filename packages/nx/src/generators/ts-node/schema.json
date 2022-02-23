@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "$id": "Package",
+  "$id": "TSNode",
   "cli": "nx",
-  "title": "Adds an empty generic package to an Nx workspace",
+  "title": "Adds a new TypeScript package intended for usage within NodeJS to an Nx workspace",
   "type": "object",
   "properties": {
     "name": {

@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "$id": "Package",
+  "$id": "TSIso",
   "cli": "nx",
-  "title": "Adds an empty generic package to an Nx workspace",
+  "title": "Adds new isomorphic TypeScript package to an Nx workspace",
   "type": "object",
   "properties": {
     "name": {

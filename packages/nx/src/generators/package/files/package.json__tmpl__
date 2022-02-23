@@ -1,17 +1,5 @@
 {
   "name": "<%= importPath %>",
   "description": "<%= description %>",
-  "version": "1.0.0",
-  "scripts": {
-    "prepublishOnly": "nx build",
-    "prebuild": "shx rm -rf dist",
-    "build": "tsc -p tsconfig.build.json",
-    "test": "jest",
-    "test:cov": "jest --coverage",
-    "lint": "eslint src/"
-  },
-  "main": "./dist/index.js",
-  "devDependencies": {
-    "@eternagame/jest": "^1.0.0"
-  }
+  "version": "1.0.0"
 }

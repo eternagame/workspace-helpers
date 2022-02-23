@@ -16,7 +16,22 @@
     "package": {
       "factory": "./dist/generators/package/package",
       "schema": "./dist/generators/package/schema.json",
-      "description": "Initializes an Nx workspace"
+      "description": "Adds an empty generic package to an Nx workspace"
+    },
+    "ts-iso": {
+      "factory": "./dist/generators/ts-iso/ts-iso",
+      "schema": "./dist/generators/ts-iso/schema.json",
+      "description": "Adds new isomorphic TypeScript package to an Nx workspace"
+    },
+    "ts-node": {
+      "factory": "./dist/generators/ts-node/ts-node",
+      "schema": "./dist/generators/ts-node/schema.json",
+      "description": "Adds a new TypeScript package intended for usage within NodeJS to an Nx workspace"
+    },
+    "ts-web": {
+      "factory": "./dist/generators/ts-web/ts-web",
+      "schema": "./dist/generators/ts-web/schema.json",
+      "description": "Adds a new TypeScript package intended for usage within the browser to an Nx workspace"
     },
     "license": {
       "factory": "./dist/generators/license/license",

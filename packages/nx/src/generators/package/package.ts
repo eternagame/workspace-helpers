@@ -2,7 +2,6 @@ import {
   formatFiles,
   generateFiles,
   getWorkspaceLayout,
-  installPackagesTask,
   joinPathFragments,
   names,
   readJson,
@@ -41,7 +40,6 @@ function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
 
   return {
     ...options,
-    name: names(options.name).fileName,
     importPath,
     projectRoot,
     packageLicense,
@@ -60,10 +58,6 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
     templateOptions
   );
   updateProjectForLicense(tree, options.projectRoot, options.packageLicense);
-
-  return () => {
-    installPackagesTask(tree);
-  };
 }
 
 export default async function generate(tree: Tree, options: Schema) {
