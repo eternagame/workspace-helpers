@@ -14,7 +14,7 @@ interface Schema {
 }
 
 export default async function generate(tree: Tree, options: Schema) {
-  await generatePreset(tree, {
+  const finalize = await generatePreset(tree, {
     description: options.description,
     license:
       options.license !== 'EternaNoncommercial' ? options.license : 'Custom',
@@ -28,4 +28,6 @@ export default async function generate(tree: Tree, options: Schema) {
       readFileSync(path.join(__dirname, 'files/EternaNoncommercial'))
     );
   }
+
+  return finalize;
 }
