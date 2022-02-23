@@ -67,6 +67,8 @@ function addDependencies(tree: Tree, options: NormalizedSchema) {
     {},
     {
       '@eternagame/eslint-plugin': '^1.0.0',
+      '@eternagame/jest': '^1.0.0',
+      '@eternagame/tsconfig': '^1.0.0',
       '@nrwl/eslint-plugin-nx': options.nxVersion,
       eslint: '^8.8.0',
       'eslint-config-airbnb-base': '^15.0.0',
@@ -127,7 +129,8 @@ function updateCoreFiles(tree: Tree) {
   if (!oldIgnoreFile) throw new Error('Git ignore file not found');
   const newContent = oldIgnoreFile
     .toString()
-    .replace(/^\/node_modules$/m, 'node_modules');
+    .replace(/^\/node_modules$/m, 'node_modules')
+    .replace(/^\/dist$/m, 'dist');
   tree.write('.gitignore', newContent);
 
   if (tree.exists('tsconfig.base.json')) {
@@ -174,8 +177,8 @@ function updatePrettierFiles(tree: Tree) {
   if (!oldIgnoreFile) throw new Error('Prettier ignore file not found');
   const newContent = oldIgnoreFile
     .toString()
-    .replace(/^\/dist$/m, '**/dist')
-    .replace(/^\/coverage$/m, '**/coverage');
+    .replace(/^\/dist$/m, 'dist')
+    .replace(/^\/coverage$/m, 'coverage');
   tree.write('.prettierignore', newContent);
 }
 
