@@ -35,7 +35,7 @@ jobs:
       - name: Lint Projects
         run: npx nx affected --target=lint --parallel --max-parallel=2
       - name: Format Check
-        run: npx nx format:check
+        run: npx prettier --check .
       - name: Nx Integrity Check
         run: npx nx workspace-lint
       - name: Test

@@ -1,0 +1,22 @@
+{
+  "name": "@eternagame/tsconfig",
+  "description": "Opinionated TypeScript configurations",
+  "version": "1.0.0",
+  "license": "BSD-3-Clause",
+  "scripts": {
+    "prepublishOnly": "shx cp ../../LICENSE . && nx build",
+    "postpublish": "shx rm LICENSE"
+  },
+  "peerDependencies": {
+    "@types/node": "*",
+    "@types/jest": "*"
+  },
+  "peerDependenciesMeta": {
+    "@types/node": {
+      "optional": true
+    },
+    "@types/jest": {
+      "optional": true
+    }
+  }
+}

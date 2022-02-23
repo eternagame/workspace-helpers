@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    // We transpile/bundle our web projects (eg with Vite), so we can rely on it to handle
+    // transpiling/polyfilling newer JS features (we'll assume we've correctly configured it)
+    "target": "ESNext",
+    "lib": ["esnext", "DOM", "DOM.Iterable"]
+  }
+}

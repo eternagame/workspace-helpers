@@ -1,4 +1,4 @@
-import { Config } from '@jest/types';
+import type { Config } from '@jest/types';
 
 // We may want to add other things, so don't default export so that we don't need to break the API later
 // eslint-disable-next-line import/prefer-default-export

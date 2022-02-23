@@ -1,8 +1,7 @@
-import { Tree } from '@nrwl/devkit';
+import type { Tree } from '@nrwl/devkit';
 import { createTree } from '@nrwl/devkit/testing';
 import { newGenerator } from '@nrwl/workspace/src/generators/new/new';
 import { Preset } from '@nrwl/workspace/src/generators/utils/presets';
-import { Linter } from '@nrwl/workspace/src/utils/lint';
 import generate from './preset';
 
 describe('preset', () => {
@@ -15,7 +14,7 @@ describe('preset', () => {
       preset: Preset.Apps,
       skipInstall: false,
       skipGit: false,
-      linter: Linter.EsLint,
+      linter: 'eslint',
       defaultBase: 'main',
       name: 'my-workspace',
       directory: '.',

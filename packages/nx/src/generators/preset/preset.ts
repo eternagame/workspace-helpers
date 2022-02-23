@@ -2,13 +2,13 @@ import {
   formatFiles,
   generateFiles,
   installPackagesTask,
-  Tree,
   updateJson,
   addDependenciesToPackageJson,
   readWorkspaceConfiguration,
   updateWorkspaceConfiguration,
   readJson,
   joinPathFragments,
+  type Tree,
 } from '@nrwl/devkit';
 import { chmodSync } from 'fs';
 import * as path from 'path';

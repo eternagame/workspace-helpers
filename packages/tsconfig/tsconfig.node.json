@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    // We're relying on tsc to build our node apps, so we need to set typescript to use the latest
+    // version of features that node supports
+    // Note: This can change to es2020 once support for node 12 is dropped
+    "target": "es2019",
+    "lib": ["es2019", "es2020.promise", "es2020.bigint", "es2020.string"],
+    // The jest-node config overrides types, so make sure any changes made here are reflected there
+    "types": ["node"]
+  }
+}

@@ -18,6 +18,6 @@ module.exports = (allStagedFiles) => {
     // Lint any packages affected by uncommitted changes
     'nx affected --target=lint --uncommitted --fix',
     // Format any packages (or files not in a package) affected by uncommitted changes
-    'nx format:write --uncommitted',
+    `npx prettier --write --ignore-unknown ${allStagedFiles.join(' ')}`,
   ];
 };

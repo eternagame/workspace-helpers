@@ -5,7 +5,7 @@ import {
   installPackagesTask,
   joinPathFragments,
   names,
-  Tree,
+  type Tree,
 } from '@nrwl/devkit';
 import * as path from 'path';
 

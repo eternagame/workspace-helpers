@@ -11,14 +11,20 @@
     "declaration": true,
     "declarationMap": true,
     "importHelpers": true,
+    // Needed for Vue <script setup>
+    "preserveValueImports": true,
+    // Since we have preserveValueImports enabled, this will ensure that we don't import values
+    // when we only need the types
+    "importsNotUsedAsValues": "error",
 
     // Language and Environment
-    // If we're targeting node, this means shaky support for v12, but that's almost EOL.
-    // If we're targeting a browser, we'll be using a different transpiler like Vite to handle lower targets.
     "target": "es2020",
-    "lib": ["es2020"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    // This will be automatically enabled for target ES2022, but we'll enable it now for future-proofing
+    "useDefineForClassFields": true,
+    // If jsx gets used within Vue code
+    "jsx": "preserve",
 
     // Projects
     "composite": true,
@@ -31,6 +37,8 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    // Required for Vite
+    "isolatedModules": true,
 
     // Type Checking
     // We'll basically make things as strict as possible, including letting typescript handle some things
@@ -43,6 +51,5 @@
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true
-  },
-  "exclude": ["node_modules", "tmp"]
+  }
 }
