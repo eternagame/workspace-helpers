@@ -27,7 +27,7 @@
     },
     "directory": {
       "type": "string",
-      "description": "A directory where the lib is placed"
+      "description": "A directory under the packages directory to create the package in"
     }
   },
   "required": ["name", "description"]
