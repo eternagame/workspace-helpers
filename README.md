@@ -8,9 +8,10 @@ Interested in development? Join the discussion on the Eterna Discord!
 
 ## Components
 
+- [`@eternagame/nx`](./packages/nx) - Opinionated Nx utilities
+- [`@eternagame/tsconfig`](./packages/tsconfig) - Opinionated TypeScript configurations
 - [`@eternagame/eslint-plugin`](./packages/eslint-plugin) - Semi-opinionated ESLint configuration
 - [`@eternagame/jest`](./packages/jest) - Opinionated Jest utilities
-- [`@eternagame/nx`](./packages/nx) - Opinionated Nx utilities
 - [`@eternagame/distify`](./packages/distify) - Lightweight build step for static assets
 
 ## Setup
