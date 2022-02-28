@@ -62,7 +62,9 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
   updateJson(tree, projectPackageJsonPath, (json: Record<string, unknown>) => {
     if (!json['scripts']) json['scripts'] = {};
     const scripts = json['scripts'] as Record<string, string>;
-    scripts['prepublishOnly'] = 'nx build';
+    scripts['prepublishOnly'] = scripts['prepublishOnly']
+      ? `${scripts['prepublishOnly']} && nx build`
+      : 'nx build';
     scripts['prebuild'] = 'shx rm -rf dist';
     scripts['build'] = 'tsc -p tsconfig.build.json';
     scripts['test'] = 'jest';
