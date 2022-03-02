@@ -11,6 +11,7 @@ import {
   type Tree,
 } from '@nrwl/devkit';
 import generatePackage from '../package/package';
+import { getDependencyVersions } from '../../utils/dependencies';
 
 interface Schema {
   name: string;
@@ -66,23 +67,43 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
       ? `${scripts['prepublishOnly']} && nx build`
       : 'nx build';
     scripts['prebuild'] = 'shx rm -rf dist';
-    scripts['build'] = 'tsc -p tsconfig.build.json';
+    scripts['build'] = 'vite build';
+    scripts['build-watch'] =
+      'vite build --watch --mode development --clearScreen false';
     scripts['test'] = 'jest';
     scripts['test:cov'] = 'jest --coverage';
     scripts['lint'] = 'eslint src/';
 
-    json['main'] = './dist/index.js';
+    json['type'] = 'module';
+    json['main'] = './dist/index.es.js';
+    json['types'] = './dist/index.d.ts';
 
     return json;
   });
   /* eslint-enable no-param-reassign */
+
+  addDependenciesToPackageJson(
+    tree,
+    {},
+    getDependencyVersions([
+      'vite',
+      'shx',
+      '@eternagame/tsconfig',
+      '@eternagame/jest',
+      'jest',
+      '@types/jest',
+      'ts-jest',
+    ])
+  );
+
   addDependenciesToPackageJson(
     tree,
     {},
     {
-      // Adding this to the package.json keeps eslint from complaining, but we'll pin the version used
+      // Adding these to the package.json keeps eslint from complaining, but we'll pin the version used
       // across all projects in the root package.json
       '@eternagame/jest': '*',
+      '@eternagame/vite': '*',
     },
     projectPackageJsonPath
   );

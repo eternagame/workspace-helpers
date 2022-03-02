@@ -33,6 +33,16 @@
       "schema": "./dist/generators/ts-web/schema.json",
       "description": "Adds a new TypeScript package intended for usage within the browser to an Nx workspace"
     },
+    "app-node": {
+      "factory": "./dist/generators/app-node/app-node",
+      "schema": "./dist/generators/app-node/schema.json",
+      "description": "Adds a new Typescript NodeJS application to an Nx workspace"
+    },
+    "app-web": {
+      "factory": "./dist/generators/app-web/app-web",
+      "schema": "./dist/generators/app-web/schema.json",
+      "description": "Adds a new Typescript browser application to an Nx workspace"
+    },
     "license": {
       "factory": "./dist/generators/license/license",
       "schema": "./dist/generators/license/schema.json",

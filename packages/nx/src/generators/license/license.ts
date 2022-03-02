@@ -1,11 +1,14 @@
 import {
+  addDependenciesToPackageJson,
   generateFiles,
   getProjects,
+  installPackagesTask,
   offsetFromRoot,
   updateJson,
   type Tree,
 } from '@nrwl/devkit';
 import path from 'path';
+import { getDependencyVersions } from '../../utils/dependencies';
 
 interface Schema {
   license: 'MIT' | 'BSD3' | 'Custom' | 'None';
@@ -17,6 +20,10 @@ export function updateProjectForLicense(
   projectRoot: string,
   license: string | null
 ) {
+  if (license) {
+    addDependenciesToPackageJson(tree, {}, getDependencyVersions(['shx']));
+  }
+
   /* eslint-disable no-param-reassign */
   updateJson(
     tree,
@@ -111,4 +118,8 @@ export default function generate(tree: Tree, options: Schema) {
   for (const projectConfig of getProjects(tree).values()) {
     updateProjectForLicense(tree, projectConfig.root, packageLicense);
   }
+
+  return () => {
+    installPackagesTask(tree);
+  };
 }

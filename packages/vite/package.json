@@ -1,0 +1,24 @@
+{
+  "name": "@eternagame/vite",
+  "description": "Opinionated Vite configurations",
+  "version": "1.0.1",
+  "license": "BSD-3-Clause",
+  "type": "module",
+  "scripts": {
+    "prepublishOnly": "shx cp ../../LICENSE . && nx build",
+    "postpublish": "shx rm LICENSE",
+    "prebuild": "shx rm -rf dist",
+    "build": "vite build",
+    "lint": "eslint src/"
+  },
+  "main": "./dist/index.es.js",
+  "dependencies": {
+    "@rollup/plugin-typescript": "^8.3.1",
+    "@vitejs/plugin-legacy": "^1.7.1",
+    "tslib": "^2.3.1",
+    "vite": "^2.8.6"
+  },
+  "devDependencies": {
+    "@eternagame/jest": "*"
+  }
+}

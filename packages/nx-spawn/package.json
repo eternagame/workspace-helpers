@@ -1,0 +1,33 @@
+{
+  "name": "@eternagame/nx-spawn",
+  "description": "Run a command for all dependencies of a given package, without waiting for their completion",
+  "version": "1.0.1",
+  "license": "BSD-3-Clause",
+  "type": "module",
+  "scripts": {
+    "prepublishOnly": "shx cp ../../LICENSE . && nx build",
+    "postpublish": "shx rm LICENSE",
+    "prebuild": "shx rm -rf dist",
+    "build": "tsc -p tsconfig.build.json",
+    "postbuild": "shx chmod +x dist/index.js",
+    "lint": "eslint src/"
+  },
+  "bin": {
+    "nx-spawn": "./dist/index.js"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": [
+          "packages/nx-spawn/dist"
+        ]
+      }
+    }
+  },
+  "dependencies": {
+    "@nrwl/tao": "^13.8.3",
+    "@nrwl/workspace": "^13.8.3",
+    "concurrently": "^7.0.0",
+    "yargs": "^17.3.1"
+  }
+}

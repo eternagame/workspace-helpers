@@ -1,6 +1,7 @@
 import * as path from 'path';
 import {
   formatFiles,
+  generateFiles,
   getWorkspaceLayout,
   joinPathFragments,
   names,
@@ -35,10 +36,26 @@ function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
   };
 }
 
+function addFiles(tree: Tree, options: NormalizedSchema) {
+  const templateOptions = {
+    ...options,
+    tmpl: '',
+  };
+  generateFiles(
+    tree,
+    path.join(__dirname, 'files'),
+    options.projectRoot,
+    templateOptions
+  );
+}
+
 export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
 
   const finalizeIso = await generateIso(tree, options);
+
+  addFiles(tree, normalizedOptions);
+
   /* eslint-disable no-param-reassign */
   updateJson(
     tree,

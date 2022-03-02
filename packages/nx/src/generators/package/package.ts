@@ -57,11 +57,15 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
     options.projectRoot,
     templateOptions
   );
-  updateProjectForLicense(tree, options.projectRoot, options.packageLicense);
 }
 
 export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
   addFiles(tree, normalizedOptions);
+  updateProjectForLicense(
+    tree,
+    normalizedOptions.projectRoot,
+    normalizedOptions.packageLicense
+  );
   await formatFiles(tree);
 }

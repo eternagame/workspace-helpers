@@ -2,7 +2,6 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "./tsconfig.web.json",
   "compilerOptions": {
-    // Web-specific values are derived from the web config
-    "types": ["esnext", "DOM", "DOM.Iterable", "jest"]
+    "types": ["jest"]
   }
 }

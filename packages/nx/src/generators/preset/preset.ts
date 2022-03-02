@@ -13,6 +13,7 @@ import {
   type Tree,
 } from '@nrwl/devkit';
 import generateLicense from '../license/license';
+import { getDependencyVersions, getNxVersion } from '../../utils/dependencies';
 
 interface Schema {
   description: string;
@@ -22,7 +23,6 @@ interface Schema {
 }
 
 interface NormalizedSchema extends Schema {
-  nxVersion: string;
   workspaceName: string;
 }
 
@@ -36,52 +36,36 @@ function inOperator<K extends string, T>(
 function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
   const currentPackage = readJson(tree, 'package.json') as unknown;
   if (
-    !inOperator('devDependencies', currentPackage) ||
-    !inOperator('@nrwl/workspace', currentPackage.devDependencies) ||
-    typeof currentPackage.devDependencies['@nrwl/workspace'] !== 'string'
-  ) {
-    throw new Error(
-      '@nrwl/workspace is not present in package.json, so nx version is unable to be resolved'
-    );
-  }
-
-  if (
     !inOperator('name', currentPackage) ||
     typeof currentPackage.name !== 'string'
   ) {
-    throw new Error(
-      '@nrwl/workspace is not present in package.json, so nx version is unable to be resolved'
-    );
+    throw new Error('Unable to determine workspace name');
   }
 
   return {
     ...options,
-    nxVersion: currentPackage.devDependencies['@nrwl/workspace'],
     workspaceName: currentPackage.name,
   };
 }
 
-function addDependencies(tree: Tree, options: NormalizedSchema) {
+function addDependencies(tree: Tree) {
   addDependenciesToPackageJson(
     tree,
     {},
     {
-      '@eternagame/eslint-plugin': '^1.1.0',
-      '@eternagame/jest': '^1.1.0',
-      '@eternagame/tsconfig': '^1.1.0',
-      '@nrwl/eslint-plugin-nx': options.nxVersion,
-      eslint: '^8.8.0',
-      'eslint-config-airbnb-base': '^15.0.0',
-      'eslint-config-airbnb-typescript': '^16.1.0',
-      'eslint-config-prettier': '^8.3.0',
-      'eslint-plugin-import': '^2.25.4',
-      husky: '^7.0.4',
-      'lint-staged': '^12.3.3',
-      micromatch: '^4.0.4',
-      jest: '^27.5.0',
-      '@types/jest': '^27.4.0',
-      'ts-jest': '^27.1.3',
-      '@typescript-eslint/eslint-plugin': '^5.11.0',
+      '@nrwl/eslint-plugin-nx': getNxVersion(tree),
+      ...getDependencyVersions([
+        '@eternagame/eslint-plugin',
+        'eslint',
+        'eslint-config-airbnb-base',
+        'eslint-config-airbnb-typescript',
+        'eslint-config-prettier',
+        'eslint-plugin-import',
+        '@typescript-eslint/eslint-plugin',
+        'husky',
+        'lint-staged',
+        'micromatch',
+      ]),
     }
   );
 }
@@ -193,19 +177,20 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
 
 export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
-  addDependencies(tree, normalizedOptions);
+  addDependencies(tree);
   updateCoreFiles(tree);
   updateNxFiles(tree);
   updatePrettierFiles(tree);
   addFiles(tree, normalizedOptions);
-  generateLicense(tree, {
+  const finalizeGenerateLicense = generateLicense(tree, {
     license: options.license,
     copyrightHolder: options.copyrightHolder,
   });
   await formatFiles(tree);
   return () => {
-    // ENsure pre-commit hook is executable
+    // Ensure pre-commit hook is executable
     chmodSync(joinPathFragments(tree.root, '.husky/pre-commit'), 0o755);
+    finalizeGenerateLicense();
     installPackagesTask(tree);
   };
 }

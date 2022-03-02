@@ -1,14 +1,17 @@
 import * as path from 'path';
 import {
+  addDependenciesToPackageJson,
   formatFiles,
   generateFiles,
   getWorkspaceLayout,
+  installPackagesTask,
   joinPathFragments,
   names,
   updateJson,
   type Tree,
 } from '@nrwl/devkit';
-import generateIso from '../ts-iso/ts-iso';
+import generateTsNode from '../ts-node/ts-node';
+import { getDependencyVersions } from '../../utils/dependencies';
 
 interface Schema {
   name: string;
@@ -52,32 +55,37 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
 export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
 
-  const finalizeIso = await generateIso(tree, options);
+  const finalizeTsNode = await generateTsNode(tree, options);
 
   addFiles(tree, normalizedOptions);
 
+  addDependenciesToPackageJson(
+    tree,
+    {},
+    getDependencyVersions(['nodemon', '@eternagame/nx-spawn'])
+  );
+
+  const projectPackageJsonPath = path.join(
+    normalizedOptions.projectRoot,
+    'package.json'
+  );
   /* eslint-disable no-param-reassign */
-  updateJson(
-    tree,
-    path.join(normalizedOptions.projectRoot, 'tsconfig.build.json'),
-    (json: Record<string, unknown>) => {
-      json['extends'] = '@eternagame/tsconfig/tsconfig.node.json';
-      return json;
-    }
-  );
-  updateJson(
-    tree,
-    path.join(normalizedOptions.projectRoot, 'tsconfig.spec.json'),
-    (json: Record<string, unknown>) => {
-      json['extends'] = '@eternagame/tsconfig/tsconfig.jest-node.json';
-      return json;
-    }
-  );
+  updateJson(tree, projectPackageJsonPath, (json: Record<string, unknown>) => {
+    if (!json['scripts']) json['scripts'] = {};
+    const scripts = json['scripts'] as Record<string, string>;
+    // The initial nx build is to ensure all dependencies are in a good state, as we can't
+    // guarantee that the initial build of the build-watch command is completed by the time
+    // we start, which could mean that we will error due to unresolved dependencies
+    scripts['serve'] =
+      'nx build && nx-spawn npm:build-watch --extraRootCommand "nodemon dist/index.es.js"';
+    return json;
+  });
   /* eslint-enable no-param-reassign */
 
   await formatFiles(tree);
 
   return () => {
-    finalizeIso();
+    finalizeTsNode();
+    installPackagesTask(tree);
   };
 }
