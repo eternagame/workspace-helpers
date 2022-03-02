@@ -5,12 +5,13 @@ Run a command for all dependencies of a given package, without waiting for their
 ## Usage
 
 ```
-nx-spawn <command for dependencies> [<command for this package>]
+nx-spawn <command> [--extraRootCommand <command>] [--noRoot]
 ```
 
 The first parameter is the command that will be run in the folder of each package in the dependency
 tree for the current package (ie, the one corresponding to the current working directory).
-The second is an optional command to be run in the current package.
+If extraRootCommand is present, that additional command will be run concurrently in the context
+of the current package. If noRoot is true, don't run the command for the current package, only its dependencies.
 
 Commands are run via [concurrently](https://www.npmjs.com/package/concurrently), so they may
 be specified using compatible syntax (eg, a `serve` script that builds all dependencies in watch mode
