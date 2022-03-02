@@ -126,33 +126,13 @@ function updateCoreFiles(tree: Tree) {
 function updateNxFiles(tree: Tree) {
   const workspace = readWorkspaceConfiguration(tree);
 
-  // Type validation - cacheable operations
-  const opts = workspace.tasksRunnerOptions;
-  if (!opts) throw new Error('Task runner options missing in nx.json');
-  if (!opts['default'])
-    throw new Error('Default task runner options missing in nx.json');
-  const defaultOpts = opts['default'].options as unknown;
-  if (!inOperator('cacheableOperations', defaultOpts))
-    throw new Error('Cacheable operations missing in nx.json');
-  const ops = defaultOpts.cacheableOperations;
-  if (!Array.isArray(ops))
-    throw new Error('Cacheable operations in nx.json is not an array');
-
-  workspace.implicitDependencies = {
-    'package.json': {
-      dependencies: '*',
-      devDependencies: '*',
-    },
-    '.eslintrc.js': '*',
-    'tsconfig.base.json': '*',
-    '.github/workflows/ci.yml': '*',
-    'nx.json': '*',
+  const newWorkspace = {
+    extends: '@eternagame/nx/preset.json',
+    ...(workspace.npmScope ? { npmScope: workspace.npmScope } : {}),
+    version: workspace.version,
   };
 
-  // Add build-incremental as a cacheable operation
-  if (!ops.includes('build-incremental')) ops.push('build-incremental');
-
-  updateWorkspaceConfiguration(tree, workspace);
+  updateWorkspaceConfiguration(tree, newWorkspace);
 
   tree.delete('workspace.json');
 }
