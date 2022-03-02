@@ -12,6 +12,8 @@ Interested in development? Join the discussion on the Eterna Discord!
 - [`@eternagame/tsconfig`](./packages/tsconfig) - Opinionated TypeScript configurations
 - [`@eternagame/eslint-plugin`](./packages/eslint-plugin) - Semi-opinionated ESLint configuration
 - [`@eternagame/jest`](./packages/jest) - Opinionated Jest utilities
+- [`@eternagame/vite`](./packages/vite) - Opinionated Vite configurations
+- [`@eternagame/nx-spawn`](./packages/nx-spawn) - Run a command for all dependencies of a given package, without waiting for their completion
 - [`@eternagame/distify`](./packages/distify) - Lightweight build step for static assets
 
 ## Setup
