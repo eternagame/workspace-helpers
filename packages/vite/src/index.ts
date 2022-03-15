@@ -2,7 +2,7 @@ import { readFileSync } from 'fs';
 import { builtinModules } from 'module';
 import { defineConfig } from 'vite';
 import pluginLegacy from '@vitejs/plugin-legacy';
-import typescriptPlugin from '@rollup/plugin-typescript';
+import typescriptPlugin from 'rollup-plugin-typescript2';
 
 function getAllDeps() {
   const pkg = JSON.parse(

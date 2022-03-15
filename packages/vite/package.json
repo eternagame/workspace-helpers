@@ -13,8 +13,8 @@
   },
   "main": "./dist/index.es.js",
   "dependencies": {
-    "@rollup/plugin-typescript": "^8.3.1",
     "@vitejs/plugin-legacy": "^1.7.1",
+    "rollup-plugin-typescript2": "^0.31.2",
     "tslib": "^2.3.1",
     "vite": "^2.8.6"
   },
