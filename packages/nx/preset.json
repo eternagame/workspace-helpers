@@ -1,5 +1,4 @@
 {
-  "extends": "@nrwl/workspace/presets/core.json",
   "affected": {
     "defaultBase": "main"
   },
@@ -14,5 +13,17 @@
     ".eslintrc.js": "*",
     ".github/workflows/ci.yml": "*",
     "nx.json": "*"
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
+  },
+  "workspaceLayout": {
+    "appsDir": "packages",
+    "libsDir": "packages"
   }
 }

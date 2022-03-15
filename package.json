@@ -15,6 +15,7 @@
     "@eternagame/eslint-plugin": "file:packages/eslint-plugin",
     "@eternagame/jest": "file:packages/jest",
     "@eternagame/nx": "file:packages/nx",
+    "@eternagame/tsconfig": "file:packages/tsconfig",
     "@nrwl/cli": "13.8.3",
     "@nrwl/eslint-plugin-nx": "13.8.3",
     "@nrwl/tao": "13.8.3",
