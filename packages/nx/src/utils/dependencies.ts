@@ -1,23 +1,10 @@
-import { readFileSync } from 'fs';
-import { join } from 'path';
 import { readJson, type Tree } from '@nrwl/devkit';
 
-function getLocalVersion(localPackage: string) {
-  const projectJson = JSON.parse(
-    readFileSync(join(__dirname, '../../../', localPackage, 'package.json'), {
-      encoding: 'utf-8',
-    })
-  ) as Record<string, unknown>;
-  if (!projectJson['version'] || typeof projectJson['version'] !== 'string')
-    throw new Error(`Unable to get version for ${localPackage}`);
-  return projectJson['version'];
-}
-
 const VERSIONS = {
-  '@eternagame/eslint-plugin': getLocalVersion('eslint-plugin'),
-  '@eternagame/nx-spawn': getLocalVersion('nx-spawn'),
-  '@eternagame/tsconfig': getLocalVersion('tsconfig'),
-  '@eternagame/jest': getLocalVersion('jest'),
+  '@eternagame/eslint-plugin': '^1.1.0',
+  '@eternagame/nx-spawn': '^1.0.1',
+  '@eternagame/tsconfig': '^1.1.1',
+  '@eternagame/jest': '^1.1.0',
   shx: '0.3.4',
   husky: '^7.0.4',
   'lint-staged': '^12.3.3',
