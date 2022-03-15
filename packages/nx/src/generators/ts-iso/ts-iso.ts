@@ -90,6 +90,7 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
       'shx',
       '@eternagame/tsconfig',
       '@eternagame/jest',
+      '@eternagame/vite',
       'jest',
       '@types/jest',
       'ts-jest',

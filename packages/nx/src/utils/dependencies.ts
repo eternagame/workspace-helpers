@@ -5,6 +5,7 @@ const VERSIONS = {
   '@eternagame/nx-spawn': '^1.0.1',
   '@eternagame/tsconfig': '^1.1.1',
   '@eternagame/jest': '^1.1.0',
+  '@eternagame/vite': '^1.0.2',
   shx: '0.3.4',
   husky: '^7.0.4',
   'lint-staged': '^12.3.3',
