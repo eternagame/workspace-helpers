@@ -26,8 +26,8 @@
   },
   "dependencies": {
     "@nrwl/devkit": "^14.3.6",
-    "concurrently": "^7.0.0",
+    "concurrently": "^7.2.2",
     "nx": "^14.3.6",
-    "yargs": "^17.3.1"
+    "yargs": "^17.5.1"
   }
 }

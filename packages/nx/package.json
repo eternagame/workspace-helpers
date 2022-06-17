@@ -30,6 +30,6 @@
   "devDependencies": {
     "@eternagame/jest": "*",
     "@eternagame/distify": "*",
-    "@nrwl/workspace": "^13.8.3"
+    "@nrwl/workspace": "^14.3.6"
   }
 }
