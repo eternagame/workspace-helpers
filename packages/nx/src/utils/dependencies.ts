@@ -44,13 +44,13 @@ export function getNxVersion(tree: Tree) {
   const currentPackage = readJson(tree, 'package.json') as unknown;
   if (
     !inOperator('devDependencies', currentPackage) ||
-    !inOperator('@nrwl/workspace', currentPackage.devDependencies) ||
-    typeof currentPackage.devDependencies['@nrwl/workspace'] !== 'string'
+    !inOperator('nx', currentPackage.devDependencies) ||
+    typeof currentPackage.devDependencies.nx !== 'string'
   ) {
     throw new Error(
-      '@nrwl/workspace is not present in package.json, so nx version is unable to be resolved'
+      'nx is not present in package.json, so nx version is unable to be resolved'
     );
   }
 
-  return currentPackage.devDependencies['@nrwl/workspace'];
+  return currentPackage.devDependencies.nx;
 }

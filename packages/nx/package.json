@@ -16,7 +16,7 @@
   "generators": "./generators.json",
   "executors": "./executors.json",
   "dependencies": {
-    "@nrwl/devkit": "^13.8.3"
+    "@nrwl/devkit": "^14.3.6"
   },
   "nx": {
     "targets": {

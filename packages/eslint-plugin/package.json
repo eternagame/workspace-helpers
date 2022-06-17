@@ -11,7 +11,7 @@
   },
   "main": "./src/index.js",
   "peerDependencies": {
-    "@nrwl/eslint-plugin-nx": "^13.0.0",
+    "@nrwl/eslint-plugin-nx": "^14.0.0",
     "eslint": "^8.0.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^16.0.0",
