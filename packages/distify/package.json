@@ -10,7 +10,7 @@
     "postpublish": "shx rm LICENSE",
     "prebuild": "shx rm -rf dist",
     "build": "tsc -p tsconfig.build.json",
-    "postbuild": "shx chmod +x dist/index.js",
+    "postbuild": "shx chmod +x dist/index.js && npm install",
     "lint": "eslint src/"
   },
   "bin": {
