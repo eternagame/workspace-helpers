@@ -45,6 +45,11 @@
       "type": "string",
       "description": "Additional information to add as part of the high-level description in the README",
       "default": ""
+    },
+    "npmScope": {
+      "type": "string",
+      "description": "NPM scope packages should be scoped to/published under",
+      "default": ""
     }
   },
   "required": ["description"]
