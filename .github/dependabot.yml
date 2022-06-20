@@ -8,3 +8,13 @@ updates:
       - 'type: dependencies'
     commit-message:
       prefix: ci
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'daily'
+    labels:
+      - 'type: dependencies'
+    commit-message:
+      prefix: ci
+    # Security updates only
+    open-pull-requests-limit: 0
