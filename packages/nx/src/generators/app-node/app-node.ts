@@ -78,6 +78,7 @@ export default async function generate(tree: Tree, options: Schema) {
     // we start, which could mean that we will error due to unresolved dependencies
     scripts['serve'] =
       'nx build && nx-spawn npm:build-watch --extraRootCommand "nodemon dist/index.es.js"';
+    delete scripts['build-watch'];
     return json;
   });
   /* eslint-enable no-param-reassign */
