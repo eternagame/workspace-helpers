@@ -127,6 +127,7 @@ function updateNxFiles(tree: Tree) {
   const workspace = readWorkspaceConfiguration(tree);
 
   const newWorkspace = {
+    $schema: './node_modules/nx/schemas/nx-schema.json',
     extends: '@eternagame/nx/preset.json',
     ...(workspace.npmScope ? { npmScope: workspace.npmScope } : {}),
     version: workspace.version,

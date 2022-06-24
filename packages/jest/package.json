@@ -14,6 +14,6 @@
   },
   "main": "./dist/index.js",
   "devDependencies": {
-    "@jest/types": "^27.5.1"
+    "@jest/types": "^28.1.1"
   }
 }
