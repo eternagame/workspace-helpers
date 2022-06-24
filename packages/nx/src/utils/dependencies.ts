@@ -48,7 +48,7 @@ export function getNxVersion(tree: Tree) {
     typeof currentPackage.devDependencies.nx !== 'string'
   ) {
     throw new Error(
-      'nx is not present in package.json, so nx version is unable to be resolved'
+      "nx is missing from your root package.json, so the nx version can't be resolved"
     );
   }
 
