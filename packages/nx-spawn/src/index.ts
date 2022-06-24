@@ -4,10 +4,10 @@ import { join } from 'path';
 /* eslint-disable import/extensions */
 import {
   createProjectGraphAsync,
+  workspaceRoot,
   type ProjectGraph,
-} from '@nrwl/workspace/src/core/project-graph/index.js';
-import { appRootPath } from '@nrwl/tao/src/utils/app-root.js';
-import { Workspaces } from '@nrwl/tao/src/shared/workspace.js';
+} from '@nrwl/devkit';
+import { Workspaces } from 'nx/src/config/workspaces';
 /* eslint-enable import/extensions */
 import concurrently from 'concurrently';
 import yargs from 'yargs';
@@ -36,7 +36,7 @@ function computeDepCommands(
         const { root } = data as Record<string, unknown>;
         if (!root || typeof root !== 'string')
           throw new Error(`Root directory for ${dep.target} not found`);
-        const resolvedRoot = join(appRootPath, root);
+        const resolvedRoot = join(workspaceRoot, root);
 
         return [
           ...computeDepCommands(projectGraph, dep.target, command),
@@ -80,7 +80,7 @@ async function run() {
   // Yargs does ensure it's not undefined, but for some reason the types don't reflect that
   const command = args.command as string;
 
-  const ws = new Workspaces(appRootPath);
+  const ws = new Workspaces(workspaceRoot);
   const packageToRun = ws.calculateDefaultProjectName(
     cwd(),
     ws.readWorkspaceConfiguration()
