@@ -11,7 +11,7 @@ const VERSIONS = {
   'lint-staged': '^12.3.3',
   micromatch: '^4.0.4',
   vite: '^2.8.6',
-  nodemon: '^2.0.15',
+  'node-dev': '^7.4.3',
   eslint: '^8.8.0',
   'eslint-config-airbnb-base': '^15.0.0',
   'eslint-config-airbnb-typescript': '^16.1.0',
