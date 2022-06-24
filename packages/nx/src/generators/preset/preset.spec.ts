@@ -35,6 +35,7 @@ describe('preset', () => {
       description: 'My cool workspace',
       license: 'BSD3',
       readmeProlog: '',
+      npmScope: '',
     });
   });
 });

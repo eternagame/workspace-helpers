@@ -20,6 +20,7 @@ export default async function generate(tree: Tree, options: Schema) {
       options.license !== 'EternaNoncommercial' ? options.license : 'Custom',
     copyrightHolder: COPYRIGHT_HOLDER,
     readmeProlog: README_PROLOG,
+    npmScope: 'eternagame',
   });
 
   if (options.license === 'EternaNoncommercial') {
