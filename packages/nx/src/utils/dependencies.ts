@@ -11,7 +11,7 @@ const VERSIONS = {
   'lint-staged': '^12.3.3',
   micromatch: '^4.0.4',
   vite: '^2.8.6',
-  nodemon: '^2.0.15',
+  'node-dev': '^7.4.3',
   eslint: '^8.8.0',
   'eslint-config-airbnb-base': '^15.0.0',
   'eslint-config-airbnb-typescript': '^16.1.0',
@@ -44,13 +44,13 @@ export function getNxVersion(tree: Tree) {
   const currentPackage = readJson(tree, 'package.json') as unknown;
   if (
     !inOperator('devDependencies', currentPackage) ||
-    !inOperator('@nrwl/workspace', currentPackage.devDependencies) ||
-    typeof currentPackage.devDependencies['@nrwl/workspace'] !== 'string'
+    !inOperator('nx', currentPackage.devDependencies) ||
+    typeof currentPackage.devDependencies.nx !== 'string'
   ) {
     throw new Error(
-      '@nrwl/workspace is not present in package.json, so nx version is unable to be resolved'
+      "nx is missing from your root package.json, so the nx version can't be resolved"
     );
   }
 
-  return currentPackage.devDependencies['@nrwl/workspace'];
+  return currentPackage.devDependencies.nx;
 }
