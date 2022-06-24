@@ -20,6 +20,7 @@ interface Schema {
   license: 'MIT' | 'BSD3' | 'Custom' | 'None';
   copyrightHolder: string;
   readmeProlog: string;
+  npmScope: string;
 }
 
 interface NormalizedSchema extends Schema {
@@ -123,13 +124,14 @@ function updateCoreFiles(tree: Tree) {
   }
 }
 
-function updateNxFiles(tree: Tree) {
+function updateNxFiles(tree: Tree, options: NormalizedSchema) {
   const workspace = readWorkspaceConfiguration(tree);
+  const npmScope = options.npmScope || workspace.npmScope;
 
   const newWorkspace = {
     $schema: './node_modules/nx/schemas/nx-schema.json',
     extends: '@eternagame/nx/preset.json',
-    ...(workspace.npmScope ? { npmScope: workspace.npmScope } : {}),
+    ...(npmScope ? { npmScope } : {}),
     version: workspace.version,
   };
 
@@ -160,7 +162,7 @@ export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
   addDependencies(tree);
   updateCoreFiles(tree);
-  updateNxFiles(tree);
+  updateNxFiles(tree, normalizedOptions);
   updatePrettierFiles(tree);
   addFiles(tree, normalizedOptions);
   const finalizeGenerateLicense = generateLicense(tree, {
