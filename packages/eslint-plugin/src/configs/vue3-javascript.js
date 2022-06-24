@@ -1,5 +1,5 @@
 module.exports = {
-  extends: require.resolve('./typescript'),
+  extends: require.resolve('./javascript'),
   overrides: [
     {
       files: ['*.vue'],
