@@ -1,8 +1,6 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-const NX_VERSION = '14.3.6';
-
 function inOperator<K extends string, T>(
   k: K,
   o: T
@@ -17,10 +15,19 @@ if (
   !inOperator('version', selfPackage) ||
   typeof selfPackage.version !== 'string'
 ) {
-  throw new Error('Version detection of @eternagame/nx failed');
+  throw new Error("Can't detect version of @eternagame/nx");
+}
+if (
+  !inOperator('peerDependencies', selfPackage) ||
+  !inOperator('nx', selfPackage.peerDependencies) ||
+  typeof selfPackage.peerDependencies.nx !== 'string'
+) {
+  throw new Error("Can't detect version of nx");
 }
 
 const VERSIONS = {
+  nx: selfPackage.peerDependencies.nx,
+  '@nrwl/eslint-plugin-nx': selfPackage.peerDependencies.nx,
   '@eternagame/nx': selfPackage.version,
   '@eternagame/eslint-plugin': '^1.1.0',
   '@eternagame/nx-spawn': '^1.0.1',
@@ -39,7 +46,8 @@ const VERSIONS = {
   'eslint-config-prettier': '^8.3.0',
   'eslint-plugin-import': '^2.25.4',
   '@typescript-eslint/eslint-plugin': '^5.11.0',
-  '@nrwl/eslint-plugin-nx': NX_VERSION,
+  prettier: '^2.7.1',
+  typescript: '^4.7.4',
   jest: '^27.5.0',
   '@types/jest': '^27.4.0',
   'ts-jest': '^27.1.3',

@@ -15,13 +15,11 @@
     "@eternagame/eslint-plugin": "file:packages/eslint-plugin",
     "@eternagame/jest": "file:packages/jest",
     "@eternagame/nx": "file:packages/nx",
-    "@eternagame/nx-spawn": "^1.0.1",
+    "@eternagame/nx-spawn": "file:packages/nx-spawn",
     "@eternagame/tsconfig": "file:packages/tsconfig",
     "@eternagame/vite": "^1.0.2",
-    "@nrwl/eslint-plugin-nx": "14.3.6",
-    "@nrwl/workspace": "14.3.6",
     "@types/jest": "^28.1.3",
-    "@types/node": "18.0.0",
+    "@types/node": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "eslint": "^8.18.0",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -33,14 +31,14 @@
     "lint-staged": "^13.0.2",
     "micromatch": "^4.0.5",
     "node-dev": "^7.4.3",
-    "prettier": "2.7.1",
+    "nx": "14.3.6",
+    "prettier": "^2.7.1",
     "shx": "^0.3.4",
     "ts-jest": "^28.0.5",
-    "typescript": "4.7.4",
+    "typescript": "^4.7.4",
     "vite": "^2.8.6"
   },
   "workspaces": [
     "packages/*"
-  ],
-  "dependencies": {}
+  ]
 }

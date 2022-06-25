@@ -51,6 +51,7 @@ function addDependencies(tree: Tree) {
     {},
     {
       ...getDependencyVersions([
+        'nx',
         '@eternagame/nx',
         '@eternagame/eslint-plugin',
         'eslint',
@@ -58,7 +59,7 @@ function addDependencies(tree: Tree) {
         'eslint-config-airbnb-typescript',
         'eslint-config-prettier',
         'eslint-plugin-import',
-        '@nrwl/eslint-plugin-nx',
+        'prettier',
         '@typescript-eslint/eslint-plugin',
         'husky',
         'lint-staged',

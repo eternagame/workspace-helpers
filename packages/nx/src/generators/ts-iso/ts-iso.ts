@@ -94,6 +94,7 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
       'jest',
       '@types/jest',
       'ts-jest',
+      'typescript',
     ])
   );
 

@@ -79,7 +79,6 @@ export default async function generate(tree: Tree, options: Schema) {
     scripts['serve'] =
       'nx build && nx-spawn npm:build-watch --extraRootCommand "node-dev dist/index.es.js"';
     delete json['types'];
-    delete scripts['build-watch'];
     return json;
   });
   /* eslint-enable no-param-reassign */
