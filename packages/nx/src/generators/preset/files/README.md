@@ -1,4 +1,4 @@
-# <%= workspaceName %>
+# <%= name %>
 
 <%= description %>
 

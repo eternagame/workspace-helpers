@@ -11,7 +11,7 @@ import {
   type Tree,
 } from '@nrwl/devkit';
 import generateTsWeb from '../ts-web/ts-web';
-import { getDependencyVersions } from '../../utils/dependencies';
+import getDependencyVersions from '../../utils/dependencies';
 
 interface Schema {
   name: string;

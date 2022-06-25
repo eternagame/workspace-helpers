@@ -9,14 +9,13 @@
     "postpublish": "shx rm LICENSE",
     "prebuild": "shx rm -rf dist",
     "build": "tsc -p tsconfig.build.json && npx distify",
-    "test": "jest",
-    "test:cov": "jest --coverage",
     "lint": "eslint src/"
   },
   "generators": "./generators.json",
   "executors": "./executors.json",
   "dependencies": {
-    "@nrwl/devkit": "^14.3.6"
+    "nx": "14.3.6",
+    "@nrwl/devkit": "14.3.6"
   },
   "nx": {
     "targets": {
@@ -28,8 +27,8 @@
     }
   },
   "devDependencies": {
-    "@eternagame/jest": "*",
     "@eternagame/distify": "*",
-    "@nrwl/workspace": "^14.3.6"
+    "@eternagame/jest": "*",
+    "@nrwl/workspace": "14.3.6"
   }
 }

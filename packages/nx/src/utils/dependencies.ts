@@ -1,6 +1,27 @@
-import { readJson, type Tree } from '@nrwl/devkit';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
+const NX_VERSION = '14.3.6';
+
+function inOperator<K extends string, T>(
+  k: K,
+  o: T
+): o is T & Record<K, unknown> {
+  return o && typeof o === 'object' && k in o;
+}
+
+const selfPackage = JSON.parse(
+  readFileSync(join(__dirname, '../../package.json')).toString()
+) as unknown;
+if (
+  !inOperator('version', selfPackage) ||
+  typeof selfPackage.version !== 'string'
+) {
+  throw new Error('Version detection of @eternagame/nx failed');
+}
 
 const VERSIONS = {
+  '@eternagame/nx': selfPackage.version,
   '@eternagame/eslint-plugin': '^1.1.0',
   '@eternagame/nx-spawn': '^1.0.1',
   '@eternagame/tsconfig': '^1.1.1',
@@ -18,12 +39,13 @@ const VERSIONS = {
   'eslint-config-prettier': '^8.3.0',
   'eslint-plugin-import': '^2.25.4',
   '@typescript-eslint/eslint-plugin': '^5.11.0',
+  '@nrwl/eslint-plugin-nx': NX_VERSION,
   jest: '^27.5.0',
   '@types/jest': '^27.4.0',
   'ts-jest': '^27.1.3',
 } as const;
 
-export function getDependencyVersions(
+export default function getDependencyVersions(
   dependencies: (keyof typeof VERSIONS)[]
 ): Record<string, string> {
   return Object.fromEntries(
@@ -31,26 +53,4 @@ export function getDependencyVersions(
       dependencies.includes(key as keyof typeof VERSIONS)
     )
   );
-}
-
-function inOperator<K extends string, T>(
-  k: K,
-  o: T
-): o is T & Record<K, unknown> {
-  return o && typeof o === 'object' && k in o;
-}
-
-export function getNxVersion(tree: Tree) {
-  const currentPackage = readJson(tree, 'package.json') as unknown;
-  if (
-    !inOperator('devDependencies', currentPackage) ||
-    !inOperator('nx', currentPackage.devDependencies) ||
-    typeof currentPackage.devDependencies.nx !== 'string'
-  ) {
-    throw new Error(
-      "nx is missing from your root package.json, so the nx version can't be resolved"
-    );
-  }
-
-  return currentPackage.devDependencies.nx;
 }
