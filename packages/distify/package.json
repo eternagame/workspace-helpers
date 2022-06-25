@@ -16,15 +16,6 @@
   "bin": {
     "distify": "./dist/index.js"
   },
-  "nx": {
-    "targets": {
-      "build": {
-        "outputs": [
-          "packages/distify/dist"
-        ]
-      }
-    }
-  },
   "dependencies": {
     "fast-glob": "^3.2.11"
   }
