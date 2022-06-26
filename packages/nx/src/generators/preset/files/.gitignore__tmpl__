@@ -55,3 +55,6 @@ pids
 # System Files
 .DS_Store
 Thumbs.db
+
+# Nx migrations
+migrations.json
