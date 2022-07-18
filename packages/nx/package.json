@@ -8,7 +8,7 @@
     "prepublishOnly": "shx cp ../../LICENSE . && nx build",
     "postpublish": "shx rm LICENSE",
     "prebuild": "shx rm -rf dist",
-    "build": "tsc -p tsconfig.build.json && npx distify",
+    "build": "tsc -p tsconfig.build.json && distify",
     "test": "jest",
     "test:cov": "jest --coverage",
     "lint": "eslint src/"
