@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 import { exit, cwd, argv } from 'process';
 import { join } from 'path';
-/* eslint-disable import/extensions */
 import {
   createProjectGraphAsync,
   workspaceRoot,
   type ProjectGraph,
 } from '@nrwl/devkit';
-import { Workspaces } from 'nx/src/config/workspaces';
+/* eslint-disable import/extensions */
+import { Workspaces } from 'nx/src/config/workspaces.js';
 /* eslint-enable import/extensions */
 import concurrently from 'concurrently';
 import yargs from 'yargs';

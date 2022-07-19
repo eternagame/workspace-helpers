@@ -4,10 +4,8 @@ Opinionated Nx utilities
 
 ## Generators
 
-- preset - Nx workspace bootstrapping to be used on top of the Nx Core preset. Run this generator after running
-  `create-nx-workspace --preset core` rather than specifying `@eternagame/nx` as the preset to allow
-  all modifications from the core preset to be applied (see [this issue](https://github.com/nrwl/nx/issues/8917)
-  for information on why this is necessary).
+- preset - Nx workspace bootstrapping. This generator will not currently work with `create-nx-workspace` -
+  use `npx @eternagame/bootstrap` instead.
 - preset-eterna - Superset of the preset generator, but customized for projects managed by the Eterna project
   (whereas preset is usable in external contexts)
 - package - Adds an empty generic package to an Nx workspace
