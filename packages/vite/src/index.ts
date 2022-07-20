@@ -3,8 +3,10 @@ import { builtinModules } from 'module';
 import { defineConfig } from 'vite';
 import pluginLegacy from '@vitejs/plugin-legacy';
 import typescriptPlugin from 'rollup-plugin-typescript2';
+import preserveShebangs from './rollup-preserve-shebangs';
 
 function getAllDeps() {
+  // Extract `dependencies` field from package.json
   const pkg = JSON.parse(
     readFileSync('package.json', { encoding: 'utf-8' })
   ) as Record<string, unknown>;
@@ -12,7 +14,10 @@ function getAllDeps() {
     pkg['dependencies'] && typeof pkg['dependencies'] === 'object'
       ? pkg['dependencies']
       : {};
-  return Object.keys(deps);
+  // We want to match `<packagename>/*` not just `<packagename>`, or else when we deep import,
+  // the deep imports will be bundled
+  const res = Object.keys(deps).map((dep) => new RegExp(`^${dep}(/.*)?$`));
+  return res;
 }
 
 export default function getConfig(
@@ -34,12 +39,16 @@ export default function getConfig(
           : false,
       rollupOptions: {
         external: [
-          ...(type === 'lib' ? getAllDeps() : []),
+          // No need to process/bundle dependencies unless we're in a webapp
+          ...(type === 'lib' || env === 'node' ? getAllDeps() : []),
+          // Don't try to process/bundle node builtins either
           ...(env === 'node' ? builtinModules : []),
         ],
       },
     },
     plugins: [
+      // If we have an executable script, we need to preserve the shebang
+      preserveShebangs(),
       {
         ...typescriptPlugin({
           tsconfig: 'tsconfig.build.json',

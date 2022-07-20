@@ -4,48 +4,45 @@ import {
   formatFiles,
   generateFiles,
   installPackagesTask,
-  updateJson,
   addDependenciesToPackageJson,
   readWorkspaceConfiguration,
   updateWorkspaceConfiguration,
-  readJson,
   joinPathFragments,
   type Tree,
 } from '@nrwl/devkit';
 import generateLicense from '../license/license';
-import { getDependencyVersions, getNxVersion } from '../../utils/dependencies';
+import getDependencyVersions from '../../utils/dependencies';
+
+const ETERNA_NPM_SCOPE = 'eternagame';
+const ETERNA_COPYRIGHT_HOLDER = 'Eterna Commons';
+const ETERNA_README_PROLOG = `Interested in development? Join the discussion on the Eterna Discord!
+
+[![Eterna Discord](https://discord.com/api/guilds/702618517589065758/widget.png?style=banner2)](https://discord.gg/KYeTwux)`;
 
 interface Schema {
+  name: string;
   description: string;
-  license: 'MIT' | 'BSD3' | 'Custom' | 'None';
+  npmScope: string;
+  license: 'MIT' | 'BSD3' | 'EternaNoncommercial' | 'Custom' | 'None';
   copyrightHolder: string;
   readmeProlog: string;
+  eternaDefaults: boolean;
 }
 
-interface NormalizedSchema extends Schema {
-  workspaceName: string;
-}
+function normalizeOptions(options: Schema): Schema {
+  const opts = { ...options };
 
-function inOperator<K extends string, T>(
-  k: K,
-  o: T
-): o is T & Record<K, unknown> {
-  return o && typeof o === 'object' && k in o;
-}
-
-function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
-  const currentPackage = readJson(tree, 'package.json') as unknown;
-  if (
-    !inOperator('name', currentPackage) ||
-    typeof currentPackage.name !== 'string'
-  ) {
-    throw new Error('Unable to determine workspace name');
+  if (opts.eternaDefaults) {
+    opts.copyrightHolder ||= ETERNA_COPYRIGHT_HOLDER;
+    opts.readmeProlog ||= ETERNA_README_PROLOG;
+    opts.npmScope ||= ETERNA_NPM_SCOPE;
   }
 
-  return {
-    ...options,
-    workspaceName: currentPackage.name,
-  };
+  if (opts.npmScope) {
+    opts.name = `@${opts.npmScope}/${opts.name}`;
+  }
+
+  return opts;
 }
 
 function addDependencies(tree: Tree) {
@@ -53,14 +50,16 @@ function addDependencies(tree: Tree) {
     tree,
     {},
     {
-      '@nrwl/eslint-plugin-nx': getNxVersion(tree),
       ...getDependencyVersions([
+        'nx',
+        '@eternagame/nx',
         '@eternagame/eslint-plugin',
         'eslint',
         'eslint-config-airbnb-base',
         'eslint-config-airbnb-typescript',
         'eslint-config-prettier',
         'eslint-plugin-import',
+        'prettier',
         '@typescript-eslint/eslint-plugin',
         'husky',
         'lint-staged',
@@ -70,84 +69,19 @@ function addDependencies(tree: Tree) {
   );
 }
 
-function updateCoreFiles(tree: Tree) {
-  /* eslint-disable no-param-reassign */
-  updateJson(tree, 'package.json', (json: Record<string, unknown>) => {
-    json['workspaces'] = ['packages/*'];
-    json['scripts'] = {
-      '_lint-workspace':
-        'npx eslint --ignore-path .gitignore --ignore-pattern packages/',
-      'lint-workspace': 'npm run _lint-workspace .',
-      prepare: 'husky install',
-    };
-    return json;
-  });
-
-  if (tree.exists('.vscode/extensions.json')) {
-    updateJson(
-      tree,
-      '.vscode/extensions.json',
-      (json: Record<string, unknown>) => {
-        json['recommendations'] ||= [];
-        if (Array.isArray(json['recommendations'])) {
-          const recommended = [
-            'dbaeumer.vscode-eslint',
-            'firsttris.vscode-jest-runner',
-          ];
-
-          for (const ext of recommended) {
-            if (!json['recommendations'].includes(ext)) {
-              json['recommendations'].push(ext);
-            }
-          }
-        } else {
-          throw new Error('VSC extensions is not an array');
-        }
-        return json;
-      }
-    );
-  }
-  /* eslint-enable no-param-reassign */
-
-  const oldIgnoreFile = tree.read('.gitignore');
-  if (!oldIgnoreFile) throw new Error('Git ignore file not found');
-  const newContent = oldIgnoreFile
-    .toString()
-    .replace(/^\/node_modules$/m, 'node_modules')
-    .replace(/^\/dist$/m, 'dist')
-    .replace(/^\/coverage$/m, 'coverage');
-  tree.write('.gitignore', newContent);
-
-  if (tree.exists('tsconfig.base.json')) {
-    tree.delete('tsconfig.base.json');
-  }
-}
-
-function updateNxFiles(tree: Tree) {
+function updateNxFiles(tree: Tree, options: Schema) {
   const workspace = readWorkspaceConfiguration(tree);
+  const npmScope = options.npmScope || workspace.npmScope;
 
   const newWorkspace = {
-    extends: '@eternagame/nx/preset.json',
-    ...(workspace.npmScope ? { npmScope: workspace.npmScope } : {}),
+    ...(npmScope ? { npmScope } : {}),
     version: workspace.version,
   };
 
   updateWorkspaceConfiguration(tree, newWorkspace);
-
-  tree.delete('workspace.json');
 }
 
-function updatePrettierFiles(tree: Tree) {
-  const oldIgnoreFile = tree.read('.prettierignore');
-  if (!oldIgnoreFile) throw new Error('Prettier ignore file not found');
-  const newContent = oldIgnoreFile
-    .toString()
-    .replace(/^\/dist$/m, 'dist')
-    .replace(/^\/coverage$/m, 'coverage');
-  tree.write('.prettierignore', newContent);
-}
-
-function addFiles(tree: Tree, options: NormalizedSchema) {
+function addFiles(tree: Tree, options: Schema) {
   const templateOptions = {
     ...options,
     tmpl: '',
@@ -156,15 +90,16 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
 }
 
 export default async function generate(tree: Tree, options: Schema) {
-  const normalizedOptions = normalizeOptions(tree, options);
-  addDependencies(tree);
-  updateCoreFiles(tree);
-  updateNxFiles(tree);
-  updatePrettierFiles(tree);
+  const normalizedOptions = normalizeOptions(options);
   addFiles(tree, normalizedOptions);
+  addDependencies(tree);
+  updateNxFiles(tree, normalizedOptions);
   const finalizeGenerateLicense = generateLicense(tree, {
-    license: options.license,
-    copyrightHolder: options.copyrightHolder,
+    license: normalizedOptions.license,
+    copyrightHolder:
+      normalizedOptions.copyrightHolder || normalizedOptions.eternaDefaults
+        ? 'Eterna Commons'
+        : '',
   });
   await formatFiles(tree);
   return () => {

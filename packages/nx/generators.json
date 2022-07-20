@@ -8,11 +8,6 @@
       "schema": "./dist/generators/preset/schema.json",
       "description": "Initializes an Nx workspace"
     },
-    "preset-eterna": {
-      "factory": "./dist/generators/preset-eterna/preset-eterna",
-      "schema": "./dist/generators/preset-eterna/schema.json",
-      "description": "Initializes an Nx workspace for use as part of the Eterna project"
-    },
     "package": {
       "factory": "./dist/generators/package/package",
       "schema": "./dist/generators/package/schema.json",

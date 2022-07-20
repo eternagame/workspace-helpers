@@ -11,7 +11,7 @@ import {
   type Tree,
 } from '@nrwl/devkit';
 import generateTsWeb from '../ts-web/ts-web';
-import { getDependencyVersions } from '../../utils/dependencies';
+import getDependencyVersions from '../../utils/dependencies';
 
 interface Schema {
   name: string;
@@ -80,6 +80,7 @@ export default async function generate(tree: Tree, options: Schema) {
       'nx build && nx-spawn npm:build-watch --extraRootCommand vite --noRoot';
     delete json['main'];
     delete json['types'];
+    delete scripts['build-watch'];
     return json;
   });
   /* eslint-enable no-param-reassign */

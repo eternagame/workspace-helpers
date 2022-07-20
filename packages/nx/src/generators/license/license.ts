@@ -8,10 +8,10 @@ import {
   type Tree,
 } from '@nrwl/devkit';
 import path from 'path';
-import { getDependencyVersions } from '../../utils/dependencies';
+import getDependencyVersions from '../../utils/dependencies';
 
 interface Schema {
-  license: 'MIT' | 'BSD3' | 'Custom' | 'None';
+  license: 'MIT' | 'BSD3' | 'EternaNoncommercial' | 'Custom' | 'None';
   copyrightHolder: string;
 }
 
@@ -86,6 +86,8 @@ function getPackageLicense(license: Schema['license']) {
     case 'None':
       return null;
     case 'Custom':
+      return 'SEE LICENSE IN LICENSE';
+    case 'EternaNoncommercial':
       return 'SEE LICENSE IN LICENSE';
     case 'BSD3':
       return 'BSD-3-Clause';

@@ -11,7 +11,7 @@ import {
   type Tree,
 } from '@nrwl/devkit';
 import generateTsNode from '../ts-node/ts-node';
-import { getDependencyVersions } from '../../utils/dependencies';
+import getDependencyVersions from '../../utils/dependencies';
 
 interface Schema {
   name: string;
@@ -62,7 +62,7 @@ export default async function generate(tree: Tree, options: Schema) {
   addDependenciesToPackageJson(
     tree,
     {},
-    getDependencyVersions(['nodemon', '@eternagame/nx-spawn'])
+    getDependencyVersions(['node-dev', '@eternagame/nx-spawn'])
   );
 
   const projectPackageJsonPath = path.join(
@@ -77,7 +77,8 @@ export default async function generate(tree: Tree, options: Schema) {
     // guarantee that the initial build of the build-watch command is completed by the time
     // we start, which could mean that we will error due to unresolved dependencies
     scripts['serve'] =
-      'nx build && nx-spawn npm:build-watch --extraRootCommand "nodemon dist/index.es.js"';
+      'nx build && nx-spawn npm:build-watch --extraRootCommand "node-dev dist/index.es.js"';
+    delete json['types'];
     return json;
   });
   /* eslint-enable no-param-reassign */

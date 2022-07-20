@@ -15,6 +15,7 @@
         "items": [
           { "value": "MIT", "label": "MIT" },
           { "value": "BSD3", "label": "BSD 3-Clause" },
+          { "value": "EternaNoncommercial", "label": "Eterna Noncommercial" },
           {
             "value": "Custom",
             "label": "Include no default license, but specify SEE LICENSE IN LICENSE in the package.json"
