@@ -18,3 +18,4 @@ jobs:
         with:
           scopes: |
             repo
+          requireScope: true
