@@ -8,6 +8,7 @@ Interested in development? Join the discussion on the Eterna Discord!
 
 ## Components
 
+- [`@eternagame/bootstrap](./packages/bootstrap) - Bootstrap a new project using the Eternagame standards
 - [`@eternagame/nx`](./packages/nx) - Opinionated Nx utilities
 - [`@eternagame/tsconfig`](./packages/tsconfig) - Opinionated TypeScript configurations
 - [`@eternagame/eslint-plugin`](./packages/eslint-plugin) - Semi-opinionated ESLint configuration
@@ -59,13 +60,41 @@ a specific subdirectory of the packages directory if you don't want it placed in
 
 ### Updating Dependencies
 
-When updating Nx plugins (or dependencies that are managed by Nx plugins), the plugins may have
-changes to configurations or other changes that should be made when updating. The process of updating
-packages and making changes is automated, and can be done via `npx nx migrate latest` and then (if necessary)
-`npx nx migrate --run-migrations` after reviewing the changes to be made in the migrations.json. Never update these packages
-"manually" (without using this command). Remove the migrations.json file before committing changes.
+When upgrading `@eternagame/nx`, there may be changes to the repository that should be made when updating.
+This process is automated, and can be done via `npx nx migrate @eternagame/nx@latest` and then (if necessary)
+`npx nx migrate --run-migrations` after reviewing the changes to be made in the migrations.json. `@eternagame/nx`
+also pins a specific version of `nx` as a peer dependency, as there may be migrations that need to be run
+for `nx`, which are vendorized by `@eternagame/nx` to ensure they function properly using this repository layout.
 
 For updating other dependencies, you may want to use `npx npm-check-updates --deep --peer`
 
 If you're on a unix-like system and want to remove all nested node_modules folders,
 you can run `find . -type d -name node_modules -prune | xargs rm -r`
+
+### Testing packages outside this project
+
+If you want to test changes to packages outside of this project, you will need a way to install your
+local version in whatever other project you're using. There are generally two ways to do this:
+
+### npm link
+
+If you run `npm link -w @eternagame/<package>`, this will create a symlink to the local directory
+in your global node modules. You can then run `npm link @eternagame/<package>` in an existing project
+to use the symlinked version instead of retrieving it from npm.
+
+### Local registry
+
+A limitation of `npm link` is that calls to `npm install` will still pull from npm rather than using
+the global symlink. This is particularly problematic when testing changes to `@eternagame/bootstrap`
+or the `@eternagame/nx:preset` generator, as both packages install `@eternagame/nx` during the
+generation project, and so it will use whatever the latest version is in npm rather than your local copy.
+
+To work around this, you can run a local npm registry using [verdaccio](https://github.com/verdaccio/verdaccio).
+
+- In a dedicated terminal, run `npx verdaccio` to start the local registry
+- Run `npm adduser --registry http://localhost:4873` to set up an account
+- Run `npm publish -w @eternagame/<package> --registry http://localhost:4873` to publish a package
+  to your local repository
+- Test out commands by setting the environment variable `NPM_CONFIG_REGISTRY=http://localhost:4873`,
+  for example `NPM_CONFIG_REGISTRY=http://localhost:4873 npx @eternagame/bootstrap`. Alternatively,
+  run `npm set registry http://localhost:4873/` to set the local registry as your default registry.

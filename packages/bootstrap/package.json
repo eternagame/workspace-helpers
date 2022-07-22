@@ -1,0 +1,25 @@
+{
+  "name": "@eternagame/bootstrap",
+  "description": "Bootstrap a new project using the Eternagame standards",
+  "version": "1.0.0",
+  "license": "BSD-3-Clause",
+  "scripts": {
+    "prepublishOnly": "shx cp ../../LICENSE . && nx build",
+    "postpublish": "shx rm LICENSE",
+    "prebuild": "shx rm -rf dist",
+    "build": "vite build",
+    "postbuild": "shx chmod +x dist/index.es.js",
+    "lint": "eslint src/",
+    "serve": "nx build && nx-spawn npm:build-watch --extraRootCommand \"node-dev dist/index.es.js\""
+  },
+  "type": "module",
+  "main": "./dist/index.es.js",
+  "bin": "./dist/index.es.js",
+  "dependencies": {
+    "yargs": "^17.5.1"
+  },
+  "devDependencies": {
+    "@eternagame/jest": "*",
+    "@eternagame/vite": "*"
+  }
+}
