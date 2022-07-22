@@ -7,7 +7,7 @@ updates:
     labels:
       - 'type: dependencies'
     commit-message:
-      prefix: ci
+      prefix: chore(repo)
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
