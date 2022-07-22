@@ -21,6 +21,7 @@ jobs:
             distify
             eslint-plugin
             jest
+            nx
             nx-spawn
             tsconfig
             vite
