@@ -27,7 +27,7 @@ jobs:
       - name: Update NPM
         run: npm install -g npm@">=7"
       - name: Use the node_modules cache if available
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ steps.versions.outputs.node_version }}-${{ hashFiles('**/package-lock.json') }}

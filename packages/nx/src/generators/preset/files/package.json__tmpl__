@@ -1,0 +1,15 @@
+{
+  "name": "<%= name %>",
+  "description": "<%= description %>",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "lint-workspace": "npm run _lint-workspace .",
+    "_lint-workspace": "npx eslint --ignore-path .gitignore --ignore-pattern packages/",
+    "prepare": "husky install"
+  },
+  "devDependencies": {},
+  "workspaces": [
+    "packages/*"
+  ]
+}

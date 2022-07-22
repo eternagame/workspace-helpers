@@ -10,20 +10,11 @@
     "postpublish": "shx rm LICENSE",
     "prebuild": "shx rm -rf dist",
     "build": "tsc -p tsconfig.build.json",
-    "postbuild": "shx chmod +x dist/index.js",
+    "postbuild": "shx chmod +x dist/index.js && npm install",
     "lint": "eslint src/"
   },
   "bin": {
     "distify": "./dist/index.js"
-  },
-  "nx": {
-    "targets": {
-      "build": {
-        "outputs": [
-          "packages/distify/dist"
-        ]
-      }
-    }
   },
   "dependencies": {
     "fast-glob": "^3.2.11"

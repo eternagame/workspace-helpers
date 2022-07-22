@@ -31,7 +31,7 @@ function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
     : name;
 
   const projectName = projectDirectory.replace(/\//g, '-');
-  const importPath = `@${npmScope}/${projectName}`;
+  const importPath = npmScope ? `@${npmScope}/${projectName}` : projectName;
 
   const projectRoot = joinPathFragments(libsDir, projectDirectory);
 
