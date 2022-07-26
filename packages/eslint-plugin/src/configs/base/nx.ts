@@ -1,7 +1,7 @@
-const noExtraneousDependencies = require('./extraneous-deps');
+import noExtraneousDependencies = require('./extraneous-deps');
 
-module.exports = function getConfig(isTypescript) {
-  function enforceModuleBoundaries(allowCircularSelfDependency) {
+export = function getConfig(isTypescript: boolean) {
+  function enforceModuleBoundaries(allowCircularSelfDependency: boolean) {
     return {
       '@nrwl/nx/enforce-module-boundaries': [
         'error',

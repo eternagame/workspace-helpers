@@ -1,6 +1,6 @@
-const noExtraneousDependencies = require('./base/extraneous-deps');
+import noExtraneousDependencies = require('./base/extraneous-deps');
 
-module.exports = {
+export = {
   parserOptions: {
     ecmaVersion: 2020,
   },

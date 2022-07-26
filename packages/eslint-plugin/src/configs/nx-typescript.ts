@@ -1,11 +1,11 @@
-const base = require('./base/nx')(true);
+import base = require('./base/nx');
 
-module.exports = {
+export = {
   extends: require.resolve('./nx-javascript'),
   overrides: [
     {
       files: ['*.ts', '*.tsx'],
-      ...base,
+      ...base(true),
     },
   ],
 };

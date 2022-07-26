@@ -1,4 +1,4 @@
-module.exports = {
+export = {
   extends: require.resolve('./javascript'),
   overrides: [
     {

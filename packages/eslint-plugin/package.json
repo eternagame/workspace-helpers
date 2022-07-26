@@ -1,15 +1,21 @@
 {
   "name": "@eternagame/eslint-plugin",
   "description": "Semi-opinionated ESLint configuration",
-  "author": "Jonathan Romano <jonathan@luxaritas.com>",
   "version": "1.1.0",
   "license": "BSD-3-Clause",
   "scripts": {
-    "prepublishOnly": "shx cp ../../LICENSE .",
+    "prepublishOnly": "shx cp ../../LICENSE . && nx build",
     "postpublish": "shx rm LICENSE",
+    "prebuild": "shx rm -rf dist",
+    "build": "tsc -p tsconfig.build.json",
     "lint": "eslint src/"
   },
-  "main": "./src/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "devDependencies": {
+    "@eternagame/jest": "*",
+    "@eternagame/vite": "*"
+  },
   "peerDependencies": {
     "@nrwl/eslint-plugin-nx": "^14.0.0",
     "eslint": "^8.0.0",
