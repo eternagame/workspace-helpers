@@ -1,4 +1,4 @@
-const noExtraneousDependencies = require('./base-rules/extraneous-deps');
+const noExtraneousDependencies = require('./base/extraneous-deps');
 
 module.exports = {
   parserOptions: {
@@ -10,7 +10,7 @@ module.exports = {
       extends: [
         'airbnb-base',
         'prettier',
-        require.resolve('./base-rules/javascript'),
+        require.resolve('./base/javascript'),
       ],
     },
     {

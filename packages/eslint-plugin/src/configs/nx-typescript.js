@@ -1,4 +1,4 @@
-const base = require('./base-rules/nx')(true);
+const base = require('./base/nx')(true);
 
 module.exports = {
   extends: require.resolve('./nx-javascript'),

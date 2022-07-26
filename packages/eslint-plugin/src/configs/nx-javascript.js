@@ -1,4 +1,4 @@
-const base = require('./base-rules/nx')(false);
+const base = require('./base/nx')(false);
 
 module.exports = {
   overrides: [
