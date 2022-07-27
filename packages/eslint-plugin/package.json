@@ -31,5 +31,8 @@
     "eslint-config-airbnb-vue": {
       "optional": true
     }
+  },
+  "dependencies": {
+    "jsonc-eslint-parser": "^2.1.0"
   }
 }
