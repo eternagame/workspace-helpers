@@ -51,7 +51,7 @@ function computeDepCommands(
 }
 
 async function run() {
-  const args = yargs(hideBin(argv))
+  const args = await yargs(hideBin(argv))
     .command(
       '$0 <command>',
       'Run a command for all dependencies of a given package',
