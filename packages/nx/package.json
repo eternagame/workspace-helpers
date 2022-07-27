@@ -19,5 +19,10 @@
   "peerDependencies": {
     "nx": "14.3.6",
     "@nrwl/eslint-plugin-nx": "14.3.6"
+  },
+  "nx": {
+    "implicitDependencies": [
+      "distify"
+    ]
   }
 }
