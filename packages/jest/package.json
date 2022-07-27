@@ -12,8 +12,5 @@
     "build": "tsc -p tsconfig.build.json",
     "lint": "eslint src/"
   },
-  "main": "./dist/index.js",
-  "devDependencies": {
-    "@jest/types": "^28.1.1"
-  }
+  "main": "./dist/index.js"
 }

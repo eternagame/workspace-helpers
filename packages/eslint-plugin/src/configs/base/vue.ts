@@ -1,4 +1,4 @@
-module.exports = {
+export = {
   parserOptions: {
     extraFileExtensions: ['.vue'],
   },

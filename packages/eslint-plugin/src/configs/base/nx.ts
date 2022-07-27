@@ -21,29 +21,44 @@ export = function getConfig(isTypescript: boolean) {
   }
 
   return {
-    plugins: ['@nrwl/nx'],
-    rules: {
-      ...enforceModuleBoundaries(false),
-    },
     overrides: [
       {
-        files: [
-          '**/__tests__/*.{j,t}sx?',
-          '**/test/**/*.{j,t}sx?',
-          '**/*.test.{j,t}sx?',
-          '**/*.spec.{j,t}sx?',
-        ],
+        files: isTypescript
+          ? ['*.ts', '*.tsx', '*.js', '*.jsx']
+          : ['*.js', '*.jsx'],
+        plugins: ['@nrwl/nx'],
         rules: {
-          // Allow tests to import parts of a package via the public interface, which is handy when
-          // we have one folder of tests for an entire package
-          ...enforceModuleBoundaries(true),
+          ...enforceModuleBoundaries(false),
         },
+        overrides: [
+          {
+            files: [
+              '**/__tests__/*.{j,t}sx?',
+              '**/test/**/*.{j,t}sx?',
+              '**/*.test.{j,t}sx?',
+              '**/*.spec.{j,t}sx?',
+            ],
+            rules: {
+              // Allow tests to import parts of a package via the public interface, which is handy when
+              // we have one folder of tests for an entire package
+              ...enforceModuleBoundaries(true),
+            },
+          },
+          {
+            files: ['!(packages,apps,libs)/**/*'],
+            rules: {
+              // Allow files not contained in our actual source code (eg, config files) to import dev dependencies
+              ...noExtraneousDependencies(true, isTypescript),
+            },
+          },
+        ],
       },
       {
-        files: ['!(packages,apps,libs)/**/*'],
+        files: ['package.json'],
+        plugins: ['@eternagame'],
+        parser: 'jsonc-eslint-parser',
         rules: {
-          // Allow files not contained in our actual source code (eg, config files) to import dev dependencies
-          ...noExtraneousDependencies(true, isTypescript),
+          '@eternagame/monorepo-dep-location': 'error',
         },
       },
     ],

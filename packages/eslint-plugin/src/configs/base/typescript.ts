@@ -1,4 +1,4 @@
-module.exports = {
+export = {
   rules: {
     // default-case doesn't understand the idea of exhaustivity (because it doesn't understand types),
     // but switch-exhaustiveness-check does

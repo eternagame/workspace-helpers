@@ -8,14 +8,10 @@
     "postpublish": "shx rm LICENSE",
     "prebuild": "shx rm -rf dist",
     "build": "tsc -p tsconfig.build.json",
-    "lint": "eslint src/"
+    "lint": "eslint . --ignore-path ../../.gitignore"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "devDependencies": {
-    "@eternagame/jest": "*",
-    "@eternagame/vite": "*"
-  },
   "peerDependencies": {
     "@nrwl/eslint-plugin-nx": "^14.0.0",
     "eslint": "^8.0.0",

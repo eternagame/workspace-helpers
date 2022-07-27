@@ -17,9 +17,5 @@
   "bin": "./dist/index.es.js",
   "dependencies": {
     "yargs": "^17.5.1"
-  },
-  "devDependencies": {
-    "@eternagame/jest": "*",
-    "@eternagame/vite": "*"
   }
 }

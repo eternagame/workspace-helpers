@@ -16,10 +16,6 @@
   "dependencies": {
     "@nrwl/devkit": "14.3.6"
   },
-  "devDependencies": {
-    "@eternagame/distify": "*",
-    "@eternagame/jest": "*"
-  },
   "peerDependencies": {
     "nx": "14.3.6",
     "@nrwl/eslint-plugin-nx": "14.3.6"

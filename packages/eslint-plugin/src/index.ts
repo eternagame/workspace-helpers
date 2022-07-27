@@ -4,6 +4,7 @@ import nxTypescript = require('./configs/nx-typescript');
 import typescript = require('./configs/typescript');
 import vue3Javascript = require('./configs/vue3-javascript');
 import vue3Typescript = require('./configs/vue3-typescript');
+import monorepoDepLocation = require('./rules/monorepo-dep-location');
 
 module.exports = {
   configs: {
@@ -13,5 +14,8 @@ module.exports = {
     typescript,
     'vue3-javascript': vue3Javascript,
     'vue3-typescript': vue3Typescript,
+  },
+  rules: {
+    'monorepo-dep-location': monorepoDepLocation,
   },
 };

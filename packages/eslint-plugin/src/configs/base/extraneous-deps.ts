@@ -1,3 +1,6 @@
+import process = require('process');
+import findPkgUp = require('../../utils/find-pkg-up');
+
 export = function noExtraneousDependencies(
   ignoreDev: boolean,
   isTypescript: boolean
@@ -20,6 +23,7 @@ export = function noExtraneousDependencies(
         // Some files, such as tests and configs, allow for imports to be placed in dev dependencies
         // by default. We want to blanket allow this behavior for files outside our nx packages
         ...(ignoreDev ? { devDependencies: true } : {}),
+        packageDir: [process.cwd(), ...findPkgUp(process.cwd())],
       },
     ],
   };
