@@ -6,7 +6,7 @@ import { hideBin } from 'yargs/helpers';
 import spawn from './await-spawn';
 
 async function main() {
-  const args = yargs(hideBin(process.argv))
+  const args = await yargs(hideBin(process.argv))
     .command(
       '$0 <project>',
       'Initialize an nx workspace using the eternagame layout preset',
