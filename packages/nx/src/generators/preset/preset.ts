@@ -1,5 +1,4 @@
 import path from 'path';
-import { chmodSync } from 'fs';
 import {
   formatFiles,
   generateFiles,
@@ -7,7 +6,6 @@ import {
   addDependenciesToPackageJson,
   readWorkspaceConfiguration,
   updateWorkspaceConfiguration,
-  joinPathFragments,
   type Tree,
 } from '@nrwl/devkit';
 import generateLicense from '../license/license';
@@ -87,6 +85,8 @@ function addFiles(tree: Tree, options: Schema) {
     tmpl: '',
   };
   generateFiles(tree, path.join(__dirname, 'files'), '', templateOptions);
+  // Ensure pre-commit hook is executable
+  tree.changePermissions('.husky/pre-commit', 0o755);
 }
 
 export default async function generate(tree: Tree, options: Schema) {
@@ -103,8 +103,6 @@ export default async function generate(tree: Tree, options: Schema) {
   });
   await formatFiles(tree);
   return () => {
-    // Ensure pre-commit hook is executable
-    chmodSync(joinPathFragments(tree.root, '.husky/pre-commit'), 0o755);
     finalizeGenerateLicense();
     installPackagesTask(tree);
   };
