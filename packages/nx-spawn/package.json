@@ -15,15 +15,6 @@
   "bin": {
     "nx-spawn": "./dist/index.js"
   },
-  "nx": {
-    "targets": {
-      "build": {
-        "outputs": [
-          "packages/nx-spawn/dist"
-        ]
-      }
-    }
-  },
   "dependencies": {
     "@nrwl/devkit": "^14.3.6",
     "concurrently": "^7.2.2",

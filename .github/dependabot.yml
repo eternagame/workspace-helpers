@@ -7,4 +7,14 @@ updates:
     labels:
       - 'type: dependencies'
     commit-message:
-      prefix: ci
+      prefix: chore(repo)
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'daily'
+    labels:
+      - 'type: dependencies'
+    commit-message:
+      prefix: chore(repo)
+    # Security updates only
+    open-pull-requests-limit: 0
