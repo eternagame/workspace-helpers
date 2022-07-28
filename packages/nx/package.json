@@ -14,14 +14,14 @@
   "generators": "./generators.json",
   "executors": "./executors.json",
   "dependencies": {
-    "@nrwl/devkit": "14.3.6"
+    "@nrwl/devkit": "14.5.0"
   },
   "devDependencies": {
     "@eternagame/distify": "*",
     "@eternagame/jest": "*"
   },
   "peerDependencies": {
-    "nx": "14.3.6",
-    "@nrwl/eslint-plugin-nx": "14.3.6"
+    "nx": "14.5.0",
+    "@nrwl/eslint-plugin-nx": "14.5.0"
   }
 }

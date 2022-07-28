@@ -16,9 +16,9 @@
     "nx-spawn": "./dist/index.js"
   },
   "dependencies": {
-    "@nrwl/devkit": "^14.3.6",
-    "concurrently": "^7.2.2",
-    "nx": "^14.3.6",
+    "@nrwl/devkit": "^14.5.0",
+    "concurrently": "^7.3.0",
+    "nx": "^14.5.0",
     "yargs": "^17.5.1"
   }
 }

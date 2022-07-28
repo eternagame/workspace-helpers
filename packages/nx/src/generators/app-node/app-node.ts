@@ -77,7 +77,7 @@ export default async function generate(tree: Tree, options: Schema) {
     // guarantee that the initial build of the build-watch command is completed by the time
     // we start, which could mean that we will error due to unresolved dependencies
     scripts['serve'] =
-      'nx build && nx-spawn npm:build-watch --extraRootCommand "node-dev dist/index.es.js"';
+      'nx build && nx-spawn npm:build-watch --extraRootCommand "node-dev dist/index.js"';
     delete json['types'];
     return json;
   });

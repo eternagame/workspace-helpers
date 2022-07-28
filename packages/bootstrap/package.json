@@ -8,13 +8,13 @@
     "postpublish": "shx rm LICENSE",
     "prebuild": "shx rm -rf dist",
     "build": "vite build",
-    "postbuild": "shx chmod +x dist/index.es.js",
+    "postbuild": "shx chmod +x dist/index.js",
     "lint": "eslint src/",
-    "serve": "nx build && nx-spawn npm:build-watch --extraRootCommand \"node-dev dist/index.es.js\""
+    "serve": "nx build && nx-spawn npm:build-watch --extraRootCommand \"node-dev dist/index.js\""
   },
   "type": "module",
-  "main": "./dist/index.es.js",
-  "bin": "./dist/index.es.js",
+  "main": "./dist/index.js",
+  "bin": "./dist/index.js",
   "dependencies": {
     "yargs": "^17.5.1"
   },
