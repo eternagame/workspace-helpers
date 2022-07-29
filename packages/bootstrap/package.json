@@ -8,7 +8,7 @@
     "postpublish": "shx rm LICENSE",
     "prebuild": "shx rm -rf dist",
     "build": "vite build",
-    "postbuild": "shx chmod +x dist/index.js",
+    "postbuild": "shx chmod +x dist/index.js && npm install --save=false",
     "lint": "eslint src/"
   },
   "type": "module",
