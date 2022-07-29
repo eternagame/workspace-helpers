@@ -68,14 +68,13 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
       : 'nx build';
     scripts['prebuild'] = 'shx rm -rf dist';
     scripts['build'] = 'vite build';
-    scripts['build-watch'] =
-      'vite build --watch --mode development --clearScreen false';
+    scripts['build-watch'] = 'vite build --mode development';
     scripts['test'] = 'jest';
     scripts['test:cov'] = 'jest --coverage';
     scripts['lint'] = 'eslint src/';
 
     json['type'] = 'module';
-    json['main'] = './dist/index.es.js';
+    json['main'] = './dist/index.js';
     json['types'] = './dist/index.d.ts';
 
     return json;

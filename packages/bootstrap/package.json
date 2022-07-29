@@ -9,8 +9,7 @@
     "prebuild": "shx rm -rf dist",
     "build": "vite build",
     "postbuild": "shx chmod +x dist/index.js",
-    "lint": "eslint src/",
-    "serve": "nx build && nx-spawn npm:build-watch --extraRootCommand \"node-dev dist/index.js\""
+    "lint": "eslint src/"
   },
   "type": "module",
   "main": "./dist/index.js",

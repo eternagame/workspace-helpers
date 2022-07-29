@@ -1,18 +1,14 @@
 # @eternagame/nx-spawn
 
-Run a command for all dependencies of a given package, without waiting for their completion
+Run an npm command with nx dependencies without waiting for them to finish
+
+This package is heavily based on `nx/src/task-runner`, though significantly simplified for this use case
+(eg, no caching, no match mode, assumes long running dependencies, etc)
 
 ## Usage
 
 ```
-nx-spawn <command> [--extraRootCommand <command>] [--noRoot]
+nx-spawn <command>
 ```
 
-The first parameter is the command that will be run in the folder of each package in the dependency
-tree for the current package (ie, the one corresponding to the current working directory).
-If extraRootCommand is present, that additional command will be run concurrently in the context
-of the current package. If noRoot is true, don't run the command for the current package, only its dependencies.
-
-Commands are run via [concurrently](https://www.npmjs.com/package/concurrently), so they may
-be specified using compatible syntax (eg, a `serve` script that builds all dependencies in watch mode
-and spins up a development server might look like `nx-spawn npm:build-watch npm:_serve`)
+The package to run the command for will be determined by the current working directory
