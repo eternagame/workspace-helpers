@@ -20,6 +20,13 @@
     "build": {
       "dependsOn": ["^build"],
       "outputs": ["./dist"]
+    },
+    "build-watch": {
+      "dependsOn": ["^build-watch"],
+      "outputs": ["./dist"]
+    },
+    "_serve": {
+      "dependsOn": ["build-watch", "^build-watch"]
     }
   },
   "workspaceLayout": {
