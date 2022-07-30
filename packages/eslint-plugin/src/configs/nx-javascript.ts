@@ -1,3 +1,3 @@
-import base = require('./base/nx');
+import base from './base/nx';
 
-export = base(false);
+export default base(false);

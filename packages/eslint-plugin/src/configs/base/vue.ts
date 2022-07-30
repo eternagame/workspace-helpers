@@ -1,4 +1,4 @@
-export = {
+export default {
   parserOptions: {
     extraFileExtensions: ['.vue'],
   },

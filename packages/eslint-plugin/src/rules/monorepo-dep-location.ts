@@ -1,7 +1,7 @@
-import path = require('path');
-import TsEslintUtils = require('@typescript-eslint/utils');
-import type JsoncEslintParser = require('jsonc-eslint-parser');
-import findPkgUp = require('../utils/find-pkg-up');
+import path from 'path';
+import TsEslintUtils from '@typescript-eslint/utils';
+import type JsoncEslintParser from 'jsonc-eslint-parser';
+import findPkgUp from '../utils/find-pkg-up';
 
 type DepOptions = {
   root: boolean;
@@ -52,7 +52,7 @@ function checkNode(
 
 type MessageIds = 'depNotAllowed';
 
-export = TsEslintUtils.ESLintUtils.RuleCreator(() => __filename)<
+export default TsEslintUtils.ESLintUtils.RuleCreator(() => __filename)<
   Options,
   MessageIds
 >({

@@ -1,6 +1,6 @@
-import baseStyle = require('eslint-config-airbnb-base/rules/style');
+import baseStyle from 'eslint-config-airbnb-base/rules/style';
 
-export = {
+export default {
   rules: {
     // We use this to be clear about private members
     'no-underscore-dangle': 'off',

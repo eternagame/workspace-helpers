@@ -7,7 +7,7 @@
     "prepublishOnly": "shx cp ../../LICENSE . && nx build",
     "postpublish": "shx rm LICENSE",
     "prebuild": "shx rm -rf dist",
-    "build": "tsc -p tsconfig.build.json",
+    "build": "vite build",
     "lint": "eslint . --ignore-path ../../.gitignore"
   },
   "main": "./dist/index.js",
@@ -33,6 +33,12 @@
     }
   },
   "dependencies": {
+    "@typescript-eslint/utils": "^5.31.0",
     "jsonc-eslint-parser": "^2.1.0"
+  },
+  "nx": {
+    "implicitDependencies": [
+      "vite"
+    ]
   }
 }

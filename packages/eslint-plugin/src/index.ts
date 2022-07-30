@@ -1,12 +1,20 @@
-import javascript = require('./configs/javascript');
-import nxJavascript = require('./configs/nx-javascript');
-import nxTypescript = require('./configs/nx-typescript');
-import typescript = require('./configs/typescript');
-import vue3Javascript = require('./configs/vue3-javascript');
-import vue3Typescript = require('./configs/vue3-typescript');
-import monorepoDepLocation = require('./rules/monorepo-dep-location');
+import javascript from './configs/javascript';
+import nxJavascript from './configs/nx-javascript';
+import nxTypescript from './configs/nx-typescript';
+import typescript from './configs/typescript';
+import vue3Javascript from './configs/vue3-javascript';
+import vue3Typescript from './configs/vue3-typescript';
+import monorepoDepLocation from './rules/monorepo-dep-location';
 
-module.exports = {
+// Vite doesn't include `require.resolve` in the module graph, so import these
+// to make sure they get built
+import './configs/base/extraneous-deps';
+import './configs/base/javascript';
+import './configs/base/nx';
+import './configs/base/typescript';
+import './configs/base/vue';
+
+export default {
   configs: {
     javascript,
     'nx-javascript': nxJavascript,

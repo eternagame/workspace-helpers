@@ -7,7 +7,7 @@ import fs from 'fs';
  * @param dir The directory to start searching from (this directory is not checked, only its parents)
  * @returns Paths to parent directories that contain package.json files
  */
-export = function findPkgUp(dir: string): string[] {
+export default function findPkgUp(dir: string): string[] {
   const { root } = path.parse(dir);
   let searchDir = path.dirname(dir);
   const dirs: string[] = [];
@@ -18,4 +18,4 @@ export = function findPkgUp(dir: string): string[] {
     searchDir = path.dirname(searchDir);
   }
   return dirs;
-};
+}

@@ -4,10 +4,7 @@
     "rootDir": "src",
     "baseUrl": "src",
     "outDir": "dist",
-    "tsBuildInfoFile": "dist/.tsbuildinfo",
-    // ESLint doesn't support ES Modules
-    "module": "commonjs",
-    "preserveValueImports": false
+    "tsBuildInfoFile": "dist/.tsbuildinfo"
   },
   "exclude": [
     "**/*.spec.ts",

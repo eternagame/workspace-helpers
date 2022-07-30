@@ -1,4 +1,4 @@
-export = {
+export default {
   extends: require.resolve('./typescript'),
   overrides: [
     {

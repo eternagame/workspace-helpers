@@ -1,7 +1,7 @@
-import process = require('process');
-import findPkgUp = require('../../utils/find-pkg-up');
+import process from 'process';
+import findPkgUp from '../../utils/find-pkg-up';
 
-export = function noExtraneousDependencies(
+export default function noExtraneousDependencies(
   ignoreDev: boolean,
   isTypescript: boolean
 ) {
@@ -27,4 +27,4 @@ export = function noExtraneousDependencies(
       },
     ],
   };
-};
+}

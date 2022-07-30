@@ -1,6 +1,6 @@
-import noExtraneousDependencies = require('./base/extraneous-deps');
+import noExtraneousDependencies from './base/extraneous-deps';
 
-export = {
+export default {
   parserOptions: {
     ecmaVersion: 2020,
   },
@@ -15,6 +15,13 @@ export = {
     },
     {
       files: ['jest.config.mjs'],
+      rules: {
+        // Allow our jest config to import dev dependencies
+        ...noExtraneousDependencies(true, false),
+      },
+    },
+    {
+      files: ['vite.config.mjs'],
       rules: {
         // Allow our jest config to import dev dependencies
         ...noExtraneousDependencies(true, false),
