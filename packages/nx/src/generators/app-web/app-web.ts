@@ -62,7 +62,7 @@ export default async function generate(tree: Tree, options: Schema) {
   addDependenciesToPackageJson(
     tree,
     {},
-    getDependencyVersions(['@eternagame/nx-spawn'])
+    getDependencyVersions(['@eternagame/nx-spawn', 'terser'])
   );
 
   const projectPackageJsonPath = path.join(

@@ -51,6 +51,7 @@ const VERSIONS = {
   jest: '^27.5.0',
   '@types/jest': '^27.4.0',
   'ts-jest': '^27.1.3',
+  terser: '^5.14.2',
 } as const;
 
 export default function getDependencyVersions(
