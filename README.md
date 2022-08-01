@@ -60,22 +60,21 @@ a specific subdirectory of the packages directory if you don't want it placed in
 
 ### Updating Dependencies
 
-When upgrading `nx`, there may be changes to the repository that should be made when updating. Normally,
-this is handled via Nx migrations, but because we have a different repository layout than they expect,
-the automated migrations may not work properly. This also applies to repositories bootstrapped to use
-our repository layout, so `@eternagame/nx` exposes them as its own migrations that repositories using it
-can run (ensuring its peer dependency of `nx` properly reflects the minimum required version for it to be
-correct, and allowing up to the next major version at which point the newer nx version may no longer be
-compatible without the migrations applied). When upgrading `nx` in this repository, be sure to check the
-following locations for changes we may need to include in `@eternagame/nx` as either migrations or configuration
-changes:
+In general, when updatating dependencies the fastest method to do so, covering all packages
+and taking into account satisfying all peer dependencies, is `npx npm-check-updates --deep --peer`.
+
+Take special care when upgrading `nx` - there may be changes to the repository that should be made
+when updating, plus there may be changes that should be made to `@eternagame/nx`, including changing
+our default nx configuration, changing our generators and adding mgirations, etc. Using `nx migrate nx`
+will allow nx to apply its own migrations, however it will not take into account, for example,
+migrating our nx preset. Additionally there may be changes we want to make based off of migrations
+in `@nrwl/workspace`, even though we don't use it. You should look in the following locations for
+changes that we may want to incorporate:
 
 - https://github.com/nrwl/nx/tree/master/packages/nx/presets
 - https://github.com/nrwl/nx/tree/master/packages/nx/src/migrations
 - https://github.com/nrwl/nx/tree/master/packages/workspace/src/migrations
 - And, of course, check the release notes for any new features we may want to take advantage of
-
-For updating other dependencies, you may want to use `npx npm-check-updates --deep --peer`
 
 If you're on a unix-like system and want to remove all nested node_modules folders,
 you can run `find . -type d -name node_modules -prune | xargs rm -r`
