@@ -8,12 +8,22 @@ Interested in development? Join the discussion on the Eterna Discord!
 
 ## Components
 
-- [`@eternagame/bootstrap](./packages/bootstrap) - Bootstrap a new project using the Eternagame standards
-- [`@eternagame/nx`](./packages/nx) - Opinionated Nx utilities
-- [`@eternagame/tsconfig`](./packages/tsconfig) - Opinionated TypeScript configurations
-- [`@eternagame/eslint-plugin`](./packages/eslint-plugin) - Semi-opinionated ESLint configuration
-- [`@eternagame/jest`](./packages/jest) - Opinionated Jest utilities
-- [`@eternagame/vite`](./packages/vite) - Opinionated Vite configurations
+### Bootstrapping
+
+Want to set up a new project/repository using Eterna's standard structure? Check out [`@eternagame/bootstrap](./packages/bootstrap)
+
+This will also set you up to use our nx plugin, [`@eternagame/nx`](./packages/nx), which has our standard nx configuration
+and package generators.
+
+### Configuration
+
+- [`@eternagame/tsconfig`](./packages/tsconfig) - Our standard `tsconfig`s
+- [`@eternagame/eslint-plugin`](./packages/eslint-plugin) - Our standard ESLint configuration
+- [`@eternagame/jest`](./packages/jest) - Our standard Jest configuration
+- [`@eternagame/vite`](./packages/vite) - Our standard Vite configurations
+
+### Utilities
+
 - [`@eternagame/nx-spawn`](./packages/nx-spawn) - Run an npm command with nx dependencies without waiting for them to finish
 - [`@eternagame/distify`](./packages/distify) - Lightweight build step for static assets
 
