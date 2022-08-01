@@ -63,10 +63,12 @@ a specific subdirectory of the packages directory if you don't want it placed in
 When upgrading `nx`, there may be changes to the repository that should be made when updating. Normally,
 this is handled via Nx migrations, but because we have a different repository layout than they expect,
 the automated migrations may not work properly. This also applies to repositories bootstrapped to use
-our repository layout, so `@eternagame/nx` pins the nx version being used as a peer dependency and exposes
-its own migrations that repositories using it can run. When upgrading `nx` in this repository, be sure
-to check the following locations for changes we may need to include in `@eternagame/nx` as either migrations
-or configuration changes:
+our repository layout, so `@eternagame/nx` exposes them as its own migrations that repositories using it
+can run (ensuring its peer dependency of `nx` properly reflects the minimum required version for it to be
+correct, and allowing up to the next major version at which point the newer nx version may no longer be
+compatible without the migrations applied). When upgrading `nx` in this repository, be sure to check the
+following locations for changes we may need to include in `@eternagame/nx` as either migrations or configuration
+changes:
 
 - https://github.com/nrwl/nx/tree/master/packages/nx/presets
 - https://github.com/nrwl/nx/tree/master/packages/nx/src/migrations
