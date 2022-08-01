@@ -8,7 +8,7 @@ Interested in development? Join the discussion on the Eterna Discord!
 
 ## Components
 
-- [`@eternagame/bootstrap](./packages/bootstrap) - Bootstrap a new project using the Eternagame standards
+- [`@eternagame/bootstrap`](./packages/bootstrap) - Bootstrap a new project using the Eternagame standards
 - [`@eternagame/nx`](./packages/nx) - Opinionated Nx utilities
 - [`@eternagame/tsconfig`](./packages/tsconfig) - Opinionated TypeScript configurations
 - [`@eternagame/eslint-plugin`](./packages/eslint-plugin) - Semi-opinionated ESLint configuration
@@ -60,11 +60,18 @@ a specific subdirectory of the packages directory if you don't want it placed in
 
 ### Updating Dependencies
 
-When upgrading `@eternagame/nx`, there may be changes to the repository that should be made when updating.
-This process is automated, and can be done via `npx nx migrate @eternagame/nx@latest` and then (if necessary)
-`npx nx migrate --run-migrations` after reviewing the changes to be made in the migrations.json. `@eternagame/nx`
-also pins a specific version of `nx` as a peer dependency, as there may be migrations that need to be run
-for `nx`, which are vendorized by `@eternagame/nx` to ensure they function properly using this repository layout.
+When upgrading `nx`, there may be changes to the repository that should be made when updating. Normally,
+this is handled via Nx migrations, but because we have a different repository layout than they expect,
+the automated migrations may not work properly. This also applies to repositories bootstrapped to use
+our repository layout, so `@eternagame/nx` pins the nx version being used as a peer dependency and exposes
+its own migrations that repositories using it can run. When upgrading `nx` in this repository, be sure
+to check the following locations for changes we may need to include in `@eternagame/nx` as either migrations
+or configuration changes:
+
+- https://github.com/nrwl/nx/tree/master/packages/nx/presets
+- https://github.com/nrwl/nx/tree/master/packages/nx/src/migrations
+- https://github.com/nrwl/nx/tree/master/packages/workspace/src/migrations
+- And, of course, check the release notes for any new features we may want to take advantage of
 
 For updating other dependencies, you may want to use `npx npm-check-updates --deep --peer`
 
