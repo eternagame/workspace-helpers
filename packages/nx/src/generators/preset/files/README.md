@@ -50,8 +50,10 @@ a specific subdirectory of the packages directory if you don't want it placed in
 When upgrading `@eternagame/nx`, there may be changes to the repository that should be made when updating.
 This process is automated, and can be done via `npx nx migrate @eternagame/nx@latest` and then (if necessary)
 `npx nx migrate --run-migrations` after reviewing the changes to be made in the migrations.json. `@eternagame/nx`
-also pins a specific version of `nx` as a peer dependency, as there may be migrations that need to be run
-for `nx`, which are vendorized by `@eternagame/nx` to ensure they function properly using this repository layout.
+also handles migrations normally provided by `nx` to ensure compatibility with this repository layout
+(`@eternagame/nx` has a minimum required nx version as a peer dependency, but you are able to update more quickly
+to any newer version with a non-major version increase, as nx is generally good about ensuring backwards compatibility
+without applying these migrations until new major versions)
 
 For updating other dependencies, you may want to use `npx npm-check-updates --deep --peer`
 
