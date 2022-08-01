@@ -52,7 +52,7 @@ This process is automated, and can be done via `npx nx migrate @eternagame/nx@la
 `npx nx migrate --run-migrations` after reviewing the changes to be made in the migrations.json.
 
 When upgrading nx, you may also want to run migrations for it as well (eg, `npx nx migrate nx@latest`),
-though you most likely will not need to if you don't customize your `nx.json`. Note that `@eternagame/nx`
+though you most likely will not need to if you don't customize any nx configuration files. Note that `@eternagame/nx`
 has `nx` as a peer dependency - if the latest version of `nx` is beyond its requirement and you want to upgrade
 to a more recent version that is allowed, you'll need to specify a version like `npx nx migrate nx@version`.
 
