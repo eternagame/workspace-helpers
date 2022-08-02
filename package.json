@@ -6,8 +6,8 @@
   "license": "BSD-3-Clause",
   "private": true,
   "scripts": {
-    "_lint-workspace": "npx eslint --ignore-path .gitignore --ignore-pattern packages/",
-    "lint-workspace": "npm run _lint-workspace .",
+    "_lint-project": "npx eslint --ignore-path .gitignore --ignore-pattern packages/",
+    "lint-project": "npm run _lint-project .",
     "prepare": "husky install"
   },
   "devDependencies": {
@@ -18,26 +18,27 @@
     "@eternagame/nx-spawn": "file:packages/nx-spawn",
     "@eternagame/tsconfig": "file:packages/tsconfig",
     "@eternagame/vite": "file:packages/vite",
-    "@nrwl/eslint-plugin-nx": "14.3.6",
-    "@types/jest": "^28.1.3",
-    "@types/node": "^18.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.29.0",
-    "eslint": "^8.18.0",
+    "@nrwl/eslint-plugin-nx": "14.5.0",
+    "@types/jest": "^28.1.6",
+    "@types/node": "^18.6.2",
+    "@types/yargs": "^17.0.10",
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "eslint": "^8.20.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "husky": "^8.0.1",
-    "jest": "^28.1.1",
-    "lint-staged": "^13.0.2",
+    "jest": "^28.1.3",
+    "lint-staged": "^13.0.3",
     "micromatch": "^4.0.5",
     "node-dev": "^7.4.3",
-    "nx": "14.3.6",
+    "nx": "14.5.0",
     "prettier": "^2.7.1",
     "shx": "^0.3.4",
-    "ts-jest": "^28.0.5",
+    "ts-jest": "^28.0.7",
     "typescript": "^4.7.4",
-    "vite": "^2.8.6"
+    "vite": "^3.0.3"
   },
   "workspaces": [
     "packages/*"
