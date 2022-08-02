@@ -73,11 +73,8 @@ export default async function generate(tree: Tree, options: Schema) {
   updateJson(tree, projectPackageJsonPath, (json: Record<string, unknown>) => {
     if (!json['scripts']) json['scripts'] = {};
     const scripts = json['scripts'] as Record<string, string>;
-    // The initial nx build is to ensure all dependencies are in a good state, as we can't
-    // guarantee that the initial build of the build-watch command is completed by the time
-    // we start, which could mean that we will error due to unresolved dependencies
-    scripts['serve'] =
-      'nx build && nx-spawn npm:build-watch --extraRootCommand vite --noRoot';
+    scripts['serve'] = 'nx-spawn _serve';
+    scripts['_serve'] = 'vite';
     delete json['main'];
     delete json['types'];
     delete scripts['build-watch'];
