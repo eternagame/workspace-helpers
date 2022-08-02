@@ -1,23 +1,42 @@
-import { readFileSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
+import { dirname, join, parse } from 'path';
 import { builtinModules } from 'module';
 import { defineConfig } from 'vite';
 import pluginLegacy from '@vitejs/plugin-legacy';
 import typescriptPlugin from 'rollup-plugin-typescript2';
 import preserveShebangs from './rollup-preserve-shebangs';
 
+function readPackageLock(): Record<string, unknown> {
+  let checkDir = process.cwd();
+  const { root } = parse(checkDir);
+  while (checkDir !== root) {
+    if (existsSync(join(checkDir, 'package-lock.json'))) {
+      return JSON.parse(
+        readFileSync(join(checkDir, 'package-lock.json'), { encoding: 'utf-8' })
+      ) as Record<string, unknown>;
+    }
+    checkDir = dirname(checkDir);
+  }
+
+  throw new Error('package-lock.json not found');
+}
+
 function getAllDeps() {
-  // Extract `dependencies` field from package.json
-  const pkg = JSON.parse(
-    readFileSync('package.json', { encoding: 'utf-8' })
-  ) as Record<string, unknown>;
-  const deps =
-    pkg['dependencies'] && typeof pkg['dependencies'] === 'object'
-      ? pkg['dependencies']
-      : {};
-  // We want to match `<packagename>/*` not just `<packagename>`, or else when we deep import,
-  // the deep imports will be bundled
-  const res = Object.keys(deps).map((dep) => new RegExp(`^${dep}(/.*)?$`));
-  return res;
+  const lockfile = readPackageLock();
+  if (!lockfile['packages'] || typeof lockfile['packages'] !== 'object')
+    throw new Error();
+  const resolvedPaths = Object.keys(lockfile['packages']);
+  return (
+    resolvedPaths
+      // Omit paths that map elsewhere within our project - if we use them, they'll also wind up
+      // in node_modules anyways
+      .filter((path) => path.startsWith('node_modules'))
+      // Valid import strings start with anything that maps into node_modules
+      .map((path) => path.replace(/node_modules\//, ''))
+      // We want to match `<packagename>/*` not just `<packagename>`, or else when we deep import,
+      // the deep imports will be bundled
+      .map((dep) => new RegExp(`^${dep}(/.*)?$`))
+  );
 }
 
 export default function getConfig(
@@ -33,8 +52,8 @@ export default function getConfig(
         type === 'lib' || env === 'node'
           ? {
               entry: 'src/index.ts',
-              fileName: 'index',
-              formats: ['es'],
+              fileName: '[name]',
+              formats: ['es', 'cjs'],
             }
           : false,
       rollupOptions: {
@@ -44,6 +63,18 @@ export default function getConfig(
           // Don't try to process/bundle node builtins either
           ...(env === 'node' ? builtinModules : []),
         ],
+        output: {
+          // If we're not in a webapp, don't bundle all our output files together
+          ...(type === 'lib' || env === 'node'
+            ? { preserveModules: true }
+            : {}),
+        },
+        // If we're not in a webapp, don't tree shake. We don't need to since we're not doing any
+        // bundling and all our dependencies are externalized - plus, more importantly, for situations
+        // like our eslint plugin where we have to rely on `require.resolve` instead of importing directly
+        // (until we migrate to eslint flat config), tree shaking will remove things we actually use
+        // because we don't import them directly
+        ...(type === 'lib' || env === 'node' ? { treeshake: false } : {}),
       },
       // If we're running multiple instances of vite in watch mode, emptying the output dir will cause
       // modules to momentarily fail to resolve. This could cause issues when:
