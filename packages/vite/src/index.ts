@@ -66,6 +66,20 @@ export default function getConfig(
       {
         ...typescriptPlugin({
           tsconfig: 'tsconfig.build.json',
+          tsconfigOverride: {
+            compilerOptions: {
+              // rollup-plugin-tsconfig2 runs typescript in a cache directory, so the paths to the source
+              // files in the emitted sourcemap will be incorrect (since it will be a relative path from
+              // node_modules/.cache/rollup-plugin-typescript2/<id>/placeholder/ instead of dist/ where the
+              // sourcemap actually is).
+              // Rollup handles this fine due to the way it merges chained source maps, so everything is fine
+              // with `vite build`, but `vite serve` eschews rollup and does its source map merging differently,
+              // leaving the incorrect source resolution intact.
+              // To get around this, we'll tell typescript how to resolve source file locations
+              // See https://github.com/ezolenko/rollup-plugin-typescript2/issues/407
+              sourceRoot: '../src',
+            },
+          },
         }),
         enforce: 'pre',
       },
