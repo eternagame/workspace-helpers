@@ -24,7 +24,7 @@ export default function getConfig(
   type: 'app' | 'lib',
   env: 'web' | 'node' | 'iso'
 ) {
-  return defineConfig({
+  return defineConfig(({ mode }) => ({
     build: {
       sourcemap: true,
       // While node applications are not libraries, using library mode does essentially what we need
@@ -45,6 +45,20 @@ export default function getConfig(
           ...(env === 'node' ? builtinModules : []),
         ],
       },
+      // If we're running multiple instances of vite in watch mode, emptying the output dir will cause
+      // modules to momentarily fail to resolve. This could cause issues when:
+      // * On starting our watch scripts, there is files in the out directory from a previous run,
+      //   but we then remove it, so we move on to building a package that depends on it which
+      //   bails because it can't find it
+      // * After we've already started when we make a change, a downstream package will refresh
+      //   when seeing the removal of the directory content, and when it goes to grab the updated
+      //   content it wont be there
+      emptyOutDir: mode !== 'development',
+      // To simplify our scripts, development mode implies watch mode
+      // (this is also the only way we would be able to provide watch mode options, as we can't detect
+      // whether or not the watch flag has been passed to determine whether or not we should provide the options
+      // object, which also enables watch mode)
+      watch: mode === 'development' ? {} : null,
     },
     plugins: [
       // If we have an executable script, we need to preserve the shebang
@@ -67,5 +81,5 @@ export default function getConfig(
           ]
         : []),
     ],
-  });
+  }));
 }

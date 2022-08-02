@@ -38,7 +38,7 @@ jobs:
       - name: Build
         run: npx nx affected --target=build --parallel=3
       - name: Lint Workspace
-        run: npm run lint-workspace
+        run: npm run lint-project
       - name: Lint Projects
         run: npx nx affected --target=lint --parallel=3
       - name: Format Check
