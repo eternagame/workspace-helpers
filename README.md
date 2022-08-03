@@ -10,7 +10,7 @@ Interested in development? Join the discussion on the Eterna Discord!
 
 ### Bootstrapping
 
-Want to set up a new project/repository using Eterna's standard structure? Check out [`@eternagame/bootstrap](./packages/bootstrap)
+Want to set up a new project/repository using Eterna's standard structure? Check out [`@eternagame/bootstrap`](./packages/bootstrap)
 
 This will also set you up to use our nx plugin, [`@eternagame/nx`](./packages/nx), which has our standard nx configuration
 and package generators.
