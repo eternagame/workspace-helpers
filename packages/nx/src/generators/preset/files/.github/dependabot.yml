@@ -6,6 +6,7 @@ updates:
       interval: 'daily'
     labels:
       - 'type: dependencies'
+      - 'scope: repo'
     commit-message:
       prefix: chore(repo)
   - package-ecosystem: 'npm'
@@ -14,6 +15,7 @@ updates:
       interval: 'daily'
     labels:
       - 'type: dependencies'
+      - 'scope: repo'
     commit-message:
       prefix: chore(repo)
     # Security updates only
