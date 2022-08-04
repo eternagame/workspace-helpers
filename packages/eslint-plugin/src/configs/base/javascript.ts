@@ -1,6 +1,6 @@
-const baseStyle = require('eslint-config-airbnb-base/rules/style');
+import baseStyle from 'eslint-config-airbnb-base/rules/style';
 
-module.exports = {
+export default {
   rules: {
     // We use this to be clear about private members
     'no-underscore-dangle': 'off',
@@ -14,7 +14,7 @@ module.exports = {
     'class-methods-use-this': 'off',
     // We like using for..of statements
     'no-restricted-syntax': baseStyle.rules['no-restricted-syntax'].filter(
-      (v) => v.selector !== 'ForOfStatement'
+      (v) => typeof v === 'string' || v.selector !== 'ForOfStatement'
     ),
     // This gets very noisy when you have a bunch of attributes
     // Note: Overwritten for ts, as there's a separate @typescript-eslint rule

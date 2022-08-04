@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   extends: require.resolve('./typescript'),
   overrides: [
     {
@@ -10,9 +10,9 @@ module.exports = {
         'airbnb-base',
         'airbnb-typescript/base',
         'prettier',
-        require.resolve('./base-rules/javascript'),
-        require.resolve('./base-rules/typescript'),
-        require.resolve('./base-rules/vue'),
+        require.resolve('./base/javascript'),
+        require.resolve('./base/typescript'),
+        require.resolve('./base/vue'),
       ],
     },
   ],
