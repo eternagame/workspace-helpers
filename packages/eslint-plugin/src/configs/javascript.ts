@@ -6,7 +6,7 @@ export default {
   },
   overrides: [
     {
-      files: ['*.js', '*.jsx', '*.mjs', '*.cjs'],
+      files: ['*.{js,jsx,mjs,cjs}'],
       extends: [
         'airbnb-base',
         'prettier',

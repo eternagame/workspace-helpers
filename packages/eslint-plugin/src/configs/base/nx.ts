@@ -24,8 +24,8 @@ export default function getConfig(isTypescript: boolean) {
     overrides: [
       {
         files: isTypescript
-          ? ['*.js', '*.jsx', '*.mjs', '*.cjs', '*.ts', '*.tsx', "*.mts", "*.cts"]
-          : ['*.js', '*.jsx', '*.mjs', '*.cjs'],
+          ? ['*.{js,jsx,mjs,cjs,ts,tsx,mts,cts}']
+          : ['*.{js,jsx,mjs,cjs}'],
         plugins: ['@nrwl/nx'],
         rules: {
           ...enforceModuleBoundaries(false),

@@ -4,7 +4,7 @@ export default {
   extends: require.resolve('./javascript'),
   overrides: [
     {
-      files: ['*.ts', '*.tsx', "*.mts", "*.cts"],
+      files: ['*.{ts,tsx,mts,cts}'],
       extends: [
         'plugin:@typescript-eslint/recommended',
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
