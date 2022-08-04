@@ -1,8 +1,10 @@
+import noExtraneousDependencies from "./base/extraneous-deps";
+
 export default {
   extends: require.resolve('./javascript'),
   overrides: [
     {
-      files: ['*.ts', '*.tsx'],
+      files: ['*.ts', '*.tsx', "*.mts", "*.cts"],
       extends: [
         'plugin:@typescript-eslint/recommended',
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
@@ -13,5 +15,12 @@ export default {
         require.resolve('./base/typescript'),
       ],
     },
+    {
+      files: ['{jest,vite}.config.{ts,mts,cts}'],
+      rules: {
+        // Allow our configs to import dev dependencies
+        ...noExtraneousDependencies(true, false),
+      },
+    }
   ],
 };

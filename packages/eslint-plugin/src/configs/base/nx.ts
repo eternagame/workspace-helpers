@@ -24,8 +24,8 @@ export default function getConfig(isTypescript: boolean) {
     overrides: [
       {
         files: isTypescript
-          ? ['*.ts', '*.tsx', '*.js', '*.jsx']
-          : ['*.js', '*.jsx'],
+          ? ['*.js', '*.jsx', '*.mjs', '*.cjs', '*.ts', '*.tsx', "*.mts", "*.cts"]
+          : ['*.js', '*.jsx', '*.mjs', '*.cjs'],
         plugins: ['@nrwl/nx'],
         rules: {
           ...enforceModuleBoundaries(false),
@@ -33,10 +33,10 @@ export default function getConfig(isTypescript: boolean) {
         overrides: [
           {
             files: [
-              '**/__tests__/*.{j,t}sx?',
-              '**/test/**/*.{j,t}sx?',
-              '**/*.test.{j,t}sx?',
-              '**/*.spec.{j,t}sx?',
+              '**/__tests__/*.{m,c}?{j,t}sx?',
+              '**/test/**/*.{m,c}?{j,t}sx?',
+              '**/*.test.{m,c}?{j,t}sx?',
+              '**/*.spec.{m,c}?{j,t}sx?',
             ],
             rules: {
               // Allow tests to import parts of a package via the public interface, which is handy when

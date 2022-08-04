@@ -5,11 +5,9 @@ import type { Config } from '@jest/types';
 export function getConfig(mode: 'typescript' | 'vue') {
   const config: Config.InitialOptions = {
     collectCoverageFrom: [
-      'src/**/*.(ts|js|vue)',
-      '!**/*.spec.ts',
-      '!**/*.test.ts',
-      '!**/__tests__/*.ts',
-      '!**/test/**/*.ts',
+      'src/**/*.(js|mjs|cjs|ts|mts|cts|vue)',
+      '!**/*.(spec|test).(js|mjs|cjs|ts|mts|cts)',
+      '!**/(__tests__|test)/*.(js|mjs|cjs|ts|mts|cts)',
     ],
     globals: {
       'ts-jest': {
