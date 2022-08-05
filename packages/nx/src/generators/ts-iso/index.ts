@@ -86,7 +86,6 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
     {},
     getDependencyVersions([
       'vite',
-      'shx',
       '@eternagame/tsconfig',
       '@eternagame/jest',
       '@eternagame/vite',
