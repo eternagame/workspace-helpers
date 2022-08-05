@@ -2,10 +2,10 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    // We transpile/bundle our web projects (with Vite), so we can rely on it to handle
-    // transpiling/polyfilling newer JS features (we'll assume we've correctly configured it)
-    "target": "ESNext",
-    "lib": ["esnext", "DOM", "DOM.Iterable"],
+    // We transpile/bundle/polyfill our web projects (with Vite/polyfill.io), so we can rely on it to
+    // handle transpiling/polyfilling newer JS features (we'll assume we've correctly configured it)
+    "target": "es2020",
+    "lib": ["es2020", "DOM", "DOM.Iterable"],
     // If we want to use jsx, we'll rely on our transpiler/bundler to translate it
     "jsx": "preserve"
   }
