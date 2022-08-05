@@ -19,6 +19,6 @@ export default {
         // Allow our configs to import dev dependencies
         ...noExtraneousDependencies(true, false),
       },
-    }
+    },
   ],
 };

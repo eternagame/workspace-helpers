@@ -5,8 +5,8 @@ import type { Config } from '@jest/types';
 export function getConfig(mode: 'typescript' | 'vue') {
   const config: Config.InitialOptions = {
     testMatch: [
-      "**/(__tests__|test|tests|spec)/**/*.[jt]s?(x)",
-      "**/?(*.)+(spec|test).[jt]s?(x)"
+      '**/(__tests__|test|tests|spec)/**/*.[jt]s?(x)',
+      '**/?(*.)+(spec|test).[jt]s?(x)',
     ],
     collectCoverageFrom: [
       'src/**/*.(js|mjs|cjs|ts|mts|cts|vue)',
