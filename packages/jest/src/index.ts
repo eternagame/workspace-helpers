@@ -4,6 +4,10 @@ import type { Config } from '@jest/types';
 // eslint-disable-next-line import/prefer-default-export
 export function getConfig(mode: 'typescript' | 'vue') {
   const config: Config.InitialOptions = {
+    testMatch: [
+      "**/(__tests__|test|tests|spec)/**/*.[jt]s?(x)",
+      "**/?(*.)+(spec|test).[jt]s?(x)"
+    ],
     collectCoverageFrom: [
       'src/**/*.(js|mjs|cjs|ts|mts|cts|vue)',
       '!**/*.(spec|test).(js|mjs|cjs|ts|mts|cts)',
