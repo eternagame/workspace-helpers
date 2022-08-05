@@ -6,12 +6,14 @@
   "scripts": {
     "prepublishOnly": "shx cp ../../LICENSE . && nx build",
     "postpublish": "shx rm LICENSE",
-    "prebuild": "shx rm -rf dist",
     "build": "vite build",
     "lint": "eslint . --ignore-path ../../.gitignore"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "peerDependencies": {
     "@nrwl/eslint-plugin-nx": "^14.0.0",
     "eslint": "^8.0.0",

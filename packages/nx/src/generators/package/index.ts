@@ -8,7 +8,7 @@ import {
   type Tree,
 } from '@nrwl/devkit';
 import * as path from 'path';
-import { updateProjectForLicense } from '../license/license';
+import { updateProjectForLicense } from '../license';
 
 interface Schema {
   name: string;

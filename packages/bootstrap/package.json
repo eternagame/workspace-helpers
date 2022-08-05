@@ -6,11 +6,13 @@
   "scripts": {
     "prepublishOnly": "shx cp ../../LICENSE . && nx build",
     "postpublish": "shx rm LICENSE",
-    "prebuild": "shx rm -rf dist",
     "build": "vite build",
     "postbuild": "shx chmod +x dist/index.js && npm install --save=false",
     "lint": "eslint src/"
   },
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "bin": "./dist/index.js",

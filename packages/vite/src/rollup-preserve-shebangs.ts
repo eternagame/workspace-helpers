@@ -25,7 +25,7 @@
  * SOFTWARE.
  */
 
-import type { Plugin } from 'rollup';
+import type { Plugin } from 'vite';
 import MagicString from 'magic-string';
 
 const SHEBANG_RX = /^#!.*/;

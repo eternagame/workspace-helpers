@@ -8,9 +8,16 @@
   "scripts": {
     "prepublishOnly": "shx cp ../../LICENSE . && nx build",
     "postpublish": "shx rm LICENSE",
-    "prebuild": "shx rm -rf dist",
-    "build": "tsc -p tsconfig.build.json",
+    "build": "vite build",
     "lint": "eslint src/"
   },
-  "main": "./dist/index.js"
+  "main": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "nx": {
+    "implicitDependencies": [
+      "vite"
+    ]
+  }
 }

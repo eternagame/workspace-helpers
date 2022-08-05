@@ -6,7 +6,6 @@
   "scripts": {
     "prepublishOnly": "shx cp ../../LICENSE . && nx build",
     "postpublish": "shx rm LICENSE",
-    "prebuild": "shx rm -rf dist",
     "build": "vite build",
     "postbuild": "shx chmod +x dist/index.js && npm install --save=false",
     "lint": "eslint src/"
@@ -14,6 +13,9 @@
   "type": "module",
   "main": "./dist/index.js",
   "bin": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@nrwl/devkit": "^14.5.0",
     "chokidar": "^3.5.3",

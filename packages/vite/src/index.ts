@@ -1,10 +1,11 @@
 import { existsSync, readFileSync } from 'fs';
 import { dirname, join, parse } from 'path';
 import { builtinModules } from 'module';
-import { defineConfig } from 'vite';
+import type { UserConfigFn } from 'vite';
 import pluginLegacy from '@vitejs/plugin-legacy';
 import typescriptPlugin from 'rollup-plugin-typescript2';
 import preserveShebangs from './rollup-preserve-shebangs';
+import resourcePlugin from './rollup-resource-files';
 
 function readPackageLock(): Record<string, unknown> {
   let checkDir = process.cwd();
@@ -39,17 +40,25 @@ function getAllDeps() {
   );
 }
 
-export default function getConfig(
-  type: 'app' | 'lib',
-  env: 'web' | 'node' | 'iso'
-) {
-  return defineConfig(({ mode }) => ({
+export interface Settings {
+  type: 'app' | 'lib';
+  env: 'web' | 'node' | 'iso';
+  resourceFiles?: {
+    sourceRoot: string;
+    sourceGlobs: string[];
+  };
+}
+
+export default function getConfig(settings: Settings) {
+  // Explicitly specify we're using UserConfigFn instead of using defineConfig so that
+  // if a consumer wants to override our config, they know the type they're modifying
+  const config: UserConfigFn = ({ mode }) => ({
     build: {
       sourcemap: true,
       // While node applications are not libraries, using library mode does essentially what we need
       // anyways - avoiding Vite's browser-centric defaults
       lib:
-        type === 'lib' || env === 'node'
+        settings.type === 'lib' || settings.env === 'node'
           ? {
               entry: 'src/index.ts',
               fileName: '[name]',
@@ -59,13 +68,15 @@ export default function getConfig(
       rollupOptions: {
         external: [
           // No need to process/bundle dependencies unless we're in a webapp
-          ...(type === 'lib' || env === 'node' ? getAllDeps() : []),
+          ...(settings.type === 'lib' || settings.env === 'node'
+            ? getAllDeps()
+            : []),
           // Don't try to process/bundle node builtins either
-          ...(env === 'node' ? builtinModules : []),
+          ...(settings.env === 'node' ? builtinModules : []),
         ],
         output: {
           // If we're not in a webapp, don't bundle all our output files together
-          ...(type === 'lib' || env === 'node'
+          ...(settings.type === 'lib' || settings.env === 'node'
             ? { preserveModules: true }
             : {}),
         },
@@ -74,7 +85,9 @@ export default function getConfig(
         // like our eslint plugin where we have to rely on `require.resolve` instead of importing directly
         // (until we migrate to eslint flat config), tree shaking will remove things we actually use
         // because we don't import them directly
-        ...(type === 'lib' || env === 'node' ? { treeshake: false } : {}),
+        ...(settings.type === 'lib' || settings.env === 'node'
+          ? { treeshake: false }
+          : {}),
       },
       // If we're running multiple instances of vite in watch mode, emptying the output dir will cause
       // modules to momentarily fail to resolve. This could cause issues when:
@@ -114,7 +127,7 @@ export default function getConfig(
         }),
         enforce: 'pre',
       },
-      ...(type === 'app' && env === 'web'
+      ...(settings.type === 'app' && settings.env === 'web'
         ? [
             pluginLegacy({
               // This isn't really recommended (https://github.com/vitejs/vite/tree/main/packages/plugin-legacy#modernpolyfills)
@@ -125,6 +138,11 @@ export default function getConfig(
             }),
           ]
         : []),
+      ...(settings.resourceFiles
+        ? [resourcePlugin(settings.resourceFiles)]
+        : []),
     ],
-  }));
+  });
+
+  return config;
 }
