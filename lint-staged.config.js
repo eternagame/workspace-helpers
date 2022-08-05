@@ -14,7 +14,7 @@ module.exports = (allStagedFiles) => {
   return [
     // Lint any files which are not part of an app (eslint will handle ignoring any staged files
     // which are not part of an app via its ignore rules)
-    `npm run _lint-workspace ${codeFiles} -- --fix`,
+    `npm run _lint-project ${codeFiles} -- --fix`,
     // Lint any packages affected by uncommitted changes
     'nx affected --target=lint --uncommitted --fix',
     // Format any packages (or files not in a package) affected by uncommitted changes
