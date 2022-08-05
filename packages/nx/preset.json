@@ -53,12 +53,12 @@
       "inputs": ["default", "^default"],
       "dependsOn": ["build"]
     },
-    "build-watch": {
-      "dependsOn": ["^build-watch"],
+    "build:watch": {
+      "dependsOn": ["^build:watch"],
       "outputs": ["./dist"]
     },
     "_serve": {
-      "dependsOn": ["build-watch"]
+      "dependsOn": ["build:watch"]
     }
   },
   "workspaceLayout": {
