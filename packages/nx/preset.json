@@ -21,13 +21,13 @@
     "default": [
       "{projectRoot}/**/*",
       "!{projectRoot}/**/*.(spec|test).ts",
-      "!{projectRoot}/**/(__tests__|test)/*.ts",
+      "!{projectRoot}/**/(__tests__|test|tests|spec)/**/*.ts",
       "!{projectRoot}/jest.config.(js|mjs|cjs|ts|mts|cts)",
       { "runtime": "node -v" }
     ],
     "test": [
       "!{projectRoot}/**/*.(spec|test).ts",
-      "!{projectRoot}/**/(__tests__|test)/*.ts",
+      "!{projectRoot}/**/(__tests__|test|tests|spec)/**/*.ts",
       "{projectRoot}/jest.config.(js|mjs|cjs|ts|mts|cts)"
     ]
   },

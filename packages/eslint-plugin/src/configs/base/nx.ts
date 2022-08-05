@@ -33,8 +33,7 @@ export default function getConfig(isTypescript: boolean) {
         overrides: [
           {
             files: [
-              '**/__tests__/*.{m,c}?{j,t}sx?',
-              '**/test/**/*.{m,c}?{j,t}sx?',
+              '**/{__tests__,test,tests,spec}/**/*.{m,c}?{j,t}sx?',
               '**/*.test.{m,c}?{j,t}sx?',
               '**/*.spec.{m,c}?{j,t}sx?',
             ],

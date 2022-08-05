@@ -7,7 +7,7 @@ export function getConfig(mode: 'typescript' | 'vue') {
     collectCoverageFrom: [
       'src/**/*.(js|mjs|cjs|ts|mts|cts|vue)',
       '!**/*.(spec|test).(js|mjs|cjs|ts|mts|cts)',
-      '!**/(__tests__|test)/*.(js|mjs|cjs|ts|mts|cts)',
+      '!**/(__tests__|test|tests|spec)/**/*.(js|mjs|cjs|ts|mts|cts)',
     ],
     globals: {
       'ts-jest': {
