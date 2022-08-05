@@ -12,7 +12,6 @@
     "lint": "eslint src/"
   },
   "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "dependencies": {
     "@vitejs/plugin-legacy": "^2.0.0",
     "magic-string": "^0.26.2",

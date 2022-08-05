@@ -75,7 +75,6 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
 
     json['type'] = 'module';
     json['main'] = './dist/index.js';
-    json['types'] = './dist/index.d.ts';
 
     return json;
   });
