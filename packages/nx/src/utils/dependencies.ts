@@ -26,7 +26,10 @@ if (
 }
 
 const VERSIONS = {
-  nx: selfPackage.peerDependencies.nx,
+  // Pin `nx` by default so that upgrades to `@eternagame/nx` with an updated peer dependency
+  // don't "silently" upgrade `nx` (in the package-lock.json but not in the package.json)
+  // in case the user wanted to `nx migrate nx`.
+  nx: selfPackage.peerDependencies.nx.replace('^', ''),
   '@nrwl/eslint-plugin-nx': selfPackage.peerDependencies.nx,
   '@eternagame/nx': selfPackage.version,
   '@eternagame/eslint-plugin': '^1.1.0',
