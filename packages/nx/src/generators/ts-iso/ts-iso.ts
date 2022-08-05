@@ -96,18 +96,6 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
       'typescript',
     ])
   );
-
-  addDependenciesToPackageJson(
-    tree,
-    {},
-    {
-      // Adding these to the package.json keeps eslint from complaining, but we'll pin the version used
-      // across all projects in the root package.json
-      '@eternagame/jest': '*',
-      '@eternagame/vite': '*',
-    },
-    projectPackageJsonPath
-  );
 }
 
 export default async function generate(tree: Tree, options: Schema) {
