@@ -6,8 +6,8 @@
   "license": "BSD-3-Clause",
   "private": true,
   "scripts": {
-    "_lint-workspace": "npx eslint --ignore-path .gitignore --ignore-pattern packages/",
-    "lint-workspace": "npm run _lint-workspace .",
+    "_lint-project": "npx eslint --ignore-path .gitignore --ignore-pattern packages/",
+    "lint-project": "npm run _lint-project .",
     "prepare": "husky install"
   },
   "devDependencies": {
