@@ -40,10 +40,10 @@ Run `npx nx affected:test` to execute the unit tests for all packages affected b
 You can use the Eterna nx plugin to automatically create and update files, including adding new packages.
 
 To see the available generators, run `npx nx list @eternagame/nx`. To run a given generator,
-run `npx nx generate @eternagame/nx:<generator>` (eg, `npx nx generate @eternagame/nx:ts-iso`).
-Running `npx nx generate @eternagame/nx:<generator> --help` will show available options for that generator.
-In particular, if generating a new package, you may want to pass the `--directory` flag to put the package in
-a specific subdirectory of the packages directory if you don't want it placed in the root.
+run `npx nx generate <generator>` (eg, `npx nx generate ts-iso`). Running `npx nx generate <generator> --help`
+will show available options for that generator. In particular, if generating a new package, you may want to pass
+the `--directory` flag to put the package in a specific subdirectory of the packages directory if you don't
+want it placed in the root.
 
 ### Updating Dependencies
 

@@ -1,10 +1,11 @@
 {
+  "$schema": "../../node_modules/nx/schemas/nx-schema.json",
   "affected": {
     "defaultBase": "main"
   },
   "implicitDependencies": {
     "package.json": "*",
-    ".eslintrc.js": "*",
+    "package-lock.json": "*",
     ".github/workflows/ci.yml": "*",
     "nx.json": "*"
   },
@@ -16,17 +17,48 @@
       }
     }
   },
+  "namedInputs": {
+    "default": [
+      "{projectRoot}/**/*",
+      "!{projectRoot}/**/*.spec.ts",
+      "!{projectRoot}/**/__tests__/*.ts",
+      "!{projectRoot}/**/test/*.ts",
+      "!{projectRoot}/test/**/*.ts",
+      "!{projectRoot}/jest.config.mjs",
+      { "runtime": "node -v" }
+    ],
+    "test": [
+      "{projectRoot}/**/*.spec.ts",
+      "{projectRoot}/**/__tests__/*.ts",
+      "{projectRoot}/**/test/*.ts",
+      "{projectRoot}/test/**/*.ts",
+      "{projectRoot}/jest.config.mjs"
+    ]
+  },
   "targetDefaults": {
     "build": {
+      "inputs": ["default", "^default"],
       "dependsOn": ["^build"],
       "outputs": ["./dist"]
+    },
+    "lint": {
+      "inputs": ["default", "^default", "test", "{workspaceRoot}/.eslintrc.js"],
+      "dependsOn": ["build"]
+    },
+    "test": {
+      "inputs": ["default", "^default", "test"],
+      "dependsOn": ["build"]
+    },
+    "e2e": {
+      "inputs": ["default", "^default"],
+      "dependsOn": ["build"]
     },
     "build-watch": {
       "dependsOn": ["^build-watch"],
       "outputs": ["./dist"]
     },
     "_serve": {
-      "dependsOn": ["build-watch", "^build-watch"]
+      "dependsOn": ["build-watch"]
     }
   },
   "workspaceLayout": {
