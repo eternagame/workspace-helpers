@@ -33,7 +33,7 @@ export default {
       // Disable all rules that require type checking
       rules: Object.fromEntries(
         Object.entries(rules)
-          .filter(([_, rule]) => rule.meta.docs?.requiresTypeChecking)
+          .filter(([, rule]) => rule.meta.docs?.requiresTypeChecking)
           .map(([name]) => [`@typescript-eslint/${name}`, 'off'])
       ),
     },
