@@ -76,8 +76,8 @@ export default class TaskOrchestrator {
       // Note that these tasks have started so we don't start them again
       startedTasks.push(...newTasks);
       // Once any of the tasks we've previously started (whether in this iteration or a previous one
-      // has started (ie, we've confirmed the output is present), we can note that it has started and
-      // check for any new tasks we can start (by continuing to the next iteration of the loop)
+      // has started (ie, we've confirmed the output is present), we can note that it has started
+      // and check for any new tasks we can start (by continuing to the next iteration of the loop)
       pendingProcesses.add(
         ...newTasks.map((task) => this.startTask(task, runner, projectGraph))
       );
@@ -86,8 +86,8 @@ export default class TaskOrchestrator {
       const finished = await pendingProcesses.next();
       readyTasks.push(finished.task);
       readyProcesses.push(finished.process);
-      // If one of the processes we've started fails, we should bail, because we're no longer running
-      // all processes like the user intended
+      // If one of the processes we've started fails, we should bail, because we're no longer
+      // running all processes like the user intended
       finished.process
         .then((result) => {
           if (result.code > 0) {
@@ -112,7 +112,8 @@ export default class TaskOrchestrator {
   }
 
   /**
-   * Create the nx task graph, which holds information on the dependencies of the task we want to run
+   * Create the nx task graph, which holds information on the dependencies of the
+   * task we want to run
    *
    * @param projectGraph The Nx project graph for the Nx project we're working with
    * @returns The task graph

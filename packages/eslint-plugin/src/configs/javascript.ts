@@ -9,7 +9,6 @@ export default {
       files: ['*.js', '*.jsx', '*.mjs'],
       extends: [
         'airbnb-base',
-        'prettier',
         require.resolve('./base/javascript'),
       ],
     },

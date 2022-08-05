@@ -1,6 +1,7 @@
 import type { Config } from '@jest/types';
 
-// We may want to add other things, so don't default export so that we don't need to break the API later
+// We may want to add other things, so don't default export so that we don't need to
+// break the API later
 // eslint-disable-next-line import/prefer-default-export
 export function getConfig(mode: 'typescript' | 'vue') {
   const config: Config.InitialOptions = {
@@ -19,8 +20,7 @@ export function getConfig(mode: 'typescript' | 'vue') {
   };
 
   if (mode === 'typescript') config.preset = 'ts-jest';
-  if (mode === 'vue')
-    config.preset = '@vue/cli-plugin-unit-jest/presets/typescript-and-babel';
+  if (mode === 'vue') config.preset = '@vue/cli-plugin-unit-jest/presets/typescript-and-babel';
 
   return config;
 }

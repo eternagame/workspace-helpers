@@ -9,7 +9,6 @@ export default {
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
         'airbnb-base',
         'airbnb-typescript/base',
-        'prettier',
         require.resolve('./base/javascript'),
         require.resolve('./base/typescript'),
         require.resolve('./base/vue'),

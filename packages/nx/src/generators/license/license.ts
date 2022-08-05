@@ -57,8 +57,8 @@ export function updateProjectForLicense(
         }
       } else if (json['scripts']) {
         const scripts = json['scripts'] as Record<string, string>;
-        // Ensure no license handling is present, since we have no license. We assume that this command
-        // may be at the start of multiple commands chained with &&
+        // Ensure no license handling is present, since we have no license. We assume that this
+        // command may be at the start of multiple commands chained with &&
         if (scripts['prepublishOnly']) {
           const newPrepublish = scripts['prepublishOnly']
             .replace(/shx cp (\.\.\/)+LICENSE \.( &&)?/, '')
