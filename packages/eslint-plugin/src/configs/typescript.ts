@@ -1,3 +1,5 @@
+import { rules } from '@typescript-eslint/eslint-plugin';
+
 export default {
   extends: require.resolve('./javascript'),
   overrides: [
@@ -28,15 +30,12 @@ export default {
       parserOptions: {
         project: null,
       },
-      rules: {
-        // We override this one
-        '@typescript-eslint/switch-exhaustiveness-check': 'off',
-        // airbnb-typescript override these
-        '@typescript-eslint/dot-notation': 'off',
-        '@typescript-eslint/no-implied-eval': 'off',
-        '@typescript-eslint/no-throw-literal': 'off',
-        '@typescript-eslint/return-await': 'off',
-      },
+      // Disable all rules that require type checking
+      rules: Object.fromEntries(
+        Object.entries(rules)
+          .filter(([_, rule]) => rule.meta.docs?.requiresTypeChecking)
+          .map(([name]) => [`@typescript-eslint/${name}`, 'off'])
+      ),
     },
   ],
 };
