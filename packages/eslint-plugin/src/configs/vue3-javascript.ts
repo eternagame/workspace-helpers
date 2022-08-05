@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   extends: require.resolve('./javascript'),
   overrides: [
     {
@@ -7,8 +7,8 @@ module.exports = {
         'plugin:vue/vue3-recommended',
         'airbnb-base',
         'prettier',
-        require.resolve('./base-rules/javascript'),
-        require.resolve('./base-rules/vue'),
+        require.resolve('./base/javascript'),
+        require.resolve('./base/vue'),
       ],
     },
   ],
