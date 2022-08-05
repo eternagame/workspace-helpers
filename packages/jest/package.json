@@ -10,7 +10,7 @@
     "postpublish": "shx rm LICENSE",
     "prebuild": "shx rm -rf dist",
     "build": "tsc -p tsconfig.build.json",
-    "lint": "eslint src/"
+    "lint": "eslint ."
   },
   "main": "./dist/index.js"
 }
