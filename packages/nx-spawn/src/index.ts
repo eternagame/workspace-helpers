@@ -11,12 +11,11 @@ async function run() {
     .command(
       '$0 <command>',
       'Run an npm command, taking into account nx dependencies, allowing long-running tasks in dependencies',
-      (yargsCommand) =>
-        yargsCommand.positional('command', {
-          describe: 'command to run',
-          type: 'string',
-          demandOption: true,
-        })
+      (yargsCommand) => yargsCommand.positional('command', {
+        describe: 'command to run',
+        type: 'string',
+        demandOption: true,
+      }),
     )
     .parse();
   const { command } = args;
@@ -25,7 +24,7 @@ async function run() {
   const ws = new Workspaces(workspaceRoot);
   const packageName = ws.calculateDefaultProjectName(
     cwd(),
-    ws.readWorkspaceConfiguration()
+    ws.readWorkspaceConfiguration(),
   );
 
   // When the nx task runner prints output from a task to the console, prepend the

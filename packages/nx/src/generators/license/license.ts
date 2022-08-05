@@ -18,7 +18,7 @@ interface Schema {
 export function updateProjectForLicense(
   tree: Tree,
   projectRoot: string,
-  license: string | null
+  license: string | null,
 ) {
   if (license) {
     addDependenciesToPackageJson(tree, {}, getDependencyVersions(['shx']));
@@ -38,13 +38,13 @@ export function updateProjectForLicense(
         // Before publishing, copy the license at the root of the workspace to this directory
         if (!scripts['prepublishOnly']) {
           scripts['prepublishOnly'] = `shx cp ${offsetFromRoot(
-            projectRoot
+            projectRoot,
           )}LICENSE .`;
         } else if (
           !scripts['prepublishOnly'].match(/shx cp (\.\.\/)+LICENSE \.( &&)?/)
         ) {
           scripts['prepublishOnly'] = `shx cp ${offsetFromRoot(
-            projectRoot
+            projectRoot,
           )}LICENSE . && ${scripts['prepublishOnly']}`;
         }
         // Once publishing finishes, clean up
@@ -76,7 +76,7 @@ export function updateProjectForLicense(
       }
 
       return json;
-    }
+    },
   );
   /* eslint-enable no-param-reassign */
 }

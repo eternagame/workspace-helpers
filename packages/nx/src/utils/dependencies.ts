@@ -3,24 +3,24 @@ import { join } from 'path';
 
 function inOperator<K extends string, T>(
   k: K,
-  o: T
+  o: T,
 ): o is T & Record<K, unknown> {
   return o && typeof o === 'object' && k in o;
 }
 
 const selfPackage = JSON.parse(
-  readFileSync(join(__dirname, '../../package.json')).toString()
+  readFileSync(join(__dirname, '../../package.json')).toString(),
 ) as unknown;
 if (
-  !inOperator('version', selfPackage) ||
-  typeof selfPackage.version !== 'string'
+  !inOperator('version', selfPackage)
+  || typeof selfPackage.version !== 'string'
 ) {
   throw new Error("Can't detect version of @eternagame/nx");
 }
 if (
-  !inOperator('peerDependencies', selfPackage) ||
-  !inOperator('nx', selfPackage.peerDependencies) ||
-  typeof selfPackage.peerDependencies.nx !== 'string'
+  !inOperator('peerDependencies', selfPackage)
+  || !inOperator('nx', selfPackage.peerDependencies)
+  || typeof selfPackage.peerDependencies.nx !== 'string'
 ) {
   throw new Error("Can't detect version of nx");
 }
@@ -55,11 +55,9 @@ const VERSIONS = {
 } as const;
 
 export default function getDependencyVersions(
-  dependencies: (keyof typeof VERSIONS)[]
+  dependencies: (keyof typeof VERSIONS)[],
 ): Record<string, string> {
   return Object.fromEntries(
-    Object.entries(VERSIONS).filter(([key]) =>
-      dependencies.includes(key as keyof typeof VERSIONS)
-    )
+    Object.entries(VERSIONS).filter(([key]) => dependencies.includes(key as keyof typeof VERSIONS)),
   );
 }

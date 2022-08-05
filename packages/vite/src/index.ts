@@ -12,7 +12,7 @@ function readPackageLock(): Record<string, unknown> {
   while (checkDir !== root) {
     if (existsSync(join(checkDir, 'package-lock.json'))) {
       return JSON.parse(
-        readFileSync(join(checkDir, 'package-lock.json'), { encoding: 'utf-8' })
+        readFileSync(join(checkDir, 'package-lock.json'), { encoding: 'utf-8' }),
       ) as Record<string, unknown>;
     }
     checkDir = dirname(checkDir);
@@ -23,8 +23,7 @@ function readPackageLock(): Record<string, unknown> {
 
 function getAllDeps() {
   const lockfile = readPackageLock();
-  if (!lockfile['packages'] || typeof lockfile['packages'] !== 'object')
-    throw new Error();
+  if (!lockfile['packages'] || typeof lockfile['packages'] !== 'object') throw new Error();
   const resolvedPaths = Object.keys(lockfile['packages']);
   return (
     resolvedPaths
@@ -41,7 +40,7 @@ function getAllDeps() {
 
 export default function getConfig(
   type: 'app' | 'lib',
-  env: 'web' | 'node' | 'iso'
+  env: 'web' | 'node' | 'iso',
 ) {
   return defineConfig(({ mode }) => ({
     build: {
@@ -51,10 +50,10 @@ export default function getConfig(
       lib:
         type === 'lib' || env === 'node'
           ? {
-              entry: 'src/index.ts',
-              fileName: '[name]',
-              formats: ['es', 'cjs'],
-            }
+            entry: 'src/index.ts',
+            fileName: '[name]',
+            formats: ['es', 'cjs'],
+          }
           : false,
       rollupOptions: {
         external: [
@@ -116,15 +115,15 @@ export default function getConfig(
       },
       ...(type === 'app' && env === 'web'
         ? [
-            pluginLegacy({
-              // This isn't really recommended (https://github.com/vitejs/vite/tree/main/packages/plugin-legacy#modernpolyfills)
-              // due to how heavy it is, but I'd like to be able to safely work with esnext
-              // features. At some point we should probably investigate using an approach like
-              // polyfill.io
-              modernPolyfills: true,
-              renderLegacyChunks: false,
-            }),
-          ]
+          pluginLegacy({
+            // This isn't really recommended (https://github.com/vitejs/vite/tree/main/packages/plugin-legacy#modernpolyfills)
+            // due to how heavy it is, but I'd like to be able to safely work with esnext
+            // features. At some point we should probably investigate using an approach like
+            // polyfill.io
+            modernPolyfills: true,
+            renderLegacyChunks: false,
+          }),
+        ]
         : []),
     ],
   }));

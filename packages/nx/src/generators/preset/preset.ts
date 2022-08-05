@@ -61,7 +61,7 @@ function addDependencies(tree: Tree) {
         'lint-staged',
         'micromatch',
       ]),
-    }
+    },
   );
 }
 

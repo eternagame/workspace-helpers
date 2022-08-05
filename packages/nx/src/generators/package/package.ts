@@ -55,7 +55,7 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
     tree,
     path.join(__dirname, 'files'),
     options.projectRoot,
-    templateOptions
+    templateOptions,
   );
 }
 
@@ -65,7 +65,7 @@ export default async function generate(tree: Tree, options: Schema) {
   updateProjectForLicense(
     tree,
     normalizedOptions.projectRoot,
-    normalizedOptions.packageLicense
+    normalizedOptions.packageLicense,
   );
   await formatFiles(tree);
 }
