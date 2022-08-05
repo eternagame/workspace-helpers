@@ -40,18 +40,21 @@ Run `npx nx affected:test` to execute the unit tests for all packages affected b
 You can use the Eterna nx plugin to automatically create and update files, including adding new packages.
 
 To see the available generators, run `npx nx list @eternagame/nx`. To run a given generator,
-run `npx nx generate @eternagame/nx:<generator>` (eg, `npx nx generate @eternagame/nx:ts-iso`).
-Running `npx nx generate @eternagame/nx:<generator> --help` will show available options for that generator.
-In particular, if generating a new package, you may want to pass the `--directory` flag to put the package in
-a specific subdirectory of the packages directory if you don't want it placed in the root.
+run `npx nx generate <generator>` (eg, `npx nx generate ts-iso`). Running `npx nx generate <generator> --help`
+will show available options for that generator. In particular, if generating a new package, you may want to pass
+the `--directory` flag to put the package in a specific subdirectory of the packages directory if you don't
+want it placed in the root.
 
 ### Updating Dependencies
 
 When upgrading `@eternagame/nx`, there may be changes to the repository that should be made when updating.
 This process is automated, and can be done via `npx nx migrate @eternagame/nx@latest` and then (if necessary)
-`npx nx migrate --run-migrations` after reviewing the changes to be made in the migrations.json. `@eternagame/nx`
-also pins a specific version of `nx` as a peer dependency, as there may be migrations that need to be run
-for `nx`, which are vendorized by `@eternagame/nx` to ensure they function properly using this repository layout.
+`npx nx migrate --run-migrations` after reviewing the changes to be made in the migrations.json.
+
+When upgrading nx, you may also want to run migrations for it as well (eg, `npx nx migrate nx@latest`),
+though you most likely will not need to if you don't customize any nx configuration files. Note that `@eternagame/nx`
+has `nx` as a peer dependency - if the latest version of `nx` is beyond its requirement and you want to upgrade
+to a more recent version that is allowed, you'll need to specify a version like `npx nx migrate nx@version`.
 
 For updating other dependencies, you may want to use `npx npm-check-updates --deep --peer`
 
