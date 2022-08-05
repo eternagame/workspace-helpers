@@ -20,14 +20,14 @@
   "namedInputs": {
     "default": [
       "{projectRoot}/**/*",
-      "!{projectRoot}/**/*.(spec|test).ts",
-      "!{projectRoot}/**/(__tests__|test|tests|spec)/**/*.ts",
+      "!{projectRoot}/**/*.(spec|test).(js|mjs|cjs|ts|mts|cts)",
+      "!{projectRoot}/**/(__tests__|test|tests|spec)/**/*.(js|mjs|cjs|ts|mts|cts)",
       "!{projectRoot}/jest.config.(js|mjs|cjs|ts|mts|cts)",
       { "runtime": "node -v" }
     ],
     "test": [
-      "!{projectRoot}/**/*.(spec|test).ts",
-      "!{projectRoot}/**/(__tests__|test|tests|spec)/**/*.ts",
+      "!{projectRoot}/**/*.(spec|test).(js|mjs|cjs|ts|mts|cts)",
+      "!{projectRoot}/**/(__tests__|test|tests|spec)/**/*.(js|mjs|cjs|ts|mts|cts)",
       "{projectRoot}/jest.config.(js|mjs|cjs|ts|mts|cts)"
     ]
   },
