@@ -4,8 +4,7 @@
   "version": "1.0.0",
   "license": "BSD-3-Clause",
   "scripts": {
-    "prepublishOnly": "shx cp ../../LICENSE . && nx build",
-    "postpublish": "shx rm LICENSE",
+    "prepublishOnly": "nx build",
     "prebuild": "shx rm -rf dist",
     "build": "vite build",
     "postbuild": "shx chmod +x dist/index.js && npm install --save=false",

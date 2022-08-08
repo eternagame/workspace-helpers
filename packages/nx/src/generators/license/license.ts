@@ -1,90 +1,37 @@
 import {
-  addDependenciesToPackageJson,
   generateFiles,
   getProjects,
-  installPackagesTask,
-  offsetFromRoot,
+  logger,
+  readNxJson,
   updateJson,
   type Tree,
 } from '@nrwl/devkit';
 import path from 'path';
-import getDependencyVersions from '../../utils/dependencies';
+import { inOperator, isArrayMember } from '../../utils/json';
+
+const licenseOptions = [
+  'MIT',
+  'BSD3',
+  'EternaNoncommercial',
+  'Custom',
+  'None',
+] as const;
 
 interface Schema {
-  license: 'MIT' | 'BSD3' | 'EternaNoncommercial' | 'Custom' | 'None';
+  license: typeof licenseOptions[number];
   copyrightHolder: string;
 }
 
-export function updateProjectForLicense(
-  tree: Tree,
-  projectRoot: string,
-  license: string | null
-) {
-  if (license) {
-    addDependenciesToPackageJson(tree, {}, getDependencyVersions(['shx']));
-  }
-
-  /* eslint-disable no-param-reassign */
-  updateJson(
-    tree,
-    path.join(projectRoot, 'package.json'),
-    (json: Record<string, unknown>) => {
-      if (license) json['license'] = license;
-      else delete json['license'];
-
-      if (license) {
-        if (!json['scripts']) json['scripts'] = {};
-        const scripts = json['scripts'] as Record<string, string>;
-        // Before publishing, copy the license at the root of the workspace to this directory
-        if (!scripts['prepublishOnly']) {
-          scripts['prepublishOnly'] = `shx cp ${offsetFromRoot(
-            projectRoot
-          )}LICENSE .`;
-        } else if (
-          !scripts['prepublishOnly'].match(/shx cp (\.\.\/)+LICENSE \.( &&)?/)
-        ) {
-          scripts['prepublishOnly'] = `shx cp ${offsetFromRoot(
-            projectRoot
-          )}LICENSE . && ${scripts['prepublishOnly']}`;
-        }
-        // Once publishing finishes, clean up
-        if (!scripts['postpublish']) {
-          scripts['postpublish'] = 'shx rm LICENSE';
-        } else if (!scripts['postpublish'].match(/shx rm LICENSE( &&)?/)) {
-          scripts[
-            'postpublish'
-          ] = `shx rm LICENSE && ${scripts['postpublish']}`;
-        }
-      } else if (json['scripts']) {
-        const scripts = json['scripts'] as Record<string, string>;
-        // Ensure no license handling is present, since we have no license. We assume that this command
-        // may be at the start of multiple commands chained with &&
-        if (scripts['prepublishOnly']) {
-          const newPrepublish = scripts['prepublishOnly']
-            .replace(/shx cp (\.\.\/)+LICENSE \.( &&)?/, '')
-            .trim();
-          if (newPrepublish) scripts['prepublishOnly'] = newPrepublish;
-          else delete scripts['prepublishOnly'];
-        }
-        if (scripts['postpublish']) {
-          const newPostpublish = scripts['postpublish']
-            .replace(/shx rm LICENSE( &&)?/, '')
-            .trim();
-          if (newPostpublish) scripts['postpublish'] = newPostpublish;
-          else delete scripts['postpublish'];
-        }
-      }
-
-      return json;
-    }
-  );
-  /* eslint-enable no-param-reassign */
-}
-
+/**
+ * Convert license option to format appropriate for package.json
+ *
+ * @param license License from generator options
+ * @returns SPDX license specifier (or direction to see license file)
+ */
 function getPackageLicense(license: Schema['license']) {
   switch (license) {
     case 'None':
-      return null;
+      return 'UNLICENSED';
     case 'Custom':
       return 'SEE LICENSE IN LICENSE';
     case 'EternaNoncommercial':
@@ -96,32 +43,75 @@ function getPackageLicense(license: Schema['license']) {
   }
 }
 
-export default function generate(tree: Tree, options: Schema) {
-  const templateOptions = {
-    ...options,
-    copyrightYear: new Date().getFullYear(),
-    tmpl: '',
-  };
-  if (options.license !== 'None') {
-    generateFiles(tree, path.join(__dirname, 'files'), '', templateOptions);
+function updateLicense(tree: Tree, root: string, options: Schema) {
+  const license = getPackageLicense(options.license);
+  updateJson(
+    tree,
+    path.join(root, 'package.json'),
+    (json: Record<string, unknown>) => ({ ...json, license })
+  );
+
+  if (options.license !== 'None' && options.license !== 'Custom') {
+    const templateOptions = {
+      ...options,
+      copyrightYear: new Date().getFullYear(),
+      tmpl: '',
+    };
+    generateFiles(tree, path.join(__dirname, 'files'), root, templateOptions);
+  }
+}
+
+export function updatePackageLicense(tree: Tree, projectRoot: string) {
+  const options =
+    readNxJson().generators?.['@eternagame/nx:license'] ||
+    (readNxJson().generators?.['@eternagame/nx'] as Record<string, unknown>)?.[
+      'license'
+    ];
+  if (!options)
+    logger.warn(
+      'Unable to get license generator options from nx.json - no license will be generated'
+    );
+
+  if (!inOperator('license', options)) {
+    throw new Error(
+      '"license" property not found in nx.json generator options'
+    );
+  }
+  const { license } = options;
+  if (typeof license !== 'string' || !isArrayMember(license, licenseOptions)) {
+    throw new Error(
+      `"license" property in nx.json generator options should be one of: [${licenseOptions.join(
+        ','
+      )}]`
+    );
   }
 
-  const packageLicense = getPackageLicense(options.license);
+  let copyrightHolder = '';
+  if (license !== 'None' && license !== 'Custom') {
+    if (!inOperator('copyrightHolder', options)) {
+      throw new Error(
+        '"copyrightHolder" property not found in nx.json generator options'
+      );
+    }
 
-  /* eslint-disable no-param-reassign */
-  updateJson(tree, 'package.json', (json: Record<string, unknown>) => {
-    if (packageLicense) json['license'] = packageLicense;
-    else delete json['license'];
+    if (typeof options.copyrightHolder !== 'string') {
+      throw new Error(
+        '"copyrightHolder" property in nx.json generator options should be a string'
+      );
+    }
 
-    return json;
-  });
-  /* eslint-enable no-param-reassign */
+    copyrightHolder = options.copyrightHolder;
+  }
+
+  updateLicense(tree, projectRoot, { license, copyrightHolder });
+}
+
+export default function generate(tree: Tree, options: Schema) {
+  updateLicense(tree, '', options);
 
   for (const projectConfig of getProjects(tree).values()) {
-    updateProjectForLicense(tree, projectConfig.root, packageLicense);
+    updateLicense(tree, projectConfig.root, options);
   }
 
-  return () => {
-    installPackagesTask(tree);
-  };
+  return () => {};
 }

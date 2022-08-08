@@ -6,8 +6,7 @@
   "license": "BSD-3-Clause",
   "type": "module",
   "scripts": {
-    "prepublishOnly": "shx cp ../../LICENSE . && nx build",
-    "postpublish": "shx rm LICENSE",
+    "prepublishOnly": "nx build",
     "prebuild": "shx rm -rf dist",
     "build": "tsc -p tsconfig.build.json",
     "lint": "eslint ."
