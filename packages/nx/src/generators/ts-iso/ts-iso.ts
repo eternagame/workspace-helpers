@@ -71,11 +71,10 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
     scripts['build:watch'] = 'vite build --mode development';
     scripts['test'] = 'jest';
     scripts['test:cov'] = 'jest --coverage';
-    scripts['lint'] = 'eslint src/';
+    scripts['lint'] = 'eslint .';
 
     json['type'] = 'module';
     json['main'] = './dist/index.js';
-    json['types'] = './dist/index.d.ts';
 
     return json;
   });

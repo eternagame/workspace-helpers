@@ -8,10 +8,9 @@
     "postpublish": "shx rm LICENSE",
     "prebuild": "shx rm -rf dist",
     "build": "vite build",
-    "lint": "eslint . --ignore-path ../../.gitignore"
+    "lint": "eslint ."
   },
   "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "peerDependencies": {
     "@nrwl/eslint-plugin-nx": "^14.0.0",
     "eslint": "^8.0.0",

@@ -76,7 +76,6 @@ export default async function generate(tree: Tree, options: Schema) {
     scripts['serve'] = 'nx-spawn _serve';
     scripts['_serve'] = 'vite';
     delete json['main'];
-    delete json['types'];
     delete scripts['build:watch'];
     return json;
   });
