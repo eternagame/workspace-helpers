@@ -1,4 +1,4 @@
-import { rules } from '@typescript-eslint/eslint-plugin';
+import { rules as tsEslintRules } from '@typescript-eslint/eslint-plugin';
 import noExtraneousDependencies from './base/extraneous-deps';
 
 export default {
@@ -17,18 +17,10 @@ export default {
       ],
     },
     {
-      // Our configurations aren't tied to our tsconfig, so we can't use rules that require
-      // a valid parserOptions.project
       files: ['{jest,vite}.config.{ts,mts,cts}'],
-      extends: [
-        'plugin:@typescript-eslint/recommended',
-        'airbnb-base',
-        'airbnb-typescript/base',
-        'prettier',
-        require.resolve('./base/javascript'),
-        require.resolve('./base/typescript'),
-      ],
       parserOptions: {
+        // Our configurations aren't tied to our tsconfig, so we can't use rules that require
+        // typechecking (nor indicate they should be tied to a tsconfig file)
         project: null,
       },
       rules: {
@@ -36,7 +28,7 @@ export default {
         ...noExtraneousDependencies(true, false),
         // Disable all rules that require type checking
         ...Object.fromEntries(
-          Object.entries(rules)
+          Object.entries(tsEslintRules)
             .filter(([, rule]) => rule.meta.docs?.requiresTypeChecking)
             .map(([name]) => [`@typescript-eslint/${name}`, 'off'])
         ),
