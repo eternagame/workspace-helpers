@@ -2,7 +2,6 @@ import { existsSync, readFileSync } from 'fs';
 import { dirname, join, parse } from 'path';
 import { builtinModules } from 'module';
 import { defineConfig } from 'vite';
-import pluginLegacy from '@vitejs/plugin-legacy';
 import typescriptPlugin from 'rollup-plugin-typescript2';
 import preserveShebangs from './rollup-preserve-shebangs';
 
@@ -115,17 +114,6 @@ export default function getConfig(
         }),
         enforce: 'pre',
       },
-      ...(type === 'app' && env === 'web'
-        ? [
-            pluginLegacy({
-              // This isn't really recommended (https://github.com/vitejs/vite/tree/main/packages/plugin-legacy#modernpolyfills)
-              // due to how heavy it is, but I'd like to be able to safely work with esnext features. At some point we should
-              // probably investigate using an approach like polyfill.io
-              modernPolyfills: true,
-              renderLegacyChunks: false,
-            }),
-          ]
-        : []),
     ],
   }));
 }
