@@ -1,12 +1,6 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
-
-function inOperator<K extends string, T>(
-  k: K,
-  o: T
-): o is T & Record<K, unknown> {
-  return o && typeof o === 'object' && k in o;
-}
+import { inOperator } from './json';
 
 const selfPackage = JSON.parse(
   readFileSync(join(__dirname, '../../package.json')).toString()

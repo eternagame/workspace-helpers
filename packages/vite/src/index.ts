@@ -110,6 +110,7 @@ export default function getConfig(
               sourceRoot: '../src',
             },
           },
+          abortOnError: false,
         }),
         enforce: 'pre',
       },
