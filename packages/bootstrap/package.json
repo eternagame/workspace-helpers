@@ -5,7 +5,6 @@
   "license": "BSD-3-Clause",
   "scripts": {
     "prepublishOnly": "nx build",
-    "postpublish": "shx rm LICENSE",
     "prebuild": "shx rm -rf dist",
     "build": "vite build",
     "postbuild": "shx chmod +x dist/index.js && npm install --save=false",
