@@ -50,12 +50,13 @@ function updateLicense(tree: Tree, root: string, options: Schema) {
     path.join(root, 'package.json'),
     (json: Record<string, unknown>) => ({ ...json, license })
   );
-  const templateOptions = {
-    ...options,
-    copyrightYear: new Date().getFullYear(),
-    tmpl: '',
-  };
-  if (options.license !== 'None') {
+
+  if (options.license !== 'None' && options.license !== 'Custom') {
+    const templateOptions = {
+      ...options,
+      copyrightYear: new Date().getFullYear(),
+      tmpl: '',
+    };
     generateFiles(tree, path.join(__dirname, 'files'), root, templateOptions);
   }
 }
@@ -85,15 +86,22 @@ export function updatePackageLicense(tree: Tree, projectRoot: string) {
     );
   }
 
-  if (!inOperator('copyrightHolder', options))
-    throw new Error(
-      '"copyrightHolder" property not found in nx.json generator options'
-    );
-  const { copyrightHolder } = options;
-  if (typeof copyrightHolder !== 'string')
-    throw new Error(
-      '"copyrightHolder" property in nx.json generator options should be a string'
-    );
+  let copyrightHolder = '';
+  if (license !== 'None' && license !== 'Custom') {
+    if (!inOperator('copyrightHolder', options)) {
+      throw new Error(
+        '"copyrightHolder" property not found in nx.json generator options'
+      );
+    }
+
+    if (typeof options.copyrightHolder !== 'string') {
+      throw new Error(
+        '"copyrightHolder" property in nx.json generator options should be a string'
+      );
+    }
+
+    copyrightHolder = options.copyrightHolder;
+  }
 
   updateLicense(tree, projectRoot, { license, copyrightHolder });
 }
