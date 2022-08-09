@@ -1,14 +1,13 @@
-import * as path from 'path';
 import {
   formatFiles,
   generateFiles,
   getWorkspaceLayout,
   joinPathFragments,
   names,
-  updateJson,
   type Tree,
 } from '@nrwl/devkit';
-import generateIso from '../ts-iso/ts-iso';
+import * as path from 'path';
+import { updatePackageLicense } from '../license';
 
 interface Schema {
   name: string;
@@ -17,21 +16,26 @@ interface Schema {
 }
 
 interface NormalizedSchema extends Schema {
+  importPath: string;
   projectRoot: string;
 }
 
 function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
   const name = names(options.name).fileName;
-  const { libsDir } = getWorkspaceLayout(tree);
+  const { libsDir, npmScope } = getWorkspaceLayout(tree);
 
   const projectDirectory = options.directory
     ? `${names(options.directory).fileName}/${name}`
     : name;
 
+  const projectName = projectDirectory.replace(/\//g, '-');
+  const importPath = npmScope ? `@${npmScope}/${projectName}` : projectName;
+
   const projectRoot = joinPathFragments(libsDir, projectDirectory);
 
   return {
     ...options,
+    importPath,
     projectRoot,
   };
 }
@@ -51,33 +55,7 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
 
 export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
-
-  const finalizeIso = await generateIso(tree, options);
-
   addFiles(tree, normalizedOptions);
-
-  /* eslint-disable no-param-reassign */
-  updateJson(
-    tree,
-    path.join(normalizedOptions.projectRoot, 'tsconfig.build.json'),
-    (json: Record<string, unknown>) => {
-      json['extends'] = '@eternagame/tsconfig/tsconfig.node.json';
-      return json;
-    },
-  );
-  updateJson(
-    tree,
-    path.join(normalizedOptions.projectRoot, 'tsconfig.spec.json'),
-    (json: Record<string, unknown>) => {
-      json['extends'] = '@eternagame/tsconfig/tsconfig.jest-node.json';
-      return json;
-    },
-  );
-  /* eslint-enable no-param-reassign */
-
+  updatePackageLicense(tree, normalizedOptions.projectRoot);
   await formatFiles(tree);
-
-  return () => {
-    finalizeIso();
-  };
 }

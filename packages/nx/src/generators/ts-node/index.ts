@@ -8,7 +8,7 @@ import {
   updateJson,
   type Tree,
 } from '@nrwl/devkit';
-import generateIso from '../ts-iso/ts-iso';
+import generateIso from '../ts-iso';
 
 interface Schema {
   name: string;
@@ -61,7 +61,7 @@ export default async function generate(tree: Tree, options: Schema) {
     tree,
     path.join(normalizedOptions.projectRoot, 'tsconfig.build.json'),
     (json: Record<string, unknown>) => {
-      json['extends'] = '@eternagame/tsconfig/tsconfig.web.json';
+      json['extends'] = '@eternagame/tsconfig/tsconfig.node.json';
       return json;
     },
   );
@@ -69,7 +69,7 @@ export default async function generate(tree: Tree, options: Schema) {
     tree,
     path.join(normalizedOptions.projectRoot, 'tsconfig.spec.json'),
     (json: Record<string, unknown>) => {
-      json['extends'] = '@eternagame/tsconfig/tsconfig.jest-web.json';
+      json['extends'] = '@eternagame/tsconfig/tsconfig.jest-node.json';
       return json;
     },
   );

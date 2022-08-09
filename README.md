@@ -15,7 +15,6 @@ Interested in development? Join the discussion on the Eterna Discord!
 - [`@eternagame/jest`](./packages/jest) - Opinionated Jest utilities
 - [`@eternagame/vite`](./packages/vite) - Opinionated Vite configurations
 - [`@eternagame/nx-spawn`](./packages/nx-spawn) - Run an npm command with nx dependencies without waiting for them to finish
-- [`@eternagame/distify`](./packages/distify) - Lightweight build step for static assets
 
 ## Setup
 

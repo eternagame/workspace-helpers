@@ -3,11 +3,7 @@
   "compilerOptions": {
     "rootDir": "src",
     "baseUrl": "src",
-    "outDir": "dist",
-    "tsBuildInfoFile": "dist/.tsbuildinfo",
-    // The Nx runner doesn't support ES Modules
-    "module": "commonjs",
-    "preserveValueImports": false
+    "outDir": "dist"
   },
   "exclude": [
     "**/*.spec.ts",

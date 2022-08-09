@@ -1,6 +1,0 @@
-**/*
-!dist/**/*
-dist/.tsbuildinfo
-!executors.json
-!generators.json
-!preset.json

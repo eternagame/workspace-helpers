@@ -6,10 +6,13 @@
   "license": "BSD-3-Clause",
   "scripts": {
     "prepublishOnly": "nx build",
-    "prebuild": "shx rm -rf dist",
-    "build": "tsc -p tsconfig.build.json && distify",
+    "build": "vite build",
     "lint": "eslint ."
   },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
   "generators": "./generators.json",
   "executors": "./executors.json",
   "dependencies": {
@@ -21,7 +24,7 @@
   },
   "nx": {
     "implicitDependencies": [
-      "distify"
+      "vite"
     ]
   }
 }

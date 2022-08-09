@@ -7,9 +7,16 @@
   "type": "module",
   "scripts": {
     "prepublishOnly": "nx build",
-    "prebuild": "shx rm -rf dist",
-    "build": "tsc -p tsconfig.build.json",
+    "build": "vite build",
     "lint": "eslint ."
   },
-  "main": "./dist/index.js"
+  "main": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "nx": {
+    "implicitDependencies": [
+      "vite"
+    ]
+  }
 }

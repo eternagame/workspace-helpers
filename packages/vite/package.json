@@ -6,13 +6,16 @@
   "type": "module",
   "scripts": {
     "prepublishOnly": "nx build",
-    "prebuild": "shx rm -rf dist",
     "build": "vite build",
     "lint": "eslint ."
   },
   "main": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@vitejs/plugin-legacy": "^2.0.0",
+    "fast-glob": "^3.2.11",
     "magic-string": "^0.26.2",
     "rollup": "^2.77.2",
     "rollup-plugin-typescript2": "^0.32.1",

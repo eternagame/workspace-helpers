@@ -8,7 +8,7 @@ import {
   updateWorkspaceConfiguration,
   type Tree,
 } from '@nrwl/devkit';
-import generateLicense from '../license/license';
+import generateLicense from '../license';
 import getDependencyVersions from '../../utils/dependencies';
 
 const ETERNA_NPM_SCOPE = 'eternagame';

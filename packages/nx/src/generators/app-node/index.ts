@@ -10,7 +10,7 @@ import {
   updateJson,
   type Tree,
 } from '@nrwl/devkit';
-import generateTsWeb from '../ts-web/ts-web';
+import generateTsNode from '../ts-node';
 import getDependencyVersions from '../../utils/dependencies';
 
 interface Schema {
@@ -55,14 +55,14 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
 export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
 
-  const finalizeTsNode = await generateTsWeb(tree, options);
+  const finalizeTsNode = await generateTsNode(tree, options);
 
   addFiles(tree, normalizedOptions);
 
   addDependenciesToPackageJson(
     tree,
     {},
-    getDependencyVersions(['@eternagame/nx-spawn']),
+    getDependencyVersions(['node-dev', '@eternagame/nx-spawn']),
   );
 
   const projectPackageJsonPath = path.join(
@@ -74,9 +74,7 @@ export default async function generate(tree: Tree, options: Schema) {
     if (!json['scripts']) json['scripts'] = {};
     const scripts = json['scripts'] as Record<string, string>;
     scripts['serve'] = 'nx-spawn _serve';
-    scripts['_serve'] = 'vite';
-    delete json['main'];
-    delete scripts['build:watch'];
+    scripts['_serve'] = 'node-dev dist/index.js';
     return json;
   });
   /* eslint-enable no-param-reassign */

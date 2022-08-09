@@ -2,4 +2,4 @@
 // package.json, as eslint relies on commonjs
 import getConfig from '@eternagame/vite';
 
-export default getConfig('lib', 'node');
+export default getConfig({ type: 'lib', env: 'node' });
