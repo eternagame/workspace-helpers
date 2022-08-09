@@ -5,16 +5,17 @@
   "license": "BSD-3-Clause",
   "type": "module",
   "scripts": {
-    "prepublishOnly": "shx cp ../../LICENSE . && nx build",
-    "postpublish": "shx rm LICENSE",
-    "prebuild": "shx rm -rf dist",
+    "prepublishOnly": "nx build",
     "build": "vite build",
-    "lint": "eslint src/"
+    "lint": "eslint ."
   },
   "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@vitejs/plugin-legacy": "^2.0.0",
+    "fast-glob": "^3.2.11",
     "magic-string": "^0.26.2",
     "rollup": "^2.77.2",
     "rollup-plugin-typescript2": "^0.32.1",

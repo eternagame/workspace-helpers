@@ -10,7 +10,7 @@ import {
   updateJson,
   type Tree,
 } from '@nrwl/devkit';
-import generatePackage from '../package/package';
+import generatePackage from '../package';
 import getDependencyVersions from '../../utils/dependencies';
 
 interface Schema {
@@ -53,7 +53,7 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
     tree,
     path.join(__dirname, 'files'),
     options.projectRoot,
-    templateOptions
+    templateOptions,
   );
 }
 
@@ -66,16 +66,15 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
     scripts['prepublishOnly'] = scripts['prepublishOnly']
       ? `${scripts['prepublishOnly']} && nx build`
       : 'nx build';
-    scripts['prebuild'] = 'shx rm -rf dist';
     scripts['build'] = 'vite build';
-    scripts['build-watch'] = 'vite build --mode development';
+    scripts['build:watch'] = 'vite build --mode development';
     scripts['test'] = 'jest';
     scripts['test:cov'] = 'jest --coverage';
-    scripts['lint'] = 'eslint src/';
+    scripts['lint'] = 'eslint .';
 
     json['type'] = 'module';
     json['main'] = './dist/index.js';
-    json['types'] = './dist/index.d.ts';
+    json['files'] = ['dist'];
 
     return json;
   });
@@ -86,7 +85,6 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
     {},
     getDependencyVersions([
       'vite',
-      'shx',
       '@eternagame/tsconfig',
       '@eternagame/jest',
       '@eternagame/vite',
@@ -94,7 +92,7 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
       '@types/jest',
       'ts-jest',
       'typescript',
-    ])
+    ]),
   );
 }
 

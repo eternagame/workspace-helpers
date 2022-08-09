@@ -1,3 +1,3 @@
 import getConfig from './src/index';
 
-export default getConfig('lib', 'node');
+export default getConfig({ type: 'lib', env: 'node' });

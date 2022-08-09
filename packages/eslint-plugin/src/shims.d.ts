@@ -19,7 +19,7 @@ interface AirBnbImportsConfig {
       {
         devDependencies: string[] | boolean;
         optionalDependencies: string[] | boolean;
-      }
+      },
     ];
   };
 }

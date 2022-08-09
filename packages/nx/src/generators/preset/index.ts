@@ -8,7 +8,7 @@ import {
   updateWorkspaceConfiguration,
   type Tree,
 } from '@nrwl/devkit';
-import generateLicense from '../license/license';
+import generateLicense from '../license';
 import getDependencyVersions from '../../utils/dependencies';
 
 const ETERNA_NPM_SCOPE = 'eternagame';
@@ -55,15 +55,13 @@ function addDependencies(tree: Tree) {
         'eslint',
         'eslint-config-airbnb-base',
         'eslint-config-airbnb-typescript',
-        'eslint-config-prettier',
         'eslint-plugin-import',
-        'prettier',
         '@typescript-eslint/eslint-plugin',
         'husky',
         'lint-staged',
         'micromatch',
       ]),
-    }
+    },
   );
 }
 
@@ -97,9 +95,8 @@ export default async function generate(tree: Tree, options: Schema) {
   const finalizeGenerateLicense = generateLicense(tree, {
     license: normalizedOptions.license,
     copyrightHolder:
-      normalizedOptions.copyrightHolder || normalizedOptions.eternaDefaults
-        ? 'Eterna Commons'
-        : '',
+      normalizedOptions.copyrightHolder
+      || (normalizedOptions.eternaDefaults ? 'Eterna Commons' : ''),
   });
   await formatFiles(tree);
   return () => {

@@ -4,16 +4,17 @@
   "version": "1.0.0",
   "license": "BSD-3-Clause",
   "scripts": {
-    "prepublishOnly": "shx cp ../../LICENSE . && nx build",
-    "postpublish": "shx rm LICENSE",
-    "prebuild": "shx rm -rf dist",
+    "prepublishOnly": "nx build",
     "build": "vite build",
     "postbuild": "shx chmod +x dist/index.js && npm install --save=false",
-    "lint": "eslint src/"
+    "lint": "eslint ."
   },
   "type": "module",
   "main": "./dist/index.js",
   "bin": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@nrwl/devkit": "^14.5.0",
     "chokidar": "^3.5.3",

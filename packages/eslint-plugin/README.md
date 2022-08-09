@@ -32,7 +32,7 @@ typescript core configs (as they override rules in the relevant js/ts airbnb con
 
 ## Background/Rationale/Design
 
-Core configurations are based on my preferred combination of airbnb + prettier. Typescript core
+Core configurations are based on airbnb, a relatively popular style guide. Typescript core
 configurations also take advantage of typescript-eslint (with all recommended rules, including those
 requiring type checking) and airbnb-typescript to handle conflicting definitions. The vue3 configs
 add on the vue3 recommended rules. All and all, I feel these are overall sensible defaults to go with,

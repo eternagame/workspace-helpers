@@ -1,17 +1,14 @@
 import * as path from 'path';
 import {
-  addDependenciesToPackageJson,
   formatFiles,
   generateFiles,
   getWorkspaceLayout,
-  installPackagesTask,
   joinPathFragments,
   names,
   updateJson,
   type Tree,
 } from '@nrwl/devkit';
-import generateTsWeb from '../ts-web/ts-web';
-import getDependencyVersions from '../../utils/dependencies';
+import generateIso from '../ts-iso';
 
 interface Schema {
   name: string;
@@ -48,44 +45,39 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
     tree,
     path.join(__dirname, 'files'),
     options.projectRoot,
-    templateOptions
+    templateOptions,
   );
 }
 
 export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
 
-  const finalizeTsNode = await generateTsWeb(tree, options);
+  const finalizeIso = await generateIso(tree, options);
 
   addFiles(tree, normalizedOptions);
 
-  addDependenciesToPackageJson(
-    tree,
-    {},
-    getDependencyVersions(['@eternagame/nx-spawn'])
-  );
-
-  const projectPackageJsonPath = path.join(
-    normalizedOptions.projectRoot,
-    'package.json'
-  );
   /* eslint-disable no-param-reassign */
-  updateJson(tree, projectPackageJsonPath, (json: Record<string, unknown>) => {
-    if (!json['scripts']) json['scripts'] = {};
-    const scripts = json['scripts'] as Record<string, string>;
-    scripts['serve'] = 'nx-spawn _serve';
-    scripts['_serve'] = 'vite';
-    delete json['main'];
-    delete json['types'];
-    delete scripts['build-watch'];
-    return json;
-  });
+  updateJson(
+    tree,
+    path.join(normalizedOptions.projectRoot, 'tsconfig.build.json'),
+    (json: Record<string, unknown>) => {
+      json['extends'] = '@eternagame/tsconfig/tsconfig.web.json';
+      return json;
+    },
+  );
+  updateJson(
+    tree,
+    path.join(normalizedOptions.projectRoot, 'tsconfig.spec.json'),
+    (json: Record<string, unknown>) => {
+      json['extends'] = '@eternagame/tsconfig/tsconfig.jest-web.json';
+      return json;
+    },
+  );
   /* eslint-enable no-param-reassign */
 
   await formatFiles(tree);
 
   return () => {
-    finalizeTsNode();
-    installPackagesTask(tree);
+    finalizeIso();
   };
 }

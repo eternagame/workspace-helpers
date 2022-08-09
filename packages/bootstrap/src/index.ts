@@ -10,7 +10,7 @@ async function main() {
     .command(
       '$0 <project>',
       'Initialize an nx workspace using the eternagame layout preset',
-      (y) => y.positional('project', { type: 'string', demandOption: true })
+      (y) => y.positional('project', { type: 'string', demandOption: true }),
     )
     .option('eterna', {
       describe:
@@ -26,7 +26,7 @@ async function main() {
   mkdirSync(args.project);
   writeFileSync(
     join(args.project, 'package.json'),
-    JSON.stringify({ name: args.project })
+    JSON.stringify({ name: args.project }),
   );
   await spawn('git', ['init'], { cwd: args.project });
   await spawn('npm', ['install', '@eternagame/nx'], { cwd: args.project });

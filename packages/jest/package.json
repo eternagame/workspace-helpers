@@ -6,11 +6,17 @@
   "license": "BSD-3-Clause",
   "type": "module",
   "scripts": {
-    "prepublishOnly": "shx cp ../../LICENSE . && nx build",
-    "postpublish": "shx rm LICENSE",
-    "prebuild": "shx rm -rf dist",
-    "build": "tsc -p tsconfig.build.json",
-    "lint": "eslint src/"
+    "prepublishOnly": "nx build",
+    "build": "vite build",
+    "lint": "eslint ."
   },
-  "main": "./dist/index.js"
+  "main": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "nx": {
+    "implicitDependencies": [
+      "vite"
+    ]
+  }
 }
