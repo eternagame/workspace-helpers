@@ -3,7 +3,7 @@ import findPkgUp from '../../utils/find-pkg-up';
 
 export default function noExtraneousDependencies(
   ignoreDev: boolean,
-  isTypescript: boolean
+  isTypescript: boolean,
 ) {
   // We need to do this dynamically to allow eslint-config-airbnb-typescript to be optional
   /* eslint-disable global-require, @typescript-eslint/no-unsafe-assignment */
@@ -12,8 +12,7 @@ export default function noExtraneousDependencies(
     : require('eslint-config-airbnb-base/rules/imports');
   /* eslint-enable global-require */
 
-  const [noExtDepsLevel, noExtDepsConfig] =
-    base.rules['import/no-extraneous-dependencies'];
+  const [noExtDepsLevel, noExtDepsConfig] = base.rules['import/no-extraneous-dependencies'];
 
   return {
     'import/no-extraneous-dependencies': [

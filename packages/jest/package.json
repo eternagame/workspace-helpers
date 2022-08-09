@@ -6,10 +6,9 @@
   "license": "BSD-3-Clause",
   "type": "module",
   "scripts": {
-    "prepublishOnly": "shx cp ../../LICENSE . && nx build",
-    "postpublish": "shx rm LICENSE",
+    "prepublishOnly": "nx build",
     "build": "vite build",
-    "lint": "eslint src/"
+    "lint": "eslint ."
   },
   "main": "./dist/index.js",
   "files": [

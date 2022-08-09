@@ -14,7 +14,7 @@ export default {
     'class-methods-use-this': 'off',
     // We like using for..of statements
     'no-restricted-syntax': baseStyle.rules['no-restricted-syntax'].filter(
-      (v) => typeof v === 'string' || v.selector !== 'ForOfStatement'
+      (v) => typeof v === 'string' || v.selector !== 'ForOfStatement',
     ),
     // This gets very noisy when you have a bunch of attributes
     // Note: Overwritten for ts, as there's a separate @typescript-eslint rule

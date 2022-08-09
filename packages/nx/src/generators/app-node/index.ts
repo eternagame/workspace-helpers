@@ -48,7 +48,7 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
     tree,
     path.join(__dirname, 'files'),
     options.projectRoot,
-    templateOptions
+    templateOptions,
   );
 }
 
@@ -62,12 +62,12 @@ export default async function generate(tree: Tree, options: Schema) {
   addDependenciesToPackageJson(
     tree,
     {},
-    getDependencyVersions(['node-dev', '@eternagame/nx-spawn'])
+    getDependencyVersions(['node-dev', '@eternagame/nx-spawn']),
   );
 
   const projectPackageJsonPath = path.join(
     normalizedOptions.projectRoot,
-    'package.json'
+    'package.json',
   );
   /* eslint-disable no-param-reassign */
   updateJson(tree, projectPackageJsonPath, (json: Record<string, unknown>) => {
@@ -75,7 +75,6 @@ export default async function generate(tree: Tree, options: Schema) {
     const scripts = json['scripts'] as Record<string, string>;
     scripts['serve'] = 'nx-spawn _serve';
     scripts['_serve'] = 'node-dev dist/index.js';
-    delete json['types'];
     return json;
   });
   /* eslint-enable no-param-reassign */

@@ -23,7 +23,7 @@ export default class PromiseWalker<T> {
       this._promises.map(async (promise) => {
         const result = await promise;
         return { promise, result };
-      })
+      }),
     );
     this._promises.splice(this._promises.indexOf(wrapper.promise));
     return wrapper.result;

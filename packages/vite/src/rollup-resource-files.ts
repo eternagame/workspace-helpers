@@ -11,10 +11,11 @@ export default function resourcePlugin(options: {
     name: 'rollup-plugin-resource-files',
     async generateBundle(outputOptions) {
       const outDir = outputOptions.dir;
-      if (!outDir)
+      if (!outDir) {
         throw new Error(
-          'Unable to copy resource files to output directory since the output directory is not specified'
+          'Unable to copy resource files to output directory since the output directory is not specified',
         );
+      }
 
       const files = await fg(options.sourceGlobs, {
         dot: true,
@@ -26,7 +27,7 @@ export default function resourcePlugin(options: {
         mkdirSync(newDir, { recursive: true });
         copyFileSync(
           join(options.sourceRoot, file),
-          join(newDir, basename(file))
+          join(newDir, basename(file)),
         );
       }
     },

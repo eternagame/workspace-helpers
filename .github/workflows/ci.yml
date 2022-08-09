@@ -49,8 +49,6 @@ jobs:
         run: npm run lint-project
       - name: Lint Projects
         run: npx nx affected --target=lint --parallel=3
-      - name: Format Check
-        run: npx prettier --check .
       - name: Nx Integrity Check
         run: npx nx workspace-lint
       - name: Test

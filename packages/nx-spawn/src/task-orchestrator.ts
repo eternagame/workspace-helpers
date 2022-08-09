@@ -43,7 +43,7 @@ interface StartedProcess {
 export default class TaskOrchestrator {
   constructor(
     private readonly _rootCommand: string,
-    private readonly _rootPackage: string
+    private readonly _rootPackage: string,
   ) {}
 
   /** Run the command */
@@ -71,30 +71,30 @@ export default class TaskOrchestrator {
         taskGraph.dependencies,
         tasks,
         startedTasks,
-        readyTasks
+        readyTasks,
       );
       // Note that these tasks have started so we don't start them again
       startedTasks.push(...newTasks);
       // Once any of the tasks we've previously started (whether in this iteration or a previous one
-      // has started (ie, we've confirmed the output is present), we can note that it has started and
-      // check for any new tasks we can start (by continuing to the next iteration of the loop)
+      // has started (ie, we've confirmed the output is present), we can note that it has started
+      // and check for any new tasks we can start (by continuing to the next iteration of the loop)
       pendingProcesses.add(
-        ...newTasks.map((task) => this.startTask(task, runner, projectGraph))
+        ...newTasks.map((task) => this.startTask(task, runner, projectGraph)),
       );
       // We aren't `await`ing needlessly - we've already batched as much as we can
       // eslint-disable-next-line no-await-in-loop
       const finished = await pendingProcesses.next();
       readyTasks.push(finished.task);
       readyProcesses.push(finished.process);
-      // If one of the processes we've started fails, we should bail, because we're no longer running
-      // all processes like the user intended
+      // If one of the processes we've started fails, we should bail, because we're no longer
+      // running all processes like the user intended
       finished.process
         .then((result) => {
           if (result.code > 0) {
             // eslint-disable-next-line no-console
             console.warn(result.terminalOutput);
             throw new Error(
-              `${finished.task.target.project}:${finished.task.target.target} exited with code ${result.code}`
+              `${finished.task.target.project}:${finished.task.target.target} exited with code ${result.code}`,
             );
           }
         })
@@ -102,7 +102,7 @@ export default class TaskOrchestrator {
           // eslint-disable-next-line no-console
           console.warn(reason);
           throw new Error(
-            `The task runner threw an error while trying to run ${finished.task.target.project}:${finished.task.target.target}`
+            `The task runner threw an error while trying to run ${finished.task.target.project}:${finished.task.target.target}`,
           );
         });
     }
@@ -112,13 +112,14 @@ export default class TaskOrchestrator {
   }
 
   /**
-   * Create the nx task graph, which holds information on the dependencies of the task we want to run
+   * Create the nx task graph, which holds information on the dependencies of the
+   * task we want to run
    *
    * @param projectGraph The Nx project graph for the Nx project we're working with
    * @returns The task graph
    */
   private async createTaskGraph(
-    projectGraph: ProjectGraph
+    projectGraph: ProjectGraph,
   ): Promise<TaskGraph> {
     // Determine tasks that need to be run
     const defaults = readNxJson().targetDefaults || {};
@@ -126,7 +127,7 @@ export default class TaskOrchestrator {
       Object.entries(defaults).map(([target, config]) => [
         target,
         config.dependsOn || [],
-      ])
+      ]),
     );
     const taskGraph = createTaskGraph(
       projectGraph,
@@ -134,7 +135,7 @@ export default class TaskOrchestrator {
       [this._rootPackage],
       [this._rootCommand],
       undefined,
-      { __overrides_unparsed__: [] }
+      { __overrides_unparsed__: [] },
     );
 
     return taskGraph;
@@ -170,17 +171,15 @@ export default class TaskOrchestrator {
     dependencies: Record<string, string[]>,
     tasks: Task[],
     started: Task[],
-    ready: Task[]
+    ready: Task[],
   ): Task[] {
     const newTasks: Task[] = [];
     for (const candidate of tasks) {
       // If all dependencies are done and we're not already running or completed, it's good to start
       if (
-        dependencies[candidate.id]?.every((depId) =>
-          ready.some((task) => task.id === depId)
-        ) &&
-        !started.some((task) => task.id === candidate.id) &&
-        !ready.some((task) => task.id === candidate.id)
+        dependencies[candidate.id]?.every((depId) => ready.some((task) => task.id === depId))
+        && !started.some((task) => task.id === candidate.id)
+        && !ready.some((task) => task.id === candidate.id)
       ) {
         newTasks.push(candidate);
       }
@@ -199,7 +198,7 @@ export default class TaskOrchestrator {
   private async startTask(
     task: Task,
     runner: ForkedProcessTaskRunner,
-    projectGraph: ProjectGraph
+    projectGraph: ProjectGraph,
   ): Promise<StartedProcess> {
     // Start the task
     const process = runner.forkProcessPipeOutputCapture(task, {
@@ -221,13 +220,12 @@ export default class TaskOrchestrator {
     // before moving on and starting subsequent tasks
     await Promise.all(
       outputs.map(
-        (f) =>
-          new Promise<void>((resolve) => {
-            watcher.on('add', (path) => {
-              if (path.startsWith(f)) resolve();
-            });
-          })
-      )
+        (f) => new Promise<void>((resolve) => {
+          watcher.on('add', (path) => {
+            if (path.startsWith(f)) resolve();
+          });
+        }),
+      ),
     );
 
     return {
@@ -252,6 +250,6 @@ export default class TaskOrchestrator {
     'node_modules',
     '.cache',
     'nx-spawn',
-    'terminal-outputs'
+    'terminal-outputs',
   );
 }

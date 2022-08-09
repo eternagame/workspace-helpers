@@ -53,7 +53,7 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
     tree,
     path.join(__dirname, 'files'),
     options.projectRoot,
-    templateOptions
+    templateOptions,
   );
 }
 
@@ -67,14 +67,13 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
       ? `${scripts['prepublishOnly']} && nx build`
       : 'nx build';
     scripts['build'] = 'vite build';
-    scripts['build-watch'] = 'vite build --mode development';
+    scripts['build:watch'] = 'vite build --mode development';
     scripts['test'] = 'jest';
     scripts['test:cov'] = 'jest --coverage';
-    scripts['lint'] = 'eslint src/';
+    scripts['lint'] = 'eslint .';
 
     json['type'] = 'module';
     json['main'] = './dist/index.js';
-    json['types'] = './dist/index.d.ts';
     json['files'] = ['dist'];
 
     return json;
@@ -93,7 +92,7 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
       '@types/jest',
       'ts-jest',
       'typescript',
-    ])
+    ]),
   );
 }
 
