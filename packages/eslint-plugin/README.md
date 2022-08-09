@@ -1,6 +1,6 @@
 # @eternagame/eslint-plugin
 
-Eterna standard ESLint utilities
+Eterna standard ESLint setup and utilities
 
 ## Installation
 
