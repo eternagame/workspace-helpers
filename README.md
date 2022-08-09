@@ -40,7 +40,7 @@ Run `npx nx build <package-name>` to build a package. This will also build any d
 
 Run `npx nx lint <package-name>` to run linting for a package via [ESLint](https://eslint.org/).
 
-Run `npx prettier --write .` to format files via [Prettier](https://prettier.io/)
+Run `npx nx lint <package-name> --fix` to run linting with automatic fixes
 
 ### Unit Tests
 

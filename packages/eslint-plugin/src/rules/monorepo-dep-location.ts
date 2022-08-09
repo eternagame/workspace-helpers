@@ -15,7 +15,7 @@ type Options = [
     peerDependencies: DepOptions | boolean;
     optionalDependencies: DepOptions | boolean;
     bundledDependencies: DepOptions | boolean;
-  }
+  },
 ];
 
 /**
@@ -32,7 +32,7 @@ function checkNode(
   node: JsoncEslintParser.AST.JSONProperty,
   options: Options[0],
   type: keyof Options[0],
-  isRootPackage: boolean
+  isRootPackage: boolean,
 ): boolean {
   const allowed = options[type];
 
@@ -44,8 +44,7 @@ function checkNode(
   if (allowed === true) return true;
   // If we allow this dependency type based on whether or not this is a root package, we're good
   if (isRootPackage && allowed instanceof Object && allowed.root) return true;
-  if (!isRootPackage && allowed instanceof Object && allowed.subPackage)
-    return true;
+  if (!isRootPackage && allowed instanceof Object && allowed.subPackage) return true;
 
   return false;
 }
@@ -53,8 +52,8 @@ function checkNode(
 type MessageIds = 'depNotAllowed';
 
 export default TsEslintUtils.ESLintUtils.RuleCreator(() => __filename)<
-  Options,
-  MessageIds
+Options,
+MessageIds
 >({
   name: 'monorepo-dep-location',
   meta: {
@@ -164,8 +163,7 @@ export default TsEslintUtils.ESLintUtils.RuleCreator(() => __filename)<
   create(context, [options]) {
     if (path.basename(context.getFilename()) !== 'package.json') return {};
 
-    const isRootPackage =
-      findPkgUp(path.dirname(context.getFilename())).length === 0;
+    const isRootPackage = findPkgUp(path.dirname(context.getFilename())).length === 0;
     const depTypes = [
       'dependencies',
       'devDependencies',
@@ -176,12 +174,14 @@ export default TsEslintUtils.ESLintUtils.RuleCreator(() => __filename)<
 
     return {
       JSONProperty: function handleJsonNode(
-        node: JsoncEslintParser.AST.JSONProperty
+        node: JsoncEslintParser.AST.JSONProperty,
       ) {
         for (const depType of depTypes) {
           if (!checkNode(node, options, depType, isRootPackage)) {
             context.report({
-              // This is just due to the idiosyncrasies of using typescript-eslint/utils with a different parser
+              // This is just due to the idiosyncrasies of using typescript-eslint/utils with a
+              // different parser
+              // eslint-disable-next-line max-len
               // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
               node: node as any,
               messageId: 'depNotAllowed',

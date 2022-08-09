@@ -48,7 +48,7 @@ function updateLicense(tree: Tree, root: string, options: Schema) {
   updateJson(
     tree,
     path.join(root, 'package.json'),
-    (json: Record<string, unknown>) => ({ ...json, license })
+    (json: Record<string, unknown>) => ({ ...json, license }),
   );
 
   if (options.license !== 'None' && options.license !== 'Custom') {
@@ -62,27 +62,27 @@ function updateLicense(tree: Tree, root: string, options: Schema) {
 }
 
 export function updatePackageLicense(tree: Tree, projectRoot: string) {
-  const options =
-    readNxJson().generators?.['@eternagame/nx:license'] ||
-    (readNxJson().generators?.['@eternagame/nx'] as Record<string, unknown>)?.[
+  const options = readNxJson().generators?.['@eternagame/nx:license']
+    || (readNxJson().generators?.['@eternagame/nx'] as Record<string, unknown>)?.[
       'license'
     ];
-  if (!options)
+  if (!options) {
     logger.warn(
-      'Unable to get license generator options from nx.json - no license will be generated'
+      'Unable to get license generator options from nx.json - no license will be generated',
     );
+  }
 
   if (!inOperator('license', options)) {
     throw new Error(
-      '"license" property not found in nx.json generator options'
+      '"license" property not found in nx.json generator options',
     );
   }
   const { license } = options;
   if (typeof license !== 'string' || !isArrayMember(license, licenseOptions)) {
     throw new Error(
       `"license" property in nx.json generator options should be one of: [${licenseOptions.join(
-        ','
-      )}]`
+        ',',
+      )}]`,
     );
   }
 
@@ -90,13 +90,13 @@ export function updatePackageLicense(tree: Tree, projectRoot: string) {
   if (license !== 'None' && license !== 'Custom') {
     if (!inOperator('copyrightHolder', options)) {
       throw new Error(
-        '"copyrightHolder" property not found in nx.json generator options'
+        '"copyrightHolder" property not found in nx.json generator options',
       );
     }
 
     if (typeof options.copyrightHolder !== 'string') {
       throw new Error(
-        '"copyrightHolder" property in nx.json generator options should be a string'
+        '"copyrightHolder" property in nx.json generator options should be a string',
       );
     }
 

@@ -11,7 +11,7 @@ function readPackageLock(): Record<string, unknown> {
   while (checkDir !== root) {
     if (existsSync(join(checkDir, 'package-lock.json'))) {
       return JSON.parse(
-        readFileSync(join(checkDir, 'package-lock.json'), { encoding: 'utf-8' })
+        readFileSync(join(checkDir, 'package-lock.json'), { encoding: 'utf-8' }),
       ) as Record<string, unknown>;
     }
     checkDir = dirname(checkDir);
@@ -22,8 +22,7 @@ function readPackageLock(): Record<string, unknown> {
 
 function getAllDeps() {
   const lockfile = readPackageLock();
-  if (!lockfile['packages'] || typeof lockfile['packages'] !== 'object')
-    throw new Error();
+  if (!lockfile['packages'] || typeof lockfile['packages'] !== 'object') throw new Error();
   const resolvedPaths = Object.keys(lockfile['packages']);
   return (
     resolvedPaths
@@ -40,7 +39,7 @@ function getAllDeps() {
 
 export default function getConfig(
   type: 'app' | 'lib',
-  env: 'web' | 'node' | 'iso'
+  env: 'web' | 'node' | 'iso',
 ) {
   return defineConfig(({ mode }) => ({
     build: {
@@ -50,10 +49,10 @@ export default function getConfig(
       lib:
         type === 'lib' || env === 'node'
           ? {
-              entry: 'src/index.ts',
-              fileName: '[name]',
-              formats: ['es', 'cjs'],
-            }
+            entry: 'src/index.ts',
+            fileName: '[name]',
+            formats: ['es', 'cjs'],
+          }
           : false,
       rollupOptions: {
         external: [
@@ -69,14 +68,14 @@ export default function getConfig(
             : {}),
         },
         // If we're not in a webapp, don't tree shake. We don't need to since we're not doing any
-        // bundling and all our dependencies are externalized - plus, more importantly, for situations
-        // like our eslint plugin where we have to rely on `require.resolve` instead of importing directly
-        // (until we migrate to eslint flat config), tree shaking will remove things we actually use
-        // because we don't import them directly
+        // bundling and all our dependencies are externalized - plus, more importantly, for
+        // situations like our eslint plugin where we have to rely on `require.resolve` instead of
+        // importing directly (until we migrate to eslint flat config), tree shaking will remove
+        // things we actually use because we don't import them directly
         ...(type === 'lib' || env === 'node' ? { treeshake: false } : {}),
       },
-      // If we're running multiple instances of vite in watch mode, emptying the output dir will cause
-      // modules to momentarily fail to resolve. This could cause issues when:
+      // If we're running multiple instances of vite in watch mode, emptying the output dir will
+      // cause modules to momentarily fail to resolve. This could cause issues when:
       // * On starting our watch scripts, there is files in the out directory from a previous run,
       //   but we then remove it, so we move on to building a package that depends on it which
       //   bails because it can't find it
@@ -85,9 +84,9 @@ export default function getConfig(
       //   content it wont be there
       emptyOutDir: mode !== 'development',
       // To simplify our scripts, development mode implies watch mode
-      // (this is also the only way we would be able to provide watch mode options, as we can't detect
-      // whether or not the watch flag has been passed to determine whether or not we should provide the options
-      // object, which also enables watch mode)
+      // (this is also the only way we would be able to provide watch mode options, as we can't
+      // detect whether or not the watch flag has been passed to determine whether or not we should
+      // provide the options object, which also enables watch mode)
       watch: mode === 'development' ? {} : null,
     },
     plugins: [
@@ -98,13 +97,13 @@ export default function getConfig(
           tsconfig: 'tsconfig.build.json',
           tsconfigOverride: {
             compilerOptions: {
-              // rollup-plugin-tsconfig2 runs typescript in a cache directory, so the paths to the source
-              // files in the emitted sourcemap will be incorrect (since it will be a relative path from
-              // node_modules/.cache/rollup-plugin-typescript2/<id>/placeholder/ instead of dist/ where the
-              // sourcemap actually is).
-              // Rollup handles this fine due to the way it merges chained source maps, so everything is fine
-              // with `vite build`, but `vite serve` eschews rollup and does its source map merging differently,
-              // leaving the incorrect source resolution intact.
+              // rollup-plugin-tsconfig2 runs typescript in a cache directory, so the paths to the
+              // source files in the emitted sourcemap will be incorrect (since it will be a
+              // relative path from node_modules/.cache/rollup-plugin-typescript2/<id>/placeholder/
+              // instead of dist/ where the sourcemap actually is).
+              // Rollup handles this fine due to the way it merges chained source maps, so
+              // everything is fine with `vite build`, but `vite serve` eschews rollup and does its
+              // source map merging differently, leaving the incorrect source resolution intact.
               // To get around this, we'll tell typescript how to resolve source file locations
               // See https://github.com/ezolenko/rollup-plugin-typescript2/issues/407
               sourceRoot: '../src',

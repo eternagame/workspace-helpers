@@ -7,7 +7,7 @@ const micromatch = require('micromatch');
 module.exports = (allStagedFiles) => {
   const codeFiles = micromatch(
     allStagedFiles,
-    '**/*.(js|mjs|cjs|ts|mts|cts|vue)'
+    '**/*.(js|mjs|cjs|ts|mts|cts|vue)',
   ).join(' ');
 
   return [
@@ -16,7 +16,5 @@ module.exports = (allStagedFiles) => {
     `npm run _lint-project ${codeFiles} -- --fix`,
     // Lint any packages affected by uncommitted changes
     'nx affected --target=lint --uncommitted --fix',
-    // Format any packages (or files not in a package) affected by uncommitted changes
-    `npx prettier --write --ignore-unknown ${allStagedFiles.join(' ')}`,
   ];
 };

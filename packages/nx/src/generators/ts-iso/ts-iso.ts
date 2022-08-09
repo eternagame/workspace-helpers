@@ -53,7 +53,7 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
     tree,
     path.join(__dirname, 'files'),
     options.projectRoot,
-    templateOptions
+    templateOptions,
   );
 }
 
@@ -93,7 +93,7 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
       '@types/jest',
       'ts-jest',
       'typescript',
-    ])
+    ]),
   );
 }
 

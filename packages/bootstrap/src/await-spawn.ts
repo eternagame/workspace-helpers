@@ -3,7 +3,7 @@ import { spawn, type SpawnOptions } from 'child_process';
 export default function spawnAsync(
   command: string,
   args: string[],
-  options: SpawnOptions
+  options: SpawnOptions,
 ) {
   const child = spawn(command, args, { ...options, stdio: 'inherit' });
   const promise = new Promise<void>((resolve, reject) => {

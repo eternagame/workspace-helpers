@@ -11,7 +11,6 @@ export default {
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
         'airbnb-base',
         'airbnb-typescript/base',
-        'prettier',
         require.resolve('./base/javascript'),
         require.resolve('./base/typescript'),
       ],
@@ -30,7 +29,7 @@ export default {
         ...Object.fromEntries(
           Object.entries(tsEslintRules)
             .filter(([, rule]) => rule.meta.docs?.requiresTypeChecking)
-            .map(([name]) => [`@typescript-eslint/${name}`, 'off'])
+            .map(([name]) => [`@typescript-eslint/${name}`, 'off']),
         ),
       },
     },

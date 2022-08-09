@@ -6,16 +6,16 @@ import { exit } from 'process';
 
 async function getConfig() {
   const config = JSON.parse(
-    await readFile('distify.config.json', 'utf-8')
+    await readFile('distify.config.json', 'utf-8'),
   ) as Record<string, unknown>;
   const { sourceGlobs, outputPath, sourceRoot } = config;
 
   if (
-    !Array.isArray(sourceGlobs) ||
-    !sourceGlobs.every((glob): glob is string => typeof glob === 'string')
+    !Array.isArray(sourceGlobs)
+    || !sourceGlobs.every((glob): glob is string => typeof glob === 'string')
   ) {
     throw new Error(
-      'Invalid configuration: sourceGlobs must be an array of strings'
+      'Invalid configuration: sourceGlobs must be an array of strings',
     );
   }
 
@@ -25,7 +25,7 @@ async function getConfig() {
 
   if (sourceRoot !== undefined && typeof sourceRoot !== 'string') {
     throw new Error(
-      'Invalid configuration: sourceRoot must be a string if present'
+      'Invalid configuration: sourceRoot must be a string if present',
     );
   }
 
@@ -49,9 +49,9 @@ async function run() {
       await mkdir(newDir, { recursive: true });
       await copyFile(
         join(config.sourceRoot, file),
-        join(newDir, basename(file))
+        join(newDir, basename(file)),
       );
-    })
+    }),
   );
 }
 
