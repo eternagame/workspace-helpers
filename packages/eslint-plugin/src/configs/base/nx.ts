@@ -44,7 +44,7 @@ export default function getConfig(isTypescript: boolean) {
             },
           },
           {
-            files: ['!(packages,apps,libs)/**/*'],
+            files: ['!{packages,apps,libs}/**/*'],
             rules: {
               // Allow files not contained in our actual source code (eg, config files) to import
               // dev dependencies

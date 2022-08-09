@@ -1,3 +1,6 @@
+// This config will only be loaded if the user wants typescript support. We have this in optional
+// dependencies so that if typescript support isn't wanted, it doesn't need to be installed
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { rules as tsEslintRules } from '@typescript-eslint/eslint-plugin';
 import noExtraneousDependencies from './base/extraneous-deps';
 
