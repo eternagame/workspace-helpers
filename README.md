@@ -69,12 +69,12 @@ want it placed in the root.
 
 ### Updating Dependencies
 
-In general, when updatating dependencies the fastest method to do so, covering all packages
+In general, when updating dependencies the fastest method to do so, covering all packages
 and taking into account satisfying all peer dependencies, is `npx npm-check-updates --deep --peer`.
 
 Take special care when upgrading `nx` - there may be changes to the repository that should be made
 when updating, plus there may be changes that should be made to `@eternagame/nx`, including changing
-our default nx configuration, changing our generators and adding mgirations, etc. Using `nx migrate nx`
+our default nx configuration, changing our generators and adding migrations, etc. Using `nx migrate nx`
 will allow nx to apply its own migrations, however it will not take into account, for example,
 migrating our nx preset. Additionally there may be changes we want to make based off of migrations
 in `@nrwl/workspace`, even though we don't use it. You should look in the following locations for
