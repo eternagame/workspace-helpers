@@ -12,19 +12,19 @@ Interested in development? Join the discussion on the Eterna Discord!
 
 Want to set up a new project/repository using Eterna's standard structure? Check out [`@eternagame/bootstrap`](./packages/bootstrap)
 
-This will also set you up to use our nx plugin, [`@eternagame/nx`](./packages/nx), which has our standard nx configuration
-and package generators.
+This will also set you up to use our Nx plugin, [`@eternagame/nx-plugin`](./packages/nx-plugin), which has our standard Nx 
+configuration and package generators.
 
-### Configuration
+### Configuration and Utility Libraries
 
-- [`@eternagame/tsconfig`](./packages/tsconfig) - Our standard `tsconfig`s
-- [`@eternagame/eslint-plugin`](./packages/eslint-plugin) - Our standard ESLint configuration
-- [`@eternagame/jest`](./packages/jest) - Our standard Jest configuration
-- [`@eternagame/vite`](./packages/vite) - Our standard Vite configurations
+- [`@eternagame/tsconfig`](./packages/tsconfig) - Eterna standard `tsconfig`s
+- [`@eternagame/eslint-plugin`](./packages/eslint-plugin) - Eterna standard ESLint setup and utilities
+- [`@eternagame/jest-utils`](./packages/jest-utils) - Eterna standard Jest setup and utilities
+- [`@eternagame/vite-utils`](./packages/vite-utils) - Eterna standard Vite setup and utilities
 
-### Utilities
+### Utility Applications
 
-- [`@eternagame/nx-spawn`](./packages/nx-spawn) - Run an npm command with nx dependencies without waiting for them to finish
+- [`@eternagame/nx-spawn`](./packages/nx-spawn) - Run an npm command with Nx dependencies without waiting for them to finish
 
 ## Setup
 
@@ -59,9 +59,9 @@ Run `npx nx affected:test` to execute the unit tests for all packages affected b
 
 ### Code Generation
 
-You can use the Eterna nx plugin to automatically create and update files, including adding new packages.
+You can use the Eterna Nx plugin to automatically create and update files, including adding new packages.
 
-To see the available generators, run `npx nx list @eternagame/nx`. To run a given generator,
+To see the available generators, run `npx nx list @eternagame/nx-plugin`. To run a given generator,
 run `npx nx generate <generator>` (eg, `npx nx generate ts-iso`). Running `npx nx generate <generator> --help`
 will show available options for that generator. In particular, if generating a new package, you may want to pass
 the `--directory` flag to put the package in a specific subdirectory of the packages directory if you don't
@@ -73,10 +73,10 @@ In general, when updating dependencies the fastest method to do so, covering all
 and taking into account satisfying all peer dependencies, is `npx npm-check-updates --deep --peer`.
 
 Take special care when upgrading `nx` - there may be changes to the repository that should be made
-when updating, plus there may be changes that should be made to `@eternagame/nx`, including changing
-our default nx configuration, changing our generators and adding migrations, etc. Using `nx migrate nx`
-will allow nx to apply its own migrations, however it will not take into account, for example,
-migrating our nx preset. Additionally there may be changes we want to make based off of migrations
+when updating, plus there may be changes that should be made to `@eternagame/nx-plugin`, including changing
+our default Nx configuration, changing our generators and adding migrations, etc. Using `nx migrate nx`
+will allow Nx to apply its own migrations, however it will not take into account, for example,
+migrating our Nx preset. Additionally there may be changes we want to make based off of migrations
 in `@nrwl/workspace`, even though we don't use it. You should look in the following locations for
 changes that we may want to incorporate:
 
@@ -103,7 +103,7 @@ to use the symlinked version instead of retrieving it from npm.
 
 A limitation of `npm link` is that calls to `npm install` will still pull from npm rather than using
 the global symlink. This is particularly problematic when testing changes to `@eternagame/bootstrap`
-or the `@eternagame/nx:preset` generator, as both packages install `@eternagame/nx` during the
+or the `@eternagame/nx-plugin:preset` generator, as both packages install `@eternagame/nx-plugin` during the
 generation project, and so it will use whatever the latest version is in npm rather than your local copy.
 
 To work around this, you can run a local npm registry using [verdaccio](https://github.com/verdaccio/verdaccio).

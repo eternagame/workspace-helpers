@@ -35,14 +35,6 @@ jobs:
             ${{ runner.os }}-node-${{ steps.versions.outputs.node_version }}-
       - name: Install dependencies
         run: npm ci
-      # We need to make sure eslint-plugin is built even if not affected, as we always run linting,
-      # which requires it
-      - name: Build eslint-plugin
-        run: npx nx build eslint-plugin
-      # Any packages that use jest also need to import @eternagame/jest-utils in their config - if not present,
-      # linting the jest config will fail
-      - name: Build jest-utils
-        run: npx nx build jest-utils
       - name: Build
         run: npx nx affected --target=build --parallel=3
       - name: Lint Project

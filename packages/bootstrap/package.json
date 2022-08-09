@@ -20,7 +20,7 @@
   },
   "nx": {
     "implicitDependencies": [
-      "vite"
+      "vite-utils"
     ]
   }
 }

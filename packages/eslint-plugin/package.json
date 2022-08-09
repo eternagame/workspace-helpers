@@ -1,6 +1,6 @@
 {
   "name": "@eternagame/eslint-plugin",
-  "description": "Semi-opinionated ESLint configuration",
+  "description": "Eterna standard ESLint utilities",
   "version": "1.1.0",
   "license": "BSD-3-Clause",
   "scripts": {
@@ -37,7 +37,7 @@
   },
   "nx": {
     "implicitDependencies": [
-      "vite"
+      "vite-utils"
     ]
   }
 }

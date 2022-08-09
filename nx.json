@@ -1,9 +1,9 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "extends": "@eternagame/nx/preset.json",
+  "extends": "@eternagame/nx-plugin/preset.json",
   "npmScope": "eternagame",
   "generators": {
-    "@eternagame/nx:license": {
+    "@eternagame/nx-plugin:license": {
       "license": "BSD3",
       "copyrightHolder": "Eterna Commons"
     }

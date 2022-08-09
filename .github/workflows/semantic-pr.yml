@@ -18,11 +18,10 @@ jobs:
         with:
           scopes: |
             repo
-            distify
             eslint-plugin
-            jest
-            nx
+            jest-utils
+            nx-plugin
             nx-spawn
             tsconfig
-            vite
+            vite-utils
           requireScope: true
