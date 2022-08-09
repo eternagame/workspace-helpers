@@ -5,11 +5,7 @@ const micromatch = require('micromatch');
 // being appended to them. Why would we do such a thing? That way, we can rely on lint-staged
 // to handle staging any updated files for us, which is, surprisingly, not trivial whatsoever.
 module.exports = (allStagedFiles) => {
-  const codeFiles = micromatch(allStagedFiles, [
-    '**/*.js',
-    '**/*.ts',
-    '**/*.vue',
-  ]).join(' ');
+  const codeFiles = micromatch(allStagedFiles, '**/*.(js|mjs|cjs|ts|mts|cts|vue)').join(' ');
 
   return [
     // Lint any files which are not part of an app (eslint will handle ignoring any staged files

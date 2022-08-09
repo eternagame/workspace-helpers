@@ -75,7 +75,6 @@ export default async function generate(tree: Tree, options: Schema) {
     const scripts = json['scripts'] as Record<string, string>;
     scripts['serve'] = 'nx-spawn _serve';
     scripts['_serve'] = 'node-dev dist/index.js';
-    delete json['types'];
     return json;
   });
   /* eslint-enable no-param-reassign */

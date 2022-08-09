@@ -95,9 +95,8 @@ export default async function generate(tree: Tree, options: Schema) {
   const finalizeGenerateLicense = generateLicense(tree, {
     license: normalizedOptions.license,
     copyrightHolder:
-      normalizedOptions.copyrightHolder || normalizedOptions.eternaDefaults
-        ? 'Eterna Commons'
-        : '',
+      normalizedOptions.copyrightHolder ||
+      (normalizedOptions.eternaDefaults ? 'Eterna Commons' : ''),
   });
   await formatFiles(tree);
   return () => {

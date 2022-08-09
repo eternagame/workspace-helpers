@@ -11,7 +11,7 @@
     "prebuild": "shx rm -rf dist",
     "build": "tsc -p tsconfig.build.json",
     "postbuild": "shx chmod +x dist/index.js && npm install --save=false",
-    "lint": "eslint src/"
+    "lint": "eslint ."
   },
   "bin": "./dist/index.js",
   "dependencies": {

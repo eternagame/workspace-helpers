@@ -20,19 +20,15 @@
   "namedInputs": {
     "default": [
       "{projectRoot}/**/*",
-      "!{projectRoot}/**/*.spec.ts",
-      "!{projectRoot}/**/__tests__/*.ts",
-      "!{projectRoot}/**/test/*.ts",
-      "!{projectRoot}/test/**/*.ts",
-      "!{projectRoot}/jest.config.mjs",
+      "!{projectRoot}/**/*.(spec|test).(js|mjs|cjs|ts|mts|cts)",
+      "!{projectRoot}/**/(__tests__|test|tests|spec)/**/*.(js|mjs|cjs|ts|mts|cts)",
+      "!{projectRoot}/jest.config.(js|mjs|cjs|ts|mts|cts)",
       { "runtime": "node -v" }
     ],
     "test": [
-      "{projectRoot}/**/*.spec.ts",
-      "{projectRoot}/**/__tests__/*.ts",
-      "{projectRoot}/**/test/*.ts",
-      "{projectRoot}/test/**/*.ts",
-      "{projectRoot}/jest.config.mjs"
+      "!{projectRoot}/**/*.(spec|test).(js|mjs|cjs|ts|mts|cts)",
+      "!{projectRoot}/**/(__tests__|test|tests|spec)/**/*.(js|mjs|cjs|ts|mts|cts)",
+      "{projectRoot}/jest.config.(js|mjs|cjs|ts|mts|cts)"
     ]
   },
   "targetDefaults": {
@@ -53,12 +49,12 @@
       "inputs": ["default", "^default"],
       "dependsOn": ["build"]
     },
-    "build-watch": {
-      "dependsOn": ["^build-watch"],
+    "build:watch": {
+      "dependsOn": ["^build:watch"],
       "outputs": ["./dist"]
     },
     "_serve": {
-      "dependsOn": ["build-watch"]
+      "dependsOn": ["build:watch"]
     }
   },
   "workspaceLayout": {

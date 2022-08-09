@@ -21,6 +21,7 @@
     // Our target and built-ins reflect the lowest common denominator we need to support for
     // isomorphic projects. Currently, that is determined by what Node 14 (oldest LTS) supports
     // per https://github.com/tsconfig/bases/blob/main/bases/node14.json
+    // When we bump this, also bump in tsconfig.web.json (we'll use the same version there for consistency)
     "target": "es2020",
     "lib": ["es2020"],
     "experimentalDecorators": true,

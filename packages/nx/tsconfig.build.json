@@ -12,8 +12,10 @@
   "exclude": [
     "**/*.spec.ts",
     "**/*.test.ts",
-    "**/__tests__/*.ts",
-    "**/test/**/*.ts"
+    "**/__tests__/**/*.ts",
+    "**/test/**/*.ts",
+    "**/tests/**/*.ts",
+    "**/spec/**/*.ts"
   ],
   "include": ["src/**/*.ts"]
 }
