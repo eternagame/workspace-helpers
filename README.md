@@ -70,7 +70,7 @@ want it placed in the root.
 ### Updating Dependencies
 
 In general, when updating dependencies the fastest method to do so, covering all packages
-and taking into account satisfying all peer dependencies, is `npx npm-check-updates --deep --peer`.
+and taking into account satisfying all peer dependencies, is `npx npm-check-updates --deep --peer --dep dev,optional,peer,prod,bundle`.
 
 Take special care when upgrading `nx` - there may be changes to the repository that should be made
 when updating, plus there may be changes that should be made to `@eternagame/nx-plugin`, including changing
