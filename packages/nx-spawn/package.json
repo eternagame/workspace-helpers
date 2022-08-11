@@ -1,6 +1,6 @@
 {
   "name": "@eternagame/nx-spawn",
-  "description": "Run an npm command with nx dependencies without waiting for them to finish",
+  "description": "Run an npm command with Nx dependencies without waiting for them to finish",
   "version": "1.0.0",
   "license": "BSD-3-Clause",
   "scripts": {
@@ -23,7 +23,7 @@
   },
   "nx": {
     "implicitDependencies": [
-      "vite"
+      "vite-utils"
     ]
   }
 }

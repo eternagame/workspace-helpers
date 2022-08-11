@@ -7,13 +7,5 @@
   "peerDependencies": {
     "@types/node": "*",
     "@types/jest": "*"
-  },
-  "peerDependenciesMeta": {
-    "@types/node": {
-      "optional": true
-    },
-    "@types/jest": {
-      "optional": true
-    }
   }
 }

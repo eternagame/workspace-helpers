@@ -9,7 +9,7 @@ async function main() {
   const args = await yargs(hideBin(process.argv))
     .command(
       '$0 <project>',
-      'Initialize an nx workspace using the eternagame layout preset',
+      'Initialize an Nx project using the eternagame layout preset',
       (y) => y.positional('project', { type: 'string', demandOption: true }),
     )
     .option('eterna', {
@@ -29,13 +29,13 @@ async function main() {
     JSON.stringify({ name: args.project }),
   );
   await spawn('git', ['init'], { cwd: args.project });
-  await spawn('npm', ['install', '@eternagame/nx'], { cwd: args.project });
+  await spawn('npm', ['install', '@eternagame/nx-plugin'], { cwd: args.project });
 
   const options = [
     args.project,
     ...(args.npmScope ? ['--npmScope', args.npmScope] : []),
   ];
-  await spawn('npx', ['nx', 'g', '@eternagame/nx:preset', ...options], {
+  await spawn('npx', ['nx', 'g', '@eternagame/nx-plugin:preset', ...options], {
     cwd: args.project,
   });
 }

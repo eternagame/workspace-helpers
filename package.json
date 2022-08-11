@@ -11,13 +11,12 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@eternagame/distify": "file:packages/distify",
     "@eternagame/eslint-plugin": "file:packages/eslint-plugin",
-    "@eternagame/jest": "file:packages/jest",
-    "@eternagame/nx": "file:packages/nx",
+    "@eternagame/jest-utils": "file:packages/jest-utils",
+    "@eternagame/nx-plugin": "file:packages/nx-plugin",
     "@eternagame/nx-spawn": "file:packages/nx-spawn",
     "@eternagame/tsconfig": "file:packages/tsconfig",
-    "@eternagame/vite": "file:packages/vite",
+    "@eternagame/vite-utils": "file:packages/vite-utils",
     "@nrwl/eslint-plugin-nx": "^14.5.0",
     "@types/jest": "^28.1.6",
     "@types/node": "^18.6.2",

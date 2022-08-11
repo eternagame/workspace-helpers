@@ -1,0 +1,29 @@
+{
+  "name": "@eternagame/nx-plugin",
+  "description": "Eterna standard Nx setup and utilities",
+  "version": "1.7.0",
+  "license": "BSD-3-Clause",
+  "scripts": {
+    "prepublishOnly": "nx build",
+    "build": "vite build",
+    "lint": "eslint ."
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "generators": "./generators.json",
+  "executors": "./executors.json",
+  "dependencies": {
+    "@nrwl/devkit": "^14.5.0"
+  },
+  "peerDependencies": {
+    "nx": "^14.5.0",
+    "@nrwl/eslint-plugin-nx": "^14.5.0"
+  },
+  "nx": {
+    "implicitDependencies": [
+      "vite-utils"
+    ]
+  }
+}
