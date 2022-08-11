@@ -1,6 +1,6 @@
 # @eternagame/eslint-plugin
 
-Semi-opinionated ESLint configuration
+Eterna standard ESLint setup and utilities
 
 ## Installation
 
@@ -9,7 +9,7 @@ install them if using the relevant configs (in order to avoid downloading them w
 
 - `eslint-config-airbnb-typescript` (for the typescript configurations)
 - `eslint-config-airbnb-vue` (for the vue configurations)
-- `@nrwl/eslint-plugin-nx` (for the nx configs)
+- `@nrwl/eslint-plugin-nx` (for the Nx configs)
 
 ## Configuration
 
@@ -26,7 +26,7 @@ Note that `@eternagame/typescript` extends `@eternagame/javascript`, `@eternagam
 `@eternagame/javascript`, and `@eternagame/vue3-typescript` extends `@eternagame/typescript`, so you should
 pick whichever of the core configs has the greatest superset of features you want to work with.
 
-The nx configurations must be added separately, but if you use `@eternagame/nx-javascript` you must
+The Nx configurations must be added separately, but if you use `@eternagame/nx-javascript` you must
 use any of the core configs and if you use `@eternagame/nx-typescript` you must use one of the
 typescript core configs (as they override rules in the relevant js/ts airbnb config).
 
@@ -35,14 +35,14 @@ typescript core configs (as they override rules in the relevant js/ts airbnb con
 Core configurations are based on airbnb, a relatively popular style guide. Typescript core
 configurations also take advantage of typescript-eslint (with all recommended rules, including those
 requiring type checking) and airbnb-typescript to handle conflicting definitions. The vue3 configs
-add on the vue3 recommended rules. All and all, I feel these are overall sensible defaults to go with,
+add on the vue3 recommended rules. All and all, we feel these are overall sensible defaults to go with,
 using relatively standard configurations for each technology.
 
-As I use nx monorepos, I've also included the additional configuration I make for that setting.
+As we use Nx monorepos, we've also included the additional configuration for that setting.
 
-Under `src/configs/base-rules`, you will find additional rule customizations I have opted for. Each change is
-documented with specific rationale, but in general reflects my personal experience with what I find
-useful for my workflow and stylistic preferences.
+Under `src/configs/base-rules`, you will find additional rule customizations we have opted for. Each change is
+documented with specific rationale, but in general reflects our personal experience with what we find
+useful for our workflow and stylistic preferences.
 
 Also note that the various configs are tied to their relevant extension. IE, the javascript config
 only applies to js/jsx files, and the typescript config uses that plus a separate configuration

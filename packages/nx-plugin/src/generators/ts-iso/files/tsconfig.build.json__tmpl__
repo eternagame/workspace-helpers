@@ -1,0 +1,17 @@
+{
+  "extends": "@eternagame/tsconfig/tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "baseUrl": "src",
+    "outDir": "dist"
+  },
+  "exclude": [
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "**/__tests__/**/*.ts",
+    "**/test/**/*.ts",
+    "**/tests/**/*.ts",
+    "**/spec/**/*.ts"
+  ],
+  "include": ["src/**/*.ts"]
+}

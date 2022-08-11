@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "eternagame/nx",
+  "version": "1.0.0",
+  "generators": {
+    "preset": {
+      "factory": "./dist/generators/preset",
+      "schema": "./dist/generators/preset/schema.json",
+      "description": "Initializes an Nx project"
+    },
+    "package": {
+      "factory": "./dist/generators/package",
+      "schema": "./dist/generators/package/schema.json",
+      "description": "Adds an empty generic package to an Nx project"
+    },
+    "ts-iso": {
+      "factory": "./dist/generators/ts-iso",
+      "schema": "./dist/generators/ts-iso/schema.json",
+      "description": "Adds new isomorphic TypeScript package to an Nx project"
+    },
+    "ts-node": {
+      "factory": "./dist/generators/ts-node",
+      "schema": "./dist/generators/ts-node/schema.json",
+      "description": "Adds a new TypeScript package intended for usage within NodeJS to an Nx project"
+    },
+    "ts-web": {
+      "factory": "./dist/generators/ts-web",
+      "schema": "./dist/generators/ts-web/schema.json",
+      "description": "Adds a new TypeScript package intended for usage within the browser to an Nx project"
+    },
+    "app-node": {
+      "factory": "./dist/generators/app-node",
+      "schema": "./dist/generators/app-node/schema.json",
+      "description": "Adds a new Typescript NodeJS application to an Nx project"
+    },
+    "app-web": {
+      "factory": "./dist/generators/app-web",
+      "schema": "./dist/generators/app-web/schema.json",
+      "description": "Adds a new Typescript browser application to an Nx project"
+    },
+    "license": {
+      "factory": "./dist/generators/license",
+      "schema": "./dist/generators/license/schema.json",
+      "description": "Re-licenses an Nx project"
+    }
+  }
+}

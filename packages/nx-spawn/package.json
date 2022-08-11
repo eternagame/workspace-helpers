@@ -1,11 +1,10 @@
 {
   "name": "@eternagame/nx-spawn",
-  "description": "Run an npm command with nx dependencies without waiting for them to finish",
+  "description": "Run an npm command with Nx dependencies without waiting for them to finish",
   "version": "1.0.0",
   "license": "BSD-3-Clause",
   "scripts": {
     "prepublishOnly": "nx build",
-    "prebuild": "shx rm -rf dist",
     "build": "vite build",
     "postbuild": "shx chmod +x dist/index.js && npm install --save=false",
     "lint": "eslint ."
@@ -13,6 +12,9 @@
   "type": "module",
   "main": "./dist/index.js",
   "bin": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@nrwl/devkit": "^14.5.0",
     "chokidar": "^3.5.3",
@@ -21,7 +23,7 @@
   },
   "nx": {
     "implicitDependencies": [
-      "vite"
+      "vite-utils"
     ]
   }
 }

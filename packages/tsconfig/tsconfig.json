@@ -40,8 +40,6 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    // Required for Vite
-    "isolatedModules": true,
 
     // Type Checking
     // We'll basically make things as strict as possible, including letting typescript handle some things
