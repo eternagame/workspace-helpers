@@ -46,6 +46,7 @@ const VERSIONS = {
   jest: '^27.5.0',
   '@types/jest': '^27.4.0',
   'ts-jest': '^27.1.3',
+  'ts-node': '^10.9.1',
 } as const;
 
 export default function getDependencyVersions(

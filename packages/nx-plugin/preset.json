@@ -45,6 +45,11 @@
       "inputs": ["default", "^default", "test"],
       "dependsOn": ["build"]
     },
+    "test:cov": {
+      "inputs": ["default", "^default", "test"],
+      "dependsOn": ["build"],
+      "outputs": ["./coverage"]
+    },
     "e2e": {
       "inputs": ["default", "^default"],
       "dependsOn": ["build"]
