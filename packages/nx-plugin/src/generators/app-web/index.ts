@@ -1,7 +1,6 @@
 import * as path from 'path';
 import {
   addDependenciesToPackageJson,
-  formatFiles,
   generateFiles,
   getWorkspaceLayout,
   installPackagesTask,
@@ -80,8 +79,6 @@ export default async function generate(tree: Tree, options: Schema) {
     return json;
   });
   /* eslint-enable no-param-reassign */
-
-  await formatFiles(tree);
 
   return () => {
     finalizeTsNode();

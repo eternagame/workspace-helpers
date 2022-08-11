@@ -1,5 +1,4 @@
 import {
-  formatFiles,
   generateFiles,
   getWorkspaceLayout,
   joinPathFragments,
@@ -57,5 +56,4 @@ export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
   addFiles(tree, normalizedOptions);
   updatePackageLicense(tree, normalizedOptions.projectRoot);
-  await formatFiles(tree);
 }

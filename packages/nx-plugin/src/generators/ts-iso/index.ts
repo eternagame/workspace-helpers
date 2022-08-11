@@ -1,7 +1,6 @@
 import * as path from 'path';
 import {
   addDependenciesToPackageJson,
-  formatFiles,
   generateFiles,
   getWorkspaceLayout,
   installPackagesTask,
@@ -102,7 +101,6 @@ export default async function generate(tree: Tree, options: Schema) {
   await generatePackage(tree, options);
   addFiles(tree, normalizedOptions);
   updatePackageJson(tree, normalizedOptions);
-  await formatFiles(tree);
 
   return () => {
     installPackagesTask(tree);
