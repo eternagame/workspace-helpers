@@ -14,14 +14,18 @@
 This project is structured as a monorepo, using [NPM Workspaces](https://docs.npmjs.com/cli/v8/using-npm/workspaces)
 and [Nx](https://nx.dev/) to manage its components. Here are some common actions you might want to take:
 
-### Development Server
+### Running Apps
 
-Run `npx nx serve <package-name>` to run a local development server for a given package, configured
-with things like live reloading.
+Run `npx nx dev <package-name>` to run an application package, automatically reloading when changes occur.
+
+Run `npx nx start <package-name>` to run after building the package (with dependencies) without reloading.
 
 ### Build
 
 Run `npx nx build <package-name>` to build a package. This will also build any dependencies of the package.
+
+Run `npx nx build:watch <package-name>` to build a package and rebuild when files are changed.
+This will also build any dependencies of the package.
 
 ### Linting and Formatting
 

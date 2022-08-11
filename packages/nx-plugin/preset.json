@@ -53,8 +53,11 @@
       "dependsOn": ["^build:watch"],
       "outputs": ["./dist"]
     },
-    "_serve": {
+    "_dev": {
       "dependsOn": ["build:watch"]
+    },
+    "start": {
+      "dependsOn": ["build"]
     }
   },
   "workspaceLayout": {
