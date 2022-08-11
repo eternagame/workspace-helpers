@@ -3,9 +3,5 @@
   "description": "Opinionated TypeScript configurations",
   "version": "1.1.1",
   "license": "BSD-3-Clause",
-  "scripts": {},
-  "peerDependencies": {
-    "@types/node": "*",
-    "@types/jest": "*"
-  }
+  "scripts": {}
 }
