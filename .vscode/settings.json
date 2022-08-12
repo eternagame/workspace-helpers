@@ -12,4 +12,5 @@
     "source.fixAll.eslint"
   ],
   "eslint.workingDirectories": [{"mode": "auto"}],
+  "jest.jestCommandLine": "npm run test -ws --if-present -- "
 }
