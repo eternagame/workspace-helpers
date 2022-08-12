@@ -59,7 +59,6 @@ function addDependencies(tree: Tree) {
         '@typescript-eslint/eslint-plugin',
         'husky',
         'lint-staged',
-        'micromatch',
       ]),
     },
   );

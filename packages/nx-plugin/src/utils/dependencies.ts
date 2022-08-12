@@ -34,7 +34,6 @@ const VERSIONS = {
   shx: '0.3.4',
   husky: '^7.0.4',
   'lint-staged': '^12.3.3',
-  micromatch: '^4.0.4',
   vite: '^2.8.6',
   'node-dev': '^7.4.3',
   eslint: '^8.8.0',
