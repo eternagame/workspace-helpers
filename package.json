@@ -1,7 +1,10 @@
 {
   "name": "@eternagame/workspace-helpers",
   "description": "Workspace helpers for JS projects",
-  "author": "Jonathan Romano <jonathan@luxaritas.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eternagame/workspace-helpers.git"
+  },
   "version": "0.0.0",
   "license": "BSD-3-Clause",
   "private": true,

@@ -4,6 +4,11 @@
   "version": "1.0.2",
   "license": "BSD-3-Clause",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eternagame/workspace-helpers.git",
+    "directory": "packages/vite-utils"
+  },
   "scripts": {
     "prepublishOnly": "nx build",
     "build": "vite build",

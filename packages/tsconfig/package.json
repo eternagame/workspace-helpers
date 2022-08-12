@@ -3,6 +3,11 @@
   "description": "Opinionated TypeScript configurations",
   "version": "1.1.1",
   "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eternagame/workspace-helpers.git",
+    "directory": "packages/tsconfig"
+  },
   "scripts": {},
   "peerDependencies": {
     "@types/node": "*",
