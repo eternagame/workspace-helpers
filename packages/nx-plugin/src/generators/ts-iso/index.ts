@@ -92,8 +92,6 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
       '@types/jest',
       'ts-jest',
       'typescript',
-      // For loading TS jest config files
-      'ts-node',
     ]),
   );
 }

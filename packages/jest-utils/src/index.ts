@@ -14,6 +14,7 @@ export function getConfig(mode: 'typescript' | 'vue') {
       '!**/*.(spec|test).(js|mjs|cjs|ts|mts|cts)',
       '!**/(__tests__|test|tests|spec)/**/*.(js|mjs|cjs|ts|mts|cts)',
     ],
+    modulePaths: ['<rootDir>/src/'],
     globals: {
       'ts-jest': {
         tsconfig: 'tsconfig.spec.json',
