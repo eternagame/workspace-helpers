@@ -2,14 +2,12 @@ import path from 'path';
 import {
   formatFiles,
   generateFiles,
-  installPackagesTask,
-  addDependenciesToPackageJson,
   readWorkspaceConfiguration,
   updateWorkspaceConfiguration,
   type Tree,
 } from '@nrwl/devkit';
 import generateLicense from '../license';
-import getDependencyVersions from '../../utils/dependencies';
+import { installDevDependencies } from '../../utils/dependencies';
 
 const ETERNA_NPM_SCOPE = 'eternagame';
 const ETERNA_COPYRIGHT_HOLDER = 'Eterna Commons';
@@ -43,28 +41,6 @@ function normalizeOptions(options: Schema): Schema {
   return opts;
 }
 
-function addDependencies(tree: Tree) {
-  addDependenciesToPackageJson(
-    tree,
-    {},
-    {
-      ...getDependencyVersions([
-        'nx',
-        '@eternagame/nx-plugin',
-        '@eternagame/eslint-plugin',
-        'eslint',
-        'eslint-config-airbnb-base',
-        'eslint-config-airbnb-typescript',
-        'eslint-plugin-import',
-        '@typescript-eslint/eslint-plugin',
-        'husky',
-        'lint-staged',
-        'micromatch',
-      ]),
-    },
-  );
-}
-
 function updateNxFiles(tree: Tree, options: Schema) {
   const workspace = readWorkspaceConfiguration(tree);
   const npmScope = options.npmScope || workspace.npmScope;
@@ -90,7 +66,6 @@ function addFiles(tree: Tree, options: Schema) {
 export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(options);
   addFiles(tree, normalizedOptions);
-  addDependencies(tree);
   updateNxFiles(tree, normalizedOptions);
   const finalizeGenerateLicense = generateLicense(tree, {
     license: normalizedOptions.license,
@@ -101,6 +76,18 @@ export default async function generate(tree: Tree, options: Schema) {
   await formatFiles(tree);
   return () => {
     finalizeGenerateLicense();
-    installPackagesTask(tree);
+    installDevDependencies(tree, [
+      '@eternagame/nx-plugin',
+      '@eternagame/eslint-plugin',
+      'nx',
+      'eslint',
+      'eslint-config-airbnb-base',
+      'eslint-config-airbnb-typescript',
+      'eslint-plugin-import',
+      '@typescript-eslint/eslint-plugin',
+      'husky',
+      'lint-staged',
+      'micromatch',
+    ]);
   };
 }
