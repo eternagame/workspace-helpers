@@ -1,3 +1,3 @@
 import getConfig from '@eternagame/vite-utils';
 
-export default getConfig('lib', 'iso');
+export default getConfig({type: 'lib', env: 'iso'});
