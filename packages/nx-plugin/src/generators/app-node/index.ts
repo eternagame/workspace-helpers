@@ -73,8 +73,9 @@ export default async function generate(tree: Tree, options: Schema) {
   updateJson(tree, projectPackageJsonPath, (json: Record<string, unknown>) => {
     if (!json['scripts']) json['scripts'] = {};
     const scripts = json['scripts'] as Record<string, string>;
-    scripts['serve'] = 'nx-spawn _serve';
-    scripts['_serve'] = 'node-dev dist/index.js';
+    scripts['start'] = 'node dist/index.js';
+    scripts['dev'] = 'nx-spawn _dev';
+    scripts['_dev'] = 'node-dev dist/index.js';
     return json;
   });
   /* eslint-enable no-param-reassign */
