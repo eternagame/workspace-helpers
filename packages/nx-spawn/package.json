@@ -7,7 +7,7 @@
     "start": "node dist/index.js",
     "prepublishOnly": "nx build",
     "build": "vite build",
-    "postbuild": "shx chmod +x dist/index.js && npm install --save=false",
+    "postbuild": "npm install --save=false",
     "lint": "eslint ."
   },
   "type": "module",
