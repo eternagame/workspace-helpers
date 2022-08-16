@@ -1,26 +1,25 @@
 {
-  "name": "@eternagame/jest-utils",
-  "description": "Eterna standard Jest setup and utilities",
-  "version": "1.1.0",
+  "name": "@eternagame/lint-staged-utils",
+  "description": "Eterna standard lint-staged setup and utilities",
+  "version": "1.0.0",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
     "url": "https://github.com/eternagame/workspace-helpers.git",
-    "directory": "packages/jest-utils"
+    "directory": "packages/lint-staged-utils"
   },
-  "type": "module",
   "scripts": {
     "prepublishOnly": "nx build",
     "build": "vite build",
+    "build:watch": "vite build --mode development",
     "lint": "eslint ."
   },
+  "type": "module",
   "main": "./dist/index.js",
   "files": [
     "dist"
   ],
-  "nx": {
-    "implicitDependencies": [
-      "vite-utils"
-    ]
+  "dependencies": {
+    "micromatch": "^4.0.5"
   }
 }

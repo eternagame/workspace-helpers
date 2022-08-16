@@ -1,14 +1,17 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# compiled output
-dist
-/tmp
-/out-tsc
+# Compiled output (Managed by @eternagame/nx-plugin)
+dist/
 
-# dependencies
+# Temps and caches (Managed by @eternagame/nx-plugin)
+tmp
+.temp
+.cache
+
+# Dependencies (Managed by @eternagame/nx-plugin)
 node_modules
 
-# IDEs and editors
+# IDEs and editors (Managed by @eternagame/nx-plugin)
 /.idea
 .project
 .classpath
@@ -17,26 +20,41 @@ node_modules
 .settings/
 *.sublime-workspace
 
-# IDE - VSCode
+# IDE - VSCode (Managed by @eternagame/nx-plugin)
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# misc
-/.sass-cache
-/connect.lock
-coverage
-/libpeerconnection.log
-npm-debug.log
-yarn-error.log
-testem.log
-/typings
+# dotenv environment variable files (Managed by @eternagame/nx-plugin)
+.env.*.local
+.env.local
 
-# System Files
+# Diagnostic reports (https://nodejs.org/api/report.html) (Managed by @eternagame/nx-plugin)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Test coverage (Managed by @eternagame/nx-plugin)
+coverage
+
+# Logs (Managed by @eternagame/nx-plugin)
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Runtime data (Managed by @eternagame/nx-plugin)
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# System Files (Managed by @eternagame/nx-plugin)
 .DS_Store
 Thumbs.db
 
-# Nx migrations
+# Nx migrations (Managed by @eternagame/nx-plugin)
 migrations.json
