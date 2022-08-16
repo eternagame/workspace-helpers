@@ -1,16 +1,14 @@
 import * as path from 'path';
 import {
-  addDependenciesToPackageJson,
   generateFiles,
   getWorkspaceLayout,
-  installPackagesTask,
   joinPathFragments,
   names,
   updateJson,
   type Tree,
 } from '@nrwl/devkit';
 import generatePackage from '../package';
-import getDependencyVersions from '../../utils/dependencies';
+import { installDevDependencies } from '../../utils/dependencies';
 
 interface Schema {
   name: string;
@@ -78,21 +76,6 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
     return json;
   });
   /* eslint-enable no-param-reassign */
-
-  addDependenciesToPackageJson(
-    tree,
-    {},
-    getDependencyVersions([
-      'vite',
-      '@eternagame/tsconfig',
-      '@eternagame/jest-utils',
-      '@eternagame/vite-utils',
-      'jest',
-      '@types/jest',
-      'ts-jest',
-      'typescript',
-    ]),
-  );
 }
 
 export default async function generate(tree: Tree, options: Schema) {
@@ -103,6 +86,26 @@ export default async function generate(tree: Tree, options: Schema) {
   updatePackageJson(tree, normalizedOptions);
 
   return () => {
-    installPackagesTask(tree);
+    installDevDependencies(
+      tree,
+      [
+        'vite',
+        '@eternagame/tsconfig',
+        '@eternagame/jest-utils',
+        '@eternagame/vite-utils',
+        'jest',
+        '@types/jest',
+        'ts-jest',
+        'typescript',
+      ],
+    );
+
+    installDevDependencies(
+      tree,
+      [
+        'vite',
+      ],
+      normalizedOptions.projectRoot,
+    );
   };
 }
