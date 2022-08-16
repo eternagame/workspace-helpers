@@ -13,7 +13,7 @@ import getDependencyVersions from '../../utils/dependencies';
 
 const ETERNA_NPM_SCOPE = 'eternagame';
 const ETERNA_COPYRIGHT_HOLDER = 'Eterna Commons';
-const ETERNA_README_PROLOG = `Interested in development? Join the discussion on the Eterna Discord!
+const ETERNA_README_PROLOGUE = `Interested in development? Join the discussion on the Eterna Discord!
 
 [![Eterna Discord](https://discord.com/api/guilds/702618517589065758/widget.png?style=banner2)](https://discord.gg/KYeTwux)`;
 
@@ -23,7 +23,7 @@ interface Schema {
   npmScope: string;
   license: 'MIT' | 'BSD3' | 'EternaNoncommercial' | 'Custom' | 'None';
   copyrightHolder: string;
-  readmeProlog: string;
+  readmePrologue: string;
   eternaDefaults: boolean;
 }
 
@@ -32,7 +32,7 @@ function normalizeOptions(options: Schema): Schema {
 
   if (opts.eternaDefaults) {
     opts.copyrightHolder ||= ETERNA_COPYRIGHT_HOLDER;
-    opts.readmeProlog ||= ETERNA_README_PROLOG;
+    opts.readmePrologue ||= ETERNA_README_PROLOGUE;
     opts.npmScope ||= ETERNA_NPM_SCOPE;
   }
 

@@ -2,9 +2,9 @@
 
 <%= description %>
 
-<!-- Managed by @eternagame/nx-plugin - readme prolog -->
-<%= readmeProlog %>
-<!-- End managed by @eternagame/nx-plugin - readme prolog -->
+<!-- Managed by @eternagame/nx-plugin - readme prologue -->
+<%= readmePrologue %>
+<!-- End managed by @eternagame/nx-plugin - readme prologue -->
 
 <!-- Managed by @eternagame/nx-plugin - setup -->
 ## Setup

@@ -2,11 +2,11 @@
 
 Helper packages for JS projects
 
-<!-- Managed by @eternagame/nx-plugin - readme prolog -->
+<!-- Managed by @eternagame/nx-plugin - readme prologue -->
 Interested in development? Join the discussion on the Eterna Discord!
 
 [![Eterna Discord](https://discord.com/api/guilds/702618517589065758/widget.png?style=banner2)](https://discord.gg/KYeTwux)
-<!-- End managed by @eternagame/nx-plugin - readme prolog -->
+<!-- End managed by @eternagame/nx-plugin - readme prologue -->
 
 ## Components
 
