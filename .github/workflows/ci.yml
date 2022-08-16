@@ -43,7 +43,7 @@ jobs:
       # linting the jest config will fail
       - name: Build jest-utils
         run: npx nx build jest-utils
-      # Our lint-staged.config.mjs also relies on @eternagame/lint-staged-utils
+      # Our lint-staged.config.mjs also relies on @eternagame/lint-staged-utils so that needs to be built to lint
       - name: Build lint-staged-utils
         run: npx nx build lint-staged-utils
       - name: Build
