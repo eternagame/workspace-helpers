@@ -1,17 +1,14 @@
 import * as path from 'path';
 import {
-  addDependenciesToPackageJson,
-  formatFiles,
   generateFiles,
   getWorkspaceLayout,
-  installPackagesTask,
   joinPathFragments,
   names,
   updateJson,
   type Tree,
 } from '@nrwl/devkit';
+import { installDevDependencies } from 'utils/dependencies';
 import generateTsNode from '../ts-node';
-import getDependencyVersions from '../../utils/dependencies';
 
 interface Schema {
   name: string;
@@ -59,12 +56,6 @@ export default async function generate(tree: Tree, options: Schema) {
 
   addFiles(tree, normalizedOptions);
 
-  addDependenciesToPackageJson(
-    tree,
-    {},
-    getDependencyVersions(['node-dev', '@eternagame/nx-spawn']),
-  );
-
   const projectPackageJsonPath = path.join(
     normalizedOptions.projectRoot,
     'package.json',
@@ -73,16 +64,15 @@ export default async function generate(tree: Tree, options: Schema) {
   updateJson(tree, projectPackageJsonPath, (json: Record<string, unknown>) => {
     if (!json['scripts']) json['scripts'] = {};
     const scripts = json['scripts'] as Record<string, string>;
-    scripts['serve'] = 'nx-spawn _serve';
-    scripts['_serve'] = 'node-dev dist/index.js';
+    scripts['start'] = 'node dist/index.js';
+    scripts['dev'] = 'nx-spawn _dev';
+    scripts['_dev'] = 'node-dev dist/index.js';
     return json;
   });
   /* eslint-enable no-param-reassign */
 
-  await formatFiles(tree);
-
   return () => {
     finalizeTsNode();
-    installPackagesTask(tree);
+    installDevDependencies(tree, ['node-dev', '@eternagame/nx-spawn']);
   };
 }

@@ -21,16 +21,20 @@ and [Nx](https://nx.dev/) to manage its components. Here are some common actions
 <!-- End managed by @eternagame/nx-plugin - commands -->
 
 <!-- Managed by @eternagame/nx-plugin - commands/run -->
-### Development Server
+### Running Apps
 
-Run `npx nx serve <package-name>` to run a local development server for a given package, configured
-with things like live reloading.
+Run `npx nx dev <package-name>` to run an application package, automatically reloading when changes occur.
+
+Run `npx nx start <package-name>` to run after building the package (with dependencies) without reloading.
 <!-- End managed by @eternagame/nx-plugin - commands/run -->
 
 <!-- Managed by @eternagame/nx-plugin - commands/build -->
 ### Build
 
 Run `npx nx build <package-name>` to build a package. This will also build any dependencies of the package.
+
+Run `npx nx build:watch <package-name>` to build a package and rebuild when files are changed.
+This will also build any dependencies of the package.
 <!-- End managed by @eternagame/nx-plugin - commands/build -->
 
 <!-- Managed by @eternagame/nx-plugin - commands/lint -->

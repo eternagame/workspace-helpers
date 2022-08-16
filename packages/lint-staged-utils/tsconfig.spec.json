@@ -1,11 +1,10 @@
 {
-  "extends": "@eternagame/tsconfig/tsconfig.jest.json",
+  "extends": "@eternagame/tsconfig/tsconfig.jest-node.json",
   "references": [
-    {"path": "./tsconfig.build.json"}
+    {
+      "path": "./tsconfig.build.json"
+    }
   ],
-  "compilerOptions": {
-    "baseUrl": "src"
-  },
   "include": [
     "**/*.spec.ts",
     "**/*.test.ts",
