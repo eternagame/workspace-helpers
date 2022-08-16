@@ -10,6 +10,10 @@
     "lint": "eslint ."
   },
   "main": "./dist/index.js",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
+  },
   "files": [
     "dist"
   ],
