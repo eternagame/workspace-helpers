@@ -3,6 +3,11 @@
   "description": "Run an npm command with Nx dependencies without waiting for them to finish",
   "version": "1.0.0",
   "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eternagame/workspace-helpers.git",
+    "directory": "packages/nx-spawn"
+  },
   "scripts": {
     "start": "node dist/index.js",
     "prepublishOnly": "nx build",
