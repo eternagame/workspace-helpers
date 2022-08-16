@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "$id": "TSNode",
+  "$id": "TSIso",
   "cli": "nx",
-  "title": "Adds a new TypeScript package intended for usage within NodeJS to an Nx project",
+  "title": "Adds new isomorphic TypeScript package to an Nx project",
   "type": "object",
   "properties": {
     "name": {
@@ -15,12 +15,30 @@
       "x-prompt": "What name of your npm package?",
       "pattern": "^[a-zA-Z].*$"
     },
+    "env": {
+      "type": "string",
+      "description": "Runtime environment",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      },
+      "enum": ["iso", "web", "node"],
+      "x-prompt": {
+        "message": "What runtime environment is this package intended for?",
+        "type": "list",
+        "items": [
+          { "value": "iso", "label": "Isomorphic (any environment)" },
+          { "value": "web", "label": "Web/Browser" },
+          { "value": "node", "label": "NodeJS" }
+        ]
+      }
+    },
     "description": {
       "type": "string",
       "description": "Package description",
       "$default": {
         "$source": "argv",
-        "index": 1
+        "index": 2
       },
       "x-prompt": "Provide a brief description for the package",
       "pattern": "^[\\w -_']*$"
@@ -30,5 +48,5 @@
       "description": "A directory under the packages directory to create the package in"
     }
   },
-  "required": ["name", "description"]
+  "required": ["name", "env", "description"]
 }
