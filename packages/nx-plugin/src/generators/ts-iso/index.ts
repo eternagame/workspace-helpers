@@ -1,6 +1,5 @@
 import * as path from 'path';
 import {
-  formatFiles,
   generateFiles,
   getWorkspaceLayout,
   joinPathFragments,
@@ -85,7 +84,6 @@ export default async function generate(tree: Tree, options: Schema) {
   await generatePackage(tree, options);
   addFiles(tree, normalizedOptions);
   updatePackageJson(tree, normalizedOptions);
-  await formatFiles(tree);
 
   return () => {
     installDevDependencies(

@@ -1,6 +1,5 @@
 import path from 'path';
 import {
-  formatFiles,
   generateFiles,
   readWorkspaceConfiguration,
   updateWorkspaceConfiguration,
@@ -73,7 +72,6 @@ export default async function generate(tree: Tree, options: Schema) {
       normalizedOptions.copyrightHolder
       || (normalizedOptions.eternaDefaults ? 'Eterna Commons' : ''),
   });
-  await formatFiles(tree);
   return () => {
     finalizeGenerateLicense();
     installDevDependencies(tree, [
