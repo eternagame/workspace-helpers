@@ -13,7 +13,7 @@
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": ["build", "lint", "test", "test:cov", "e2e"]
       }
     }
   },
@@ -45,6 +45,11 @@
       "inputs": ["default", "^default", "test"],
       "dependsOn": ["build"]
     },
+    "test:cov": {
+      "inputs": ["default", "^default", "test"],
+      "dependsOn": ["build"],
+      "outputs": ["./coverage"]
+    },
     "e2e": {
       "inputs": ["default", "^default"],
       "dependsOn": ["build"]
@@ -53,8 +58,11 @@
       "dependsOn": ["^build:watch"],
       "outputs": ["./dist"]
     },
-    "_serve": {
+    "_dev": {
       "dependsOn": ["build:watch"]
+    },
+    "start": {
+      "dependsOn": ["build"]
     }
   },
   "workspaceLayout": {
