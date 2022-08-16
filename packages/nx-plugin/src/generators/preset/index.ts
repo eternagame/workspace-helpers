@@ -85,7 +85,6 @@ export default async function generate(tree: Tree, options: Schema) {
       '@typescript-eslint/eslint-plugin',
       'husky',
       'lint-staged',
-      'micromatch',
     ]);
   };
 }
