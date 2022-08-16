@@ -1,17 +1,15 @@
 import * as path from 'path';
 import {
-  addDependenciesToPackageJson,
   formatFiles,
   generateFiles,
   getWorkspaceLayout,
-  installPackagesTask,
   joinPathFragments,
   names,
   updateJson,
   type Tree,
 } from '@nrwl/devkit';
+import { installDevDependencies } from 'utils/dependencies';
 import generateTsNode from '../ts-node';
-import getDependencyVersions from '../../utils/dependencies';
 
 interface Schema {
   name: string;
@@ -59,12 +57,6 @@ export default async function generate(tree: Tree, options: Schema) {
 
   addFiles(tree, normalizedOptions);
 
-  addDependenciesToPackageJson(
-    tree,
-    {},
-    getDependencyVersions(['node-dev', '@eternagame/nx-spawn']),
-  );
-
   const projectPackageJsonPath = path.join(
     normalizedOptions.projectRoot,
     'package.json',
@@ -84,6 +76,6 @@ export default async function generate(tree: Tree, options: Schema) {
 
   return () => {
     finalizeTsNode();
-    installPackagesTask(tree);
+    installDevDependencies(tree, ['node-dev', '@eternagame/nx-spawn']);
   };
 }
