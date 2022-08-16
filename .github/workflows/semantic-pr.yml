@@ -18,6 +18,7 @@ jobs:
         with:
           scopes: |
             repo
+            bootstrap
             eslint-plugin
             jest-utils
             lint-staged-utils
