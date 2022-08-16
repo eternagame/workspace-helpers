@@ -1,4 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+# Our config library needs to be built before we can run lint-staged
+npx nx build lint-staged-utils
 npx lint-staged
