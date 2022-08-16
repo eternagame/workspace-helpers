@@ -1,0 +1,20 @@
+{
+  "name": "@eternagame/lint-staged-utils",
+  "description": "Eterna standard lint-staged setup and utilities",
+  "version": "1.0.0",
+  "license": "BSD-3-Clause",
+  "scripts": {
+    "prepublishOnly": "nx build",
+    "build": "vite build",
+    "build:watch": "vite build --mode development",
+    "lint": "eslint ."
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "micromatch": "^4.0.5"
+  }
+}

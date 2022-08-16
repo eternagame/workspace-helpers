@@ -2,9 +2,11 @@
 
 Helper packages for JS projects
 
+<!-- Managed by @eternagame/nx-plugin - prologue -->
 Interested in development? Join the discussion on the Eterna Discord!
 
 [![Eterna Discord](https://discord.com/api/guilds/702618517589065758/widget.png?style=banner2)](https://discord.gg/KYeTwux)
+<!-- End managed by @eternagame/nx-plugin - prologue -->
 
 ## Components
 
@@ -26,37 +28,54 @@ configuration and package generators.
 
 - [`@eternagame/nx-spawn`](./packages/nx-spawn) - Run an npm command with Nx dependencies without waiting for them to finish
 
+<!-- Managed by @eternagame/nx-plugin - setup -->
 ## Setup
 
 - Install [NodeJS](https://nodejs.org/en/download/) (we recommend using the latest LTS version)
 - Run `npm install` in the root of this repository
+<!-- End managed by @eternagame/nx-plugin - setup -->
 
+<!-- Managed by @eternagame/nx-plugin - commands -->
 ## Common Commands
 
 This project is structured as a monorepo, using [NPM Workspaces](https://docs.npmjs.com/cli/v8/using-npm/workspaces)
 and [Nx](https://nx.dev/) to manage its components. Here are some common actions you might want to take:
+<!-- End managed by @eternagame/nx-plugin - commands -->
 
-### Development Server
+<!-- Managed by @eternagame/nx-plugin - commands/run -->
+### Running Apps
 
-Run `npx nx serve <package-name>` to run a local development server for a given package, configured
-with things like live reloading.
+Run `npx nx dev <package-name>` to run an application package, automatically reloading when changes occur.
 
+Run `npx nx start <package-name>` to run after building the package (with dependencies) without reloading.
+<!-- End managed by @eternagame/nx-plugin - commands/run -->
+
+<!-- Managed by @eternagame/nx-plugin - commands/build -->
 ### Build
 
 Run `npx nx build <package-name>` to build a package. This will also build any dependencies of the package.
 
+Run `npx nx build:watch <package-name>` to build a package and rebuild when files are changed.
+This will also build any dependencies of the package.
+<!-- End managed by @eternagame/nx-plugin - commands/build -->
+
+<!-- Managed by @eternagame/nx-plugin - commands/lint -->
 ### Linting and Formatting
 
 Run `npx nx lint <package-name>` to run linting for a package via [ESLint](https://eslint.org/).
 
 Run `npx nx lint <package-name> --fix` to run linting with automatic fixes
+<!-- End managed by @eternagame/nx-plugin - commands/lint -->
 
+<!-- Managed by @eternagame/nx-plugin - commands/test -->
 ### Unit Tests
 
 Run `npx nx test <package-name>` to execute the unit tests for a package via [Jest](https://jestjs.io/).
 
 Run `npx nx affected:test` to execute the unit tests for all packages affected by a code change.
+<!-- End managed by @eternagame/nx-plugin - commands/test -->
 
+<!-- Managed by @eternagame/nx-plugin - commands/generate -->
 ### Code Generation
 
 You can use the Eterna Nx plugin to automatically create and update files, including adding new packages.
@@ -66,11 +85,12 @@ run `npx nx generate <generator>` (eg, `npx nx generate ts-iso`). Running `npx n
 will show available options for that generator. In particular, if generating a new package, you may want to pass
 the `--directory` flag to put the package in a specific subdirectory of the packages directory if you don't
 want it placed in the root.
+<!-- End managed by @eternagame/nx-plugin - commands/generate -->
 
 ### Updating Dependencies
 
 In general, when updating dependencies the fastest method to do so, covering all packages
-and taking into account satisfying all peer dependencies, is `npx npm-check-updates --deep --peer`.
+and taking into account satisfying all peer dependencies, is `npx npm-check-updates --deep --peer --dep dev,optional,peer,prod,bundle`.
 
 Take special care when upgrading `nx` - there may be changes to the repository that should be made
 when updating, plus there may be changes that should be made to `@eternagame/nx-plugin`, including changing
@@ -88,7 +108,7 @@ changes that we may want to incorporate:
 If you're on a unix-like system and want to remove all nested node_modules folders,
 you can run `find . -type d -name node_modules -prune | xargs rm -r`
 
-### Testing packages outside this project
+## Testing packages outside this project
 
 If you want to test changes to packages outside of this project, you will need a way to install your
 local version in whatever other project you're using. There are generally two ways to do this:

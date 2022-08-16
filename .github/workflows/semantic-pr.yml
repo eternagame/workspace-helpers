@@ -20,6 +20,7 @@ jobs:
             repo
             eslint-plugin
             jest-utils
+            lint-staged-utils
             nx-plugin
             nx-spawn
             tsconfig

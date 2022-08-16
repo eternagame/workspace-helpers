@@ -54,7 +54,7 @@
       "x-prompt": "If you've specified a license, who is the copyright holder?",
       "default": ""
     },
-    "readmeProlog": {
+    "readmePrologue": {
       "type": "string",
       "description": "Additional information to add as part of the high-level description in the README",
       "default": ""

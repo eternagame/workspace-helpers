@@ -1,19 +1,16 @@
 import path from 'path';
 import {
-  formatFiles,
   generateFiles,
-  installPackagesTask,
-  addDependenciesToPackageJson,
   readWorkspaceConfiguration,
   updateWorkspaceConfiguration,
   type Tree,
 } from '@nrwl/devkit';
 import generateLicense from '../license';
-import getDependencyVersions from '../../utils/dependencies';
+import { installDevDependencies } from '../../utils/dependencies';
 
 const ETERNA_NPM_SCOPE = 'eternagame';
 const ETERNA_COPYRIGHT_HOLDER = 'Eterna Commons';
-const ETERNA_README_PROLOG = `Interested in development? Join the discussion on the Eterna Discord!
+const ETERNA_README_PROLOGUE = `Interested in development? Join the discussion on the Eterna Discord!
 
 [![Eterna Discord](https://discord.com/api/guilds/702618517589065758/widget.png?style=banner2)](https://discord.gg/KYeTwux)`;
 
@@ -23,7 +20,7 @@ interface Schema {
   npmScope: string;
   license: 'MIT' | 'BSD3' | 'EternaNoncommercial' | 'Custom' | 'None';
   copyrightHolder: string;
-  readmeProlog: string;
+  readmePrologue: string;
   eternaDefaults: boolean;
 }
 
@@ -32,7 +29,7 @@ function normalizeOptions(options: Schema): Schema {
 
   if (opts.eternaDefaults) {
     opts.copyrightHolder ||= ETERNA_COPYRIGHT_HOLDER;
-    opts.readmeProlog ||= ETERNA_README_PROLOG;
+    opts.readmePrologue ||= ETERNA_README_PROLOGUE;
     opts.npmScope ||= ETERNA_NPM_SCOPE;
   }
 
@@ -41,28 +38,6 @@ function normalizeOptions(options: Schema): Schema {
   }
 
   return opts;
-}
-
-function addDependencies(tree: Tree) {
-  addDependenciesToPackageJson(
-    tree,
-    {},
-    {
-      ...getDependencyVersions([
-        'nx',
-        '@eternagame/nx-plugin',
-        '@eternagame/eslint-plugin',
-        'eslint',
-        'eslint-config-airbnb-base',
-        'eslint-config-airbnb-typescript',
-        'eslint-plugin-import',
-        '@typescript-eslint/eslint-plugin',
-        'husky',
-        'lint-staged',
-        'micromatch',
-      ]),
-    },
-  );
 }
 
 function updateNxFiles(tree: Tree, options: Schema) {
@@ -90,7 +65,6 @@ function addFiles(tree: Tree, options: Schema) {
 export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(options);
   addFiles(tree, normalizedOptions);
-  addDependencies(tree);
   updateNxFiles(tree, normalizedOptions);
   const finalizeGenerateLicense = generateLicense(tree, {
     license: normalizedOptions.license,
@@ -98,9 +72,19 @@ export default async function generate(tree: Tree, options: Schema) {
       normalizedOptions.copyrightHolder
       || (normalizedOptions.eternaDefaults ? 'Eterna Commons' : ''),
   });
-  await formatFiles(tree);
   return () => {
     finalizeGenerateLicense();
-    installPackagesTask(tree);
+    installDevDependencies(tree, [
+      '@eternagame/nx-plugin',
+      '@eternagame/eslint-plugin',
+      'nx',
+      'eslint',
+      'eslint-config-airbnb-base',
+      'eslint-config-airbnb-typescript',
+      'eslint-plugin-import',
+      '@typescript-eslint/eslint-plugin',
+      'husky',
+      'lint-staged',
+    ]);
   };
 }
