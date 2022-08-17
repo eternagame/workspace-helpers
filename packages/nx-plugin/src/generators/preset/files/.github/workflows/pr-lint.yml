@@ -1,4 +1,4 @@
-name: 'Lint PR'
+name: Lint PR
 
 on:
   pull_request_target:
@@ -16,14 +16,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          types:
+            feat
+            fix
+            perf
+            revert
+            deps
+            docs
+            refactor
+            test
+            chore
           scopes: |
             repo
-            bootstrap
-            eslint-plugin
-            jest-utils
-            lint-staged-utils
-            nx-plugin
-            nx-spawn
-            tsconfig
-            vite-utils
           requireScope: true

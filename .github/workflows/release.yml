@@ -1,0 +1,63 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      releases_created:  ${{ steps.prep-release.outputs.releases_created }}
+    steps:
+      - name: Prep release
+        id: prep-release
+        uses: google-github-actions/release-please-action@v3
+        with:
+          command: manifest
+
+  update-lockfile:
+    name: Update release PR with lockfile updates
+    runs-on: ubuntu-latest
+    needs: release-please
+    if: needs.release-please.outputs.releases_created != 'true'
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: release-please--branches--main
+          fetch-depth: 2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - name: Update package-lock.json
+        run: npm install --no-audit --no-fund --ignore-scripts --package-lock-only
+      - name: Merge changes with last commit
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit --amend --no-edit
+          git push -f
+
+  npm-publish:
+    needs: release-please
+    if: ${{ needs.release-please.outputs.releases_created }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: 'https://registry.npmjs.org'
+      - name: Use the node_modules cache if available
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ steps.versions.outputs.node_version }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ steps.versions.outputs.node_version }}-
+      - run: npm ci
+      - run: npm publish -ws --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

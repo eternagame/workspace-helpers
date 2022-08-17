@@ -8,7 +8,7 @@ updates:
       - 'type: dependencies'
       - 'scope: repo'
     commit-message:
-      prefix: chore(repo)
+      prefix: deps(repo)
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
@@ -17,6 +17,6 @@ updates:
       - 'type: dependencies'
       - 'scope: repo'
     commit-message:
-      prefix: chore(repo)
+      prefix: deps(repo)
     # Security updates only
     open-pull-requests-limit: 0

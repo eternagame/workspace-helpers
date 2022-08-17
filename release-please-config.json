@@ -1,0 +1,37 @@
+{
+  "plugins": ["node-workspace"],
+  "changelog-sections": [
+    { "type": "feat", "section": "Features and Enhancements", "hidden": false },
+    { "type": "fix", "section": "Bug Fixes", "hidden": false },
+    { "type": "perf", "section": "Performance Improvements", "hidden": false },
+    { "type": "revert", "section": "Reverts", "hidden": false },
+    { "type": "docs", "section": "Documentation", "hidden": false },
+    { "type": "deps", "section": "Dependencies", "hidden": false }
+  ],
+  "packages": {
+    "packages/bootstrap": {
+      "release-as": "1.0.0"
+    },
+    "packages/eslint-plugin": {
+      "release-as": "2.0.0"
+    },
+    "packages/jest-utils": {
+      "release-as": "2.0.0"
+    },
+    "packages/lint-staged-utils": {
+      "release-as": "1.0.0"
+    },
+    "packages/nx-plugin": {
+      "release-as": "2.0.0"
+    },
+    "packages/nx-spawn": {
+      "release-as": "2.0.0"
+    },
+    "packages/tsconfig": {
+      "release-as": "2.0.0"
+    },
+    "packages/vite-utils": {
+      "release-as": "2.0.0"
+    }
+  }
+}
