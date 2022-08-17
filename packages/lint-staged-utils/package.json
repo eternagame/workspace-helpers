@@ -21,5 +21,10 @@
   ],
   "dependencies": {
     "micromatch": "^4.0.5"
+  },
+  "nx": {
+    "implicitDependencies": [
+      "vite-utils"
+    ]
   }
 }
