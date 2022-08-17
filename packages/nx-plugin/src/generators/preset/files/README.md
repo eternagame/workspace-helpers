@@ -2,10 +2,12 @@
 
 <%= description %>
 
+<% if (readmePrologue) { -%>
 <!-- Managed by @eternagame/nx-plugin - prologue -->
 <%= readmePrologue %>
 <!-- End managed by @eternagame/nx-plugin - prologue -->
 
+<% } -%>
 <!-- Managed by @eternagame/nx-plugin - setup -->
 ## Setup
 
