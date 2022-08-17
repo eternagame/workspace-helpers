@@ -95,7 +95,7 @@ export function updatePackageLicense(tree: Tree, projectRoot: string) {
   updateLicense(tree, projectRoot, { license, copyrightHolder });
 }
 
-export default function generate(tree: Tree, options: Schema) {
+export default async function generate(tree: Tree, options: Schema) {
   updateJson(tree, 'nx.json', (json: Record<string, unknown>) => {
     const generators = maybeInitObject(json, 'generators');
     if (!generators) throw new Error('nx.json generators property is invalid');

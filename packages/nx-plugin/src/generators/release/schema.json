@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "Package",
+  "cli": "nx",
+  "title": "Sets up automated releases",
+  "type": "object",
+  "properties": {
+    "publishing": {
+      "type": "string",
+      "description": "Whether or not packages should be published as part of a release",
+      "enum": ["no-publish", "default-private", "default-publish"],
+      "x-prompt": {
+        "message": "How should publishing be handled during a release?",
+        "type": "list",
+        "items": [
+          { "value": "no-publish", "label": "Don't configure publishing as part of the release workflow" },
+          { "value": "default-private", "label": "Configure publishing, but assume packages are private (not published) by default" },
+          { "value": "default-publish", "label": "Configure publishing and assume packages should be published by default" }
+        ]
+      }
+    }
+  },
+  "required": ["publishing"]
+}

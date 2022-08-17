@@ -10,6 +10,7 @@ import {
 import * as path from 'path';
 import { inOperator } from 'utils/json';
 import { join } from 'path';
+import { setupReleaseForPackage } from 'generators/release';
 import { updatePackageLicense } from '../license';
 
 interface Schema {
@@ -108,4 +109,5 @@ export default async function generate(tree: Tree, options: Schema) {
   addFiles(tree, normalizedOptions);
   addPackageInfoFields(tree, normalizedOptions);
   updatePackageLicense(tree, normalizedOptions.projectRoot);
+  setupReleaseForPackage(tree, normalizedOptions.projectRoot);
 }
