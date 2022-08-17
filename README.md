@@ -23,6 +23,7 @@ configuration and package generators.
 - [`@eternagame/eslint-plugin`](./packages/eslint-plugin) - Eterna standard ESLint setup and utilities
 - [`@eternagame/jest-utils`](./packages/jest-utils) - Eterna standard Jest setup and utilities
 - [`@eternagame/vite-utils`](./packages/vite-utils) - Eterna standard Vite setup and utilities
+- [`@eternagame/lint-staged-utils`](./packages/lint-staged-utils) - Eterna standard lint-staged setup and utilities
 
 ### Utility Applications
 
