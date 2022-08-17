@@ -12,6 +12,7 @@ import { installDevDependencies } from '../../utils/dependencies';
 
 interface Schema {
   name: string;
+  env: 'iso' | 'web' | 'node';
   description: string;
   directory: string;
 }
@@ -78,12 +79,53 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
   /* eslint-enable no-param-reassign */
 }
 
+function updateTsconfigs(tree: Tree, options: NormalizedSchema) {
+  /* eslint-disable no-param-reassign */
+  if (options.env === 'web') {
+    updateJson(
+      tree,
+      path.join(options.projectRoot, 'tsconfig.build.json'),
+      (json: Record<string, unknown>) => {
+        json['extends'] = '@eternagame/tsconfig/tsconfig.web.json';
+        return json;
+      },
+    );
+    updateJson(
+      tree,
+      path.join(options.projectRoot, 'tsconfig.spec.json'),
+      (json: Record<string, unknown>) => {
+        json['extends'] = '@eternagame/tsconfig/tsconfig.jest-web.json';
+        return json;
+      },
+    );
+  } else if (options.env === 'node') {
+    updateJson(
+      tree,
+      path.join(options.projectRoot, 'tsconfig.build.json'),
+      (json: Record<string, unknown>) => {
+        json['extends'] = '@eternagame/tsconfig/tsconfig.node.json';
+        return json;
+      },
+    );
+    updateJson(
+      tree,
+      path.join(options.projectRoot, 'tsconfig.spec.json'),
+      (json: Record<string, unknown>) => {
+        json['extends'] = '@eternagame/tsconfig/tsconfig.jest-node.json';
+        return json;
+      },
+    );
+  }
+  /* eslint-enable no-param-reassign */
+}
+
 export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
 
   await generatePackage(tree, options);
   addFiles(tree, normalizedOptions);
   updatePackageJson(tree, normalizedOptions);
+  updateTsconfigs(tree, normalizedOptions);
 
   return () => {
     installDevDependencies(
@@ -98,14 +140,6 @@ export default async function generate(tree: Tree, options: Schema) {
         'ts-jest',
         'typescript',
       ],
-    );
-
-    installDevDependencies(
-      tree,
-      [
-        'vite',
-      ],
-      normalizedOptions.projectRoot,
     );
   };
 }

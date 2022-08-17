@@ -13,20 +13,10 @@
       "schema": "./dist/generators/package/schema.json",
       "description": "Adds an empty generic package to an Nx project"
     },
-    "ts-iso": {
-      "factory": "./dist/generators/ts-iso",
-      "schema": "./dist/generators/ts-iso/schema.json",
-      "description": "Adds new isomorphic TypeScript package to an Nx project"
-    },
-    "ts-node": {
-      "factory": "./dist/generators/ts-node",
-      "schema": "./dist/generators/ts-node/schema.json",
-      "description": "Adds a new TypeScript package intended for usage within NodeJS to an Nx project"
-    },
-    "ts-web": {
-      "factory": "./dist/generators/ts-web",
-      "schema": "./dist/generators/ts-web/schema.json",
-      "description": "Adds a new TypeScript package intended for usage within the browser to an Nx project"
+    "lib-ts": {
+      "factory": "./dist/generators/lib-ts",
+      "schema": "./dist/generators/lib-ts/schema.json",
+      "description": "Adds new TypeScript library to an Nx project"
     },
     "app-node": {
       "factory": "./dist/generators/app-node",

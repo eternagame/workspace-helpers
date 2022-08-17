@@ -7,7 +7,7 @@ import {
   updateJson,
   type Tree,
 } from '@nrwl/devkit';
-import generateTsWeb from '../ts-web';
+import generateTsLib from '../lib-ts';
 import { installDevDependencies } from '../../utils/dependencies';
 
 interface Schema {
@@ -18,6 +18,7 @@ interface Schema {
 
 interface NormalizedSchema extends Schema {
   projectRoot: string;
+  env: 'web';
 }
 
 function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
@@ -33,6 +34,7 @@ function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
   return {
     ...options,
     projectRoot,
+    env: 'web',
   };
 }
 
@@ -52,7 +54,7 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
 export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
 
-  const finalizeTsNode = await generateTsWeb(tree, options);
+  const finalizeTsLib = await generateTsLib(tree, normalizedOptions);
 
   addFiles(tree, normalizedOptions);
 
@@ -74,7 +76,7 @@ export default async function generate(tree: Tree, options: Schema) {
   /* eslint-enable no-param-reassign */
 
   return () => {
-    finalizeTsNode();
+    finalizeTsLib();
     installDevDependencies(tree, ['@eternagame/nx-spawn']);
   };
 }
