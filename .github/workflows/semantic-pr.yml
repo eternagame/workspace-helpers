@@ -18,8 +18,10 @@ jobs:
         with:
           scopes: |
             repo
+            bootstrap
             eslint-plugin
             jest-utils
+            lint-staged-utils
             nx-plugin
             nx-spawn
             tsconfig
