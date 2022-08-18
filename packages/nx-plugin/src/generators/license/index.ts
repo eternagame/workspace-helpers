@@ -2,7 +2,7 @@ import {
   generateFiles,
   getProjects,
   logger,
-  readNxJson,
+  readJson,
   updateJson,
   type Tree,
 } from '@nrwl/devkit';
@@ -64,7 +64,7 @@ function updateLicense(tree: Tree, root: string, options: Schema) {
 }
 
 export function updatePackageLicense(tree: Tree, projectRoot: string) {
-  const nxJson = readNxJson();
+  const nxJson: unknown = readJson(tree, 'nx.json');
   const options = getValue(nxJson, null, 'generators', '@eternagame/nx-plugin:license')
     || getValue(nxJson, null, 'generators', '@eternagame/nx-plugin', 'license');
   if (!isRecord(options)) {

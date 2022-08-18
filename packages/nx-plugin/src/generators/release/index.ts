@@ -1,5 +1,5 @@
 import {
-  generateFiles, getProjects, joinPathFragments, logger, readNxJson, Tree, updateJson,
+  generateFiles, getProjects, joinPathFragments, logger, readJson, Tree, updateJson,
 } from '@nrwl/devkit';
 import { join } from 'path';
 import {
@@ -56,7 +56,7 @@ function setupRelease(tree: Tree, root: string, options: Schema) {
 }
 
 export function setupReleaseForPackage(tree: Tree, projectRoot: string) {
-  const nxJson = readNxJson();
+  const nxJson: unknown = readJson(tree, 'nx.json');
   const options = getValue(nxJson, null, 'generators', '@eternagame/nx-plugin:release')
     || getValue(nxJson, null, 'generators', '@eternagame/nx-plugin', 'release');
   if (!isRecord(options)) {
