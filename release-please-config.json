@@ -1,12 +1,38 @@
 {
-  "plugins": ["node-workspace"],
+  "plugins": [
+    "node-workspace"
+  ],
   "changelog-sections": [
-    { "type": "feat", "section": "Features and Enhancements", "hidden": false },
-    { "type": "fix", "section": "Bug Fixes", "hidden": false },
-    { "type": "perf", "section": "Performance Improvements", "hidden": false },
-    { "type": "revert", "section": "Reverts", "hidden": false },
-    { "type": "docs", "section": "Documentation", "hidden": false },
-    { "type": "deps", "section": "Dependencies", "hidden": false }
+    {
+      "type": "feat",
+      "section": "Features and Enhancements",
+      "hidden": false
+    },
+    {
+      "type": "fix",
+      "section": "Bug Fixes",
+      "hidden": false
+    },
+    {
+      "type": "perf",
+      "section": "Performance Improvements",
+      "hidden": false
+    },
+    {
+      "type": "revert",
+      "section": "Reverts",
+      "hidden": false
+    },
+    {
+      "type": "docs",
+      "section": "Documentation",
+      "hidden": false
+    },
+    {
+      "type": "deps",
+      "section": "Dependencies",
+      "hidden": false
+    }
   ],
   "packages": {
     "packages/bootstrap": {

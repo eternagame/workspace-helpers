@@ -50,7 +50,7 @@ export function getValue(
     if (!inOperator(key, currVal)) return defaultValue;
     currVal = currVal[key];
   }
-  return defaultValue;
+  return currVal;
 }
 
 /**
