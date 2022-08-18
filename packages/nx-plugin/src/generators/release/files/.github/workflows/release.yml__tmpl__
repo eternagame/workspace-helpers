@@ -39,8 +39,8 @@ jobs:
           git add .
           git commit --amend --no-edit
           git push -f
+<% if (publishing !== 'no-publish') { -%>
 
-<% if (publishing !== 'never') { -%>
   npm-publish:
     needs: release-please
     if: ${{ needs.release-please.outputs.releases_created }}
