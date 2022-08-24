@@ -5,6 +5,7 @@ import type { UserConfigFn } from 'vite';
 import typescriptPlugin from 'rollup-plugin-typescript2';
 import preserveShebangs from './rollup-preserve-shebangs';
 import resourcePlugin from './rollup-resource-files';
+import vuePlugin from '@vitejs/plugin-vue'
 
 function readPackageLock(): Record<string, unknown> {
   let checkDir = process.cwd();
@@ -40,7 +41,7 @@ function getAllDeps() {
 
 export interface Settings {
   type: 'app' | 'lib';
-  env: 'web' | 'node' | 'iso';
+  env: 'vue' | 'web' | 'node' | 'iso';
   resourceFiles?: {
     sourceRoot: string;
     sourceGlobs: string[];
@@ -51,14 +52,24 @@ export default function getConfig(settings: Settings) {
   // Explicitly specify we're using UserConfigFn instead of using defineConfig so that
   // if a consumer wants to override our config, they know the type they're modifying
   const config: UserConfigFn = ({ mode }) => ({
+    root: 'src',
+    esbuild: {
+      exclude: '**/*',    
+    },
+    resolve: {
+      alias: {
+        '@': './src'
+      }
+    },
     build: {
       sourcemap: true,
+      outDir: '../dist',
       // While node applications are not libraries, using library mode does essentially what we need
       // anyways - avoiding Vite's browser-centric defaults
       lib:
         settings.type === 'lib' || settings.env === 'node'
           ? {
-            entry: 'src/index.ts',
+            entry: 'index.ts',
             fileName: '[name]',
             formats: ['es', 'cjs'],
           }
@@ -103,9 +114,13 @@ export default function getConfig(settings: Settings) {
     plugins: [
       // If we have an executable script, we need to preserve the shebang
       preserveShebangs(),
+      ...(settings.env === 'vue' 
+      ? [ vuePlugin() ] 
+      : []),
       {
         ...typescriptPlugin({
           tsconfig: 'tsconfig.build.json',
+          useTsconfigDeclarationDir: true,
           tsconfigOverride: {
             compilerOptions: {
               // rollup-plugin-tsconfig2 runs typescript in a cache directory, so the paths to the
@@ -118,11 +133,11 @@ export default function getConfig(settings: Settings) {
               // To get around this, we'll tell typescript how to resolve source file locations
               // See https://github.com/ezolenko/rollup-plugin-typescript2/issues/407
               sourceRoot: '../src',
+              declarationDir: 'dist'
             },
           },
           abortOnError: false,
         }),
-        enforce: 'pre',
       },
       ...(settings.resourceFiles
         ? [resourcePlugin(settings.resourceFiles)]

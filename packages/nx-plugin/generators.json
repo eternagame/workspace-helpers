@@ -28,6 +28,11 @@
       "schema": "./dist/generators/app-web/schema.json",
       "description": "Adds a new Typescript browser application to an Nx project"
     },
+    "app-vue": {
+      "factory": "./dist/generators/app-vue",
+      "schema": "./dist/generators/app-vue/schema.json",
+      "description": "Adds a new Vue browser application to an Nx project"
+    },
     "license": {
       "factory": "./dist/generators/license",
       "schema": "./dist/generators/license/schema.json",
