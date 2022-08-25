@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "name": "eternagame/nx",
+  "name": "eternagame/nx-plugin",
   "version": "1.0.0",
   "generators": {
     "preset": {
