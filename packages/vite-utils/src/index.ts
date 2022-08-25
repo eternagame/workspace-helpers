@@ -117,29 +117,30 @@ export default function getConfig(settings: Settings) {
       ...(settings.env === 'vue'
         ? [vuePlugin()]
         : []),
-      {
-        ...typescriptPlugin({
-          tsconfig: 'tsconfig.build.json',
-          useTsconfigDeclarationDir: true,
-          tsconfigOverride: {
-            compilerOptions: {
-              // rollup-plugin-tsconfig2 runs typescript in a cache directory, so the paths to the
-              // source files in the emitted sourcemap will be incorrect (since it will be a
-              // relative path from node_modules/.cache/rollup-plugin-typescript2/<id>/placeholder/
-              // instead of dist/ where the sourcemap actually is).
-              // Rollup handles this fine due to the way it merges chained source maps, so
-              // everything is fine with `vite build`, but `vite serve` eschews rollup and does its
-              // source map merging differently, leaving the incorrect source resolution intact.
-              // To get around this, we'll tell typescript how to resolve source file locations
-              // See https://github.com/ezolenko/rollup-plugin-typescript2/issues/407
-              sourceRoot: '../src',
-              declarationDir: 'dist',
-              noImplicitAny: false,
-            },
+      typescriptPlugin({
+        tsconfig: 'tsconfig.build.json',
+        useTsconfigDeclarationDir: true,
+        tsconfigOverride: {
+          compilerOptions: {
+            // rollup-plugin-tsconfig2 runs typescript in a cache directory, so the paths to the
+            // source files in the emitted sourcemap will be incorrect (since it will be a
+            // relative path from node_modules/.cache/rollup-plugin-typescript2/<id>/placeholder/
+            // instead of dist/ where the sourcemap actually is).
+            // Rollup handles this fine due to the way it merges chained source maps, so
+            // everything is fine with `vite build`, but `vite serve` eschews rollup and does its
+            // source map merging differently, leaving the incorrect source resolution intact.
+            // To get around this, we'll tell typescript how to resolve source file locations
+            // See https://github.com/ezolenko/rollup-plugin-typescript2/issues/407
+            sourceRoot: '../src',
+            declarationDir: 'dist',
+            // vuePlugin generates code with implicit `any`s. We're relying on vue-tsc to report
+            // errors in our source files anyways, so we'll still get errors if there's implicit
+            // `any`s in the source.
+            ...(settings.env === 'vue' ? { noImplicitAny: false } : {}),
           },
-          abortOnError: mode !== 'development',
-        }),
-      },
+        },
+        abortOnError: mode !== 'development',
+      }),
       ...(settings.resourceFiles
         ? [resourcePlugin(settings.resourceFiles)]
         : []),
