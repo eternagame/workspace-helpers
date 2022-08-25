@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "$id": "Package",
+  "$id": "package",
   "cli": "nx",
   "title": "Sets up automated releases",
   "type": "object",

@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "$id": "TSIso",
+  "$id": "web-lib",
   "cli": "nx",
-  "title": "Adds new isomorphic TypeScript package to an Nx project",
+  "title": "Adds new TypeScript browser library to an Nx project",
   "type": "object",
   "properties": {
     "name": {
@@ -14,24 +14,6 @@
       },
       "x-prompt": "What name of your npm package?",
       "pattern": "^[a-zA-Z].*$"
-    },
-    "env": {
-      "type": "string",
-      "description": "Runtime environment",
-      "$default": {
-        "$source": "argv",
-        "index": 1
-      },
-      "enum": ["iso", "web", "node"],
-      "x-prompt": {
-        "message": "What runtime environment is this package intended for?",
-        "type": "list",
-        "items": [
-          { "value": "iso", "label": "Isomorphic (any environment)" },
-          { "value": "web", "label": "Web/Browser" },
-          { "value": "node", "label": "NodeJS" }
-        ]
-      }
     },
     "description": {
       "type": "string",
@@ -48,5 +30,5 @@
       "description": "A directory under the packages directory to create the package in"
     }
   },
-  "required": ["name", "env", "description"]
+  "required": ["name", "description"]
 }

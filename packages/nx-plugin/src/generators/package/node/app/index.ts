@@ -8,7 +8,7 @@ import {
   type Tree,
 } from '@nrwl/devkit';
 import { installDevDependencies } from 'utils/dependencies';
-import generateTsLib from '../lib-ts';
+import generateNodeLib from '../lib';
 
 interface Schema {
   name: string;
@@ -54,7 +54,7 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
 export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
 
-  const finalizeTsLib = await generateTsLib(tree, normalizedOptions);
+  const finalizeNodeLib = await generateNodeLib(tree, normalizedOptions);
 
   addFiles(tree, normalizedOptions);
 
@@ -74,7 +74,7 @@ export default async function generate(tree: Tree, options: Schema) {
   /* eslint-enable no-param-reassign */
 
   return async () => {
-    await finalizeTsLib();
+    await finalizeNodeLib();
     installDevDependencies(tree, ['node-dev', '@eternagame/nx-spawn']);
   };
 }

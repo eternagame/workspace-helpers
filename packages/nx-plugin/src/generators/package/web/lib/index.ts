@@ -7,8 +7,7 @@ import {
   updateJson,
   type Tree,
 } from '@nrwl/devkit';
-import generateWebApp from '../app-web';
-import { installDependencies, installDevDependencies } from '../../utils/dependencies';
+import generateTsLib from '../../ts/lib';
 
 interface Schema {
   name: string;
@@ -49,38 +48,35 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
   );
 }
 
+function updateTsconfigs(tree: Tree, options: NormalizedSchema) {
+  /* eslint-disable no-param-reassign */
+  updateJson(
+    tree,
+    path.join(options.projectRoot, 'tsconfig.build.json'),
+    (json: Record<string, unknown>) => {
+      json['extends'] = '@eternagame/tsconfig/tsconfig.web.json';
+      return json;
+    },
+  );
+  updateJson(
+    tree,
+    path.join(options.projectRoot, 'tsconfig.spec.json'),
+    (json: Record<string, unknown>) => {
+      json['extends'] = '@eternagame/tsconfig/tsconfig.jest-web.json';
+      return json;
+    },
+  );
+  /* eslint-enable no-param-reassign */
+}
+
 export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
 
-  const finalizeWebApp = await generateWebApp(tree, normalizedOptions);
-
+  const finalizeTsLib = await generateTsLib(tree, options);
   addFiles(tree, normalizedOptions);
-
-  // Update build tsconfig
-  updateJson(
-    tree,
-    joinPathFragments(normalizedOptions.projectRoot, 'tsconfig.build.json'),
-    (json: { 'include': string[] }) => {
-      // eslint-disable-next-line no-param-reassign
-      json.include = [...json.include, 'src/**/*.vue'];
-      return json;
-    },
-  );
-
-  // Update package.json
-  updateJson(
-    tree,
-    joinPathFragments(normalizedOptions.projectRoot, 'package.json'),
-    (json: ({ scripts: { build: string } })) => {
-      // eslint-disable-next-line no-param-reassign
-      json.scripts.build = `vue-tsc --noEmit --pretty -p tsconfig.build.json && ${json.scripts.build}`;
-      return json;
-    },
-  );
+  updateTsconfigs(tree, normalizedOptions);
 
   return async () => {
-    await finalizeWebApp();
-    installDependencies(tree, ['vue'], normalizedOptions.projectRoot);
-    installDevDependencies(tree, ['vue-tsc']);
+    await finalizeTsLib();
   };
 }

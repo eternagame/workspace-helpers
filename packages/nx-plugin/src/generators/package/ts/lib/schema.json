@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "$id": "AppWeb",
+  "$id": "ts-lib",
   "cli": "nx",
-  "title": "Adds a new Typescript browser application to an Nx project",
+  "title": "Adds new isomorphic TypeScript library to an Nx project",
   "type": "object",
   "properties": {
     "name": {
@@ -20,7 +20,7 @@
       "description": "Package description",
       "$default": {
         "$source": "argv",
-        "index": 1
+        "index": 2
       },
       "x-prompt": "Provide a brief description for the package",
       "pattern": "^[\\w -_']*$"

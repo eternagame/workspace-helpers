@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "$id": "VueApp",
+  "$id": "package",
   "cli": "nx",
-  "title": "Adds a new Vue browser application to an Nx project",
+  "title": "Adds an empty generic package to an Nx project",
   "type": "object",
   "properties": {
     "name": {
