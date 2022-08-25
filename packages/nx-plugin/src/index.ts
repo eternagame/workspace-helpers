@@ -1,8 +1,10 @@
-export { default as nodeAppGenerator } from './generators/app-node';
-export { default as webAppGenerator } from './generators/app-web';
-export { default as vueAppGenerator } from './generators/app-vue';
-export { default as licenseGenerator } from './generators/license';
-export { default as packageGenerator } from './generators/package';
 export { default as presetGenerator } from './generators/preset';
+export { default as packageGenerator } from './generators/package/base';
+export { default as tsLibGenerator } from './generators/package/ts/lib';
+export { default as nodeLibGenerator } from './generators/package/node/lib';
+export { default as nodeAppGenerator } from './generators/package/node/app';
+export { default as webLibGenerator } from './generators/package/web/lib';
+export { default as webAppGenerator } from './generators/package/web/app';
+export { default as vueAppGenerator } from './generators/package/vue/app';
+export { default as licenseGenerator } from './generators/license';
 export { default as releaseGenerator } from './generators/release';
-export { default as tsLibGenerator } from './generators/lib-ts';

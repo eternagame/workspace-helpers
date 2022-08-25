@@ -14,7 +14,7 @@ import { inOperator } from 'utils/json';
 import { join } from 'path';
 import { execSync } from 'child_process';
 import { setupReleaseForPackage } from 'generators/release';
-import { updatePackageLicense } from '../license';
+import { updatePackageLicense } from '../../license';
 
 interface Schema {
   name: string;

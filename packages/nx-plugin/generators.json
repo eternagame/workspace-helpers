@@ -9,28 +9,38 @@
       "description": "Initializes an Nx project"
     },
     "package": {
-      "factory": "./dist/generators/package",
-      "schema": "./dist/generators/package/schema.json",
+      "factory": "./dist/generators/package/base",
+      "schema": "./dist/generators/package/base/schema.json",
       "description": "Adds an empty generic package to an Nx project"
     },
-    "lib-ts": {
-      "factory": "./dist/generators/lib-ts",
-      "schema": "./dist/generators/lib-ts/schema.json",
-      "description": "Adds new TypeScript library to an Nx project"
+    "ts-lib": {
+      "factory": "./dist/generators/package/ts/lib",
+      "schema": "./dist/generators/package/ts/lib/schema.json",
+      "description": "Adds new isomorphic TypeScript library to an Nx project"
     },
-    "app-node": {
-      "factory": "./dist/generators/app-node",
-      "schema": "./dist/generators/app-node/schema.json",
+    "node-lib": {
+      "factory": "./dist/generators/package/node/lib",
+      "schema": "./dist/generators/package/node/lib/schema.json",
+      "description": "Adds a new Typescript NodeJS library to an Nx project"
+    },
+    "node-app": {
+      "factory": "./dist/generators/package/node/app",
+      "schema": "./dist/generators/package/node/app/schema.json",
       "description": "Adds a new Typescript NodeJS application to an Nx project"
     },
-    "app-web": {
-      "factory": "./dist/generators/app-web",
-      "schema": "./dist/generators/app-web/schema.json",
+    "web-lib": {
+      "factory": "./dist/generators/package/web/lib",
+      "schema": "./dist/generators/package/web/lib/schema.json",
+      "description": "Adds a new Typescript browser library to an Nx project"
+    },
+    "web-app": {
+      "factory": "./dist/generators/package/web/app",
+      "schema": "./dist/generators/package/web/app/schema.json",
       "description": "Adds a new Typescript browser application to an Nx project"
     },
-    "app-vue": {
-      "factory": "./dist/generators/app-vue",
-      "schema": "./dist/generators/app-vue/schema.json",
+    "vue-app": {
+      "factory": "./dist/generators/package/vue/app",
+      "schema": "./dist/generators/package/vue/app/schema.json",
       "description": "Adds a new Vue browser application to an Nx project"
     },
     "license": {

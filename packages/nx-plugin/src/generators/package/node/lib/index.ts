@@ -7,8 +7,7 @@ import {
   updateJson,
   type Tree,
 } from '@nrwl/devkit';
-import generateTsLib from '../lib-ts';
-import { installDevDependencies } from '../../utils/dependencies';
+import generateTsLib from '../../ts/lib';
 
 interface Schema {
   name: string;
@@ -18,7 +17,6 @@ interface Schema {
 
 interface NormalizedSchema extends Schema {
   projectRoot: string;
-  env: 'web';
 }
 
 function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
@@ -34,7 +32,6 @@ function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
   return {
     ...options,
     projectRoot,
-    env: 'web',
   };
 }
 
@@ -51,32 +48,35 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
   );
 }
 
+function updateTsconfigs(tree: Tree, options: NormalizedSchema) {
+  /* eslint-disable no-param-reassign */
+  updateJson(
+    tree,
+    path.join(options.projectRoot, 'tsconfig.build.json'),
+    (json: Record<string, unknown>) => {
+      json['extends'] = '@eternagame/tsconfig/tsconfig.node.json';
+      return json;
+    },
+  );
+  updateJson(
+    tree,
+    path.join(options.projectRoot, 'tsconfig.spec.json'),
+    (json: Record<string, unknown>) => {
+      json['extends'] = '@eternagame/tsconfig/tsconfig.jest-node.json';
+      return json;
+    },
+  );
+  /* eslint-enable no-param-reassign */
+}
+
 export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
 
-  const finalizeTsLib = await generateTsLib(tree, normalizedOptions);
-
+  const finalizeTsLib = await generateTsLib(tree, options);
   addFiles(tree, normalizedOptions);
-
-  const projectPackageJsonPath = path.join(
-    normalizedOptions.projectRoot,
-    'package.json',
-  );
-  /* eslint-disable no-param-reassign */
-  updateJson(tree, projectPackageJsonPath, (json: Record<string, unknown>) => {
-    if (!json['scripts']) json['scripts'] = {};
-    const scripts = json['scripts'] as Record<string, string>;
-    scripts['start'] = 'vite preview';
-    scripts['dev'] = 'nx-spawn _dev';
-    scripts['_dev'] = 'vite';
-    delete json['main'];
-    delete scripts['build:watch'];
-    return json;
-  });
-  /* eslint-enable no-param-reassign */
+  updateTsconfigs(tree, normalizedOptions);
 
   return async () => {
     await finalizeTsLib();
-    installDevDependencies(tree, ['@eternagame/nx-spawn']);
   };
 }
