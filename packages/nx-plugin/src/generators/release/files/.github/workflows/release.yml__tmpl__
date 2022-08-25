@@ -23,11 +23,11 @@ jobs:
     needs: release-please
     if: needs.release-please.outputs.releases_created != 'true'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: release-please--branches--main
           fetch-depth: 2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
       - name: Update package-lock.json
@@ -72,9 +72,10 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
+          registry-url: 'https://registry.npmjs.org'
       - name: Use the node_modules cache if available
         uses: actions/cache@v3
         with:
