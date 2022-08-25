@@ -1,5 +1,7 @@
 import {
+  detectPackageManager,
   generateFiles,
+  getPackageManagerCommand,
   getWorkspaceLayout,
   joinPathFragments,
   names,
@@ -10,6 +12,7 @@ import {
 import * as path from 'path';
 import { inOperator } from 'utils/json';
 import { join } from 'path';
+import { execSync } from 'child_process';
 import { setupReleaseForPackage } from 'generators/release';
 import { updatePackageLicense } from '../license';
 
@@ -110,4 +113,14 @@ export default async function generate(tree: Tree, options: Schema) {
   addPackageInfoFields(tree, normalizedOptions);
   updatePackageLicense(tree, normalizedOptions.projectRoot);
   setupReleaseForPackage(tree, normalizedOptions.projectRoot);
+
+  return async () => {
+    const pmc = getPackageManagerCommand(detectPackageManager());
+    // In order for possible future calls to `npm install -w` to work, we need to make sure
+    // this new package is registered in our package-lock.json
+    execSync(`${pmc.install} --package-lock-only`, {
+      cwd: tree.root,
+      stdio: [0, 1, 2],
+    });
+  };
 }

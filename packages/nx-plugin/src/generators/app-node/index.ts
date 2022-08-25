@@ -73,8 +73,8 @@ export default async function generate(tree: Tree, options: Schema) {
   });
   /* eslint-enable no-param-reassign */
 
-  return () => {
-    finalizeTsLib();
+  return async () => {
+    await finalizeTsLib();
     installDevDependencies(tree, ['node-dev', '@eternagame/nx-spawn']);
   };
 }

@@ -7,8 +7,8 @@ import {
   updateJson,
   type Tree,
 } from '@nrwl/devkit';
-import generateTsLib from '../lib-ts';
-import { installDevDependencies } from '../../utils/dependencies';
+import generateWebApp from '../app-web';
+import { installDependencies, installDevDependencies } from '../../utils/dependencies';
 
 interface Schema {
   name: string;
@@ -18,7 +18,6 @@ interface Schema {
 
 interface NormalizedSchema extends Schema {
   projectRoot: string;
-  env: 'web';
 }
 
 function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
@@ -34,7 +33,6 @@ function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
   return {
     ...options,
     projectRoot,
-    env: 'web',
   };
 }
 
@@ -54,29 +52,35 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
 export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
 
-  const finalizeTsLib = await generateTsLib(tree, normalizedOptions);
+  const finalizeWebApp = await generateWebApp(tree, normalizedOptions);
 
   addFiles(tree, normalizedOptions);
 
-  const projectPackageJsonPath = path.join(
-    normalizedOptions.projectRoot,
-    'package.json',
+  // Update build tsconfig
+  updateJson(
+    tree,
+    joinPathFragments(normalizedOptions.projectRoot, 'tsconfig.build.json'),
+    (json: { 'include': string[] }) => {
+      // eslint-disable-next-line no-param-reassign
+      json.include = [...json.include, 'src/**/*.vue'];
+      return json;
+    },
   );
-  /* eslint-disable no-param-reassign */
-  updateJson(tree, projectPackageJsonPath, (json: Record<string, unknown>) => {
-    if (!json['scripts']) json['scripts'] = {};
-    const scripts = json['scripts'] as Record<string, string>;
-    scripts['start'] = 'vite preview';
-    scripts['dev'] = 'nx-spawn _dev';
-    scripts['_dev'] = 'vite';
-    delete json['main'];
-    delete scripts['build:watch'];
-    return json;
-  });
-  /* eslint-enable no-param-reassign */
+
+  // Update package.json
+  updateJson(
+    tree,
+    joinPathFragments(normalizedOptions.projectRoot, 'package.json'),
+    (json: ({ scripts: { build: string } })) => {
+      // eslint-disable-next-line no-param-reassign
+      json.scripts.build = `vue-tsc --noEmit --pretty -p tsconfig.build.json && ${json.scripts.build}`;
+      return json;
+    },
+  );
 
   return async () => {
-    await finalizeTsLib();
-    installDevDependencies(tree, ['@eternagame/nx-spawn']);
+    await finalizeWebApp();
+    installDependencies(tree, ['vue'], normalizedOptions.projectRoot);
+    installDevDependencies(tree, ['vue-tsc']);
   };
 }

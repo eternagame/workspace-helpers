@@ -4,7 +4,9 @@
     {"path": "./tsconfig.build.json"}
   ],
   "compilerOptions": {
-    "baseUrl": "src"
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": [
     "**/*.spec.ts",
