@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "$id": "Preset",
+  "$id": "preset",
   "cli": "nx",
   "title": "Initializes an Nx project",
   "type": "object",

@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "$id": "License",
+  "$id": "license",
   "cli": "nx",
   "title": "Re-licenses an Nx project and its packages",
   "type": "object",
