@@ -7,6 +7,7 @@ dist/
 tmp
 .temp
 .cache
+*.tsbuildinfo
 
 # Dependencies (Managed by @eternagame/nx-plugin)
 node_modules
