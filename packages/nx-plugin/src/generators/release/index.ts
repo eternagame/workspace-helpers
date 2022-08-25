@@ -42,6 +42,9 @@ function setupRelease(tree: Tree, root: string, options: Schema) {
       if (!scripts) throw new Error('package.json format is invalid');
       scripts['prepublishOnly'] = 'nx build';
       json['files'] = ['dist'];
+      json['publishConfig'] = {
+        access: 'public',
+      };
       return json;
     });
   } else {

@@ -8,6 +8,9 @@
     "url": "https://github.com/eternagame/workspace-helpers.git",
     "directory": "packages/nx-spawn"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "start": "node dist/index.js",
     "prepublishOnly": "nx build",
