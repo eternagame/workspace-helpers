@@ -3,9 +3,9 @@ import { dirname, join, parse } from 'path';
 import { builtinModules } from 'module';
 import type { UserConfigFn } from 'vite';
 import typescriptPlugin from 'rollup-plugin-typescript2';
+import vuePlugin from '@vitejs/plugin-vue';
 import preserveShebangs from './rollup-preserve-shebangs';
 import resourcePlugin from './rollup-resource-files';
-import vuePlugin from '@vitejs/plugin-vue'
 
 function readPackageLock(): Record<string, unknown> {
   let checkDir = process.cwd();
@@ -54,12 +54,12 @@ export default function getConfig(settings: Settings) {
   const config: UserConfigFn = ({ mode }) => ({
     root: 'src',
     esbuild: {
-      exclude: '**/*',    
+      exclude: '**/*',
     },
     resolve: {
       alias: {
-        '@': './src'
-      }
+        '@': './src',
+      },
     },
     build: {
       sourcemap: true,
@@ -114,9 +114,9 @@ export default function getConfig(settings: Settings) {
     plugins: [
       // If we have an executable script, we need to preserve the shebang
       preserveShebangs(),
-      ...(settings.env === 'vue' 
-      ? [ vuePlugin() ] 
-      : []),
+      ...(settings.env === 'vue'
+        ? [vuePlugin()]
+        : []),
       {
         ...typescriptPlugin({
           tsconfig: 'tsconfig.build.json',
@@ -133,7 +133,8 @@ export default function getConfig(settings: Settings) {
               // To get around this, we'll tell typescript how to resolve source file locations
               // See https://github.com/ezolenko/rollup-plugin-typescript2/issues/407
               sourceRoot: '../src',
-              declarationDir: 'dist'
+              declarationDir: 'dist',
+              noImplicitAny: false,
             },
           },
           abortOnError: false,

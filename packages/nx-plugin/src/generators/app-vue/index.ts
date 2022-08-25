@@ -8,7 +8,7 @@ import {
   type Tree,
 } from '@nrwl/devkit';
 import generateWebApp from '../app-web';
-import { installDevDependencies } from '../../utils/dependencies';
+import { installDependencies, installDevDependencies } from '../../utils/dependencies';
 
 interface Schema {
   name: string;
@@ -56,6 +56,7 @@ export default async function generate(tree: Tree, options: Schema) {
 
   addFiles(tree, normalizedOptions);
 
+  // Update build tsconfig
   updateJson(
     tree,
     joinPathFragments(normalizedOptions.projectRoot, 'tsconfig.build.json'),
@@ -66,8 +67,20 @@ export default async function generate(tree: Tree, options: Schema) {
     },
   );
 
-  return () => {
-    finalizeWebApp();
-    installDevDependencies(tree, ['@eternagame/nx-spawn']);
+  // Update package.json
+  updateJson(
+    tree,
+    joinPathFragments(normalizedOptions.projectRoot, 'package.json'),
+    (json: ({ scripts: { build: string } })) => {
+      // eslint-disable-next-line no-param-reassign
+      json.scripts.build = `vue-tsc --noEmit --pretty -p tsconfig.build.json && ${json.scripts.build}`;
+      return json;
+    },
+  );
+
+  return async () => {
+    await finalizeWebApp();
+    installDependencies(tree, ['vue'], normalizedOptions.projectRoot);
+    installDevDependencies(tree, ['vue-tsc']);
   };
 }
