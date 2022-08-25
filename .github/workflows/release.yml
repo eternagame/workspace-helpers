@@ -58,7 +58,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-${{ steps.versions.outputs.node_version }}-
       - run: npm ci
-      - run: npm publish -ws --access public
+      - run: npm publish -ws
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
