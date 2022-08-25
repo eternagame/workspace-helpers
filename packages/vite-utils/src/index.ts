@@ -56,6 +56,7 @@ export default function getConfig(settings: Settings) {
   // if a consumer wants to override our config, they know the type they're modifying
   const config: UserConfigFn = ({ mode }) => ({
     root: 'src',
+    publicDir: '../public',
     esbuild: {
       exclude: '**/*',
     },
