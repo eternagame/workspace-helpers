@@ -1,5 +1,8 @@
 import { existsSync, readFileSync } from 'fs';
-import { dirname, join, parse } from 'path';
+import {
+  dirname, join, parse, resolve,
+} from 'path';
+import { cwd } from 'process';
 import { builtinModules } from 'module';
 import type { UserConfigFn } from 'vite';
 import typescriptPlugin from 'rollup-plugin-typescript2';
@@ -58,7 +61,7 @@ export default function getConfig(settings: Settings) {
     },
     resolve: {
       alias: {
-        '@': './src',
+        '@': resolve(cwd(), 'src'),
       },
     },
     build: {
