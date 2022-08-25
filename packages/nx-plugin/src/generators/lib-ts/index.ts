@@ -118,12 +118,13 @@ function updateTsconfigs(tree: Tree, options: NormalizedSchema) {
 export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
 
-  await generatePackage(tree, options);
+  const finalizePackage = await generatePackage(tree, options);
   addFiles(tree, normalizedOptions);
   updatePackageJson(tree, normalizedOptions);
   updateTsconfigs(tree, normalizedOptions);
 
-  return () => {
+  return async () => {
+    await finalizePackage();
     installDevDependencies(
       tree,
       [
