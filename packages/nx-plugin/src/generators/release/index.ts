@@ -1,7 +1,8 @@
 import {
-  generateFiles, getProjects, joinPathFragments, logger, readJson, Tree, updateJson,
+  generateFiles, getProjects, joinPathFragments, logger, readJson, Tree, updateJson, writeJson,
 } from '@nrwl/devkit';
 import { join } from 'path';
+import { installDevDependencies } from 'utils/dependencies';
 import {
   getValue, isArrayMember, isRecord, maybeInitObject,
 } from 'utils/json';
@@ -91,9 +92,25 @@ export default async function generate(tree: Tree, options: Schema) {
     return json;
   });
 
+  if (options.publishing !== 'no-publish') {
+    writeJson(tree, 'lerna.json', {
+      $schema: 'node_modules/lerna/schemas/lerna-schema.json',
+      useNx: true,
+      useWorkspaces: true,
+      version: 'independent',
+      canary: true,
+      preid: 'dev',
+      preDistTag: 'canary',
+    });
+  }
+
   for (const projectConfig of getProjects(tree).values()) {
     setupRelease(tree, projectConfig.root, options);
   }
 
-  return () => {};
+  return () => {
+    if (options.publishing !== 'no-publish') {
+      installDevDependencies(tree, ['lerna']);
+    }
+  };
 }
