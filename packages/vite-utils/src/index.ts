@@ -119,7 +119,6 @@ export default function getConfig(settings: Settings) {
         : []),
       typescriptPlugin({
         tsconfig: 'tsconfig.build.json',
-        useTsconfigDeclarationDir: true,
         tsconfigOverride: {
           compilerOptions: {
             // rollup-plugin-tsconfig2 runs typescript in a cache directory, so the paths to the
@@ -132,7 +131,6 @@ export default function getConfig(settings: Settings) {
             // To get around this, we'll tell typescript how to resolve source file locations
             // See https://github.com/ezolenko/rollup-plugin-typescript2/issues/407
             sourceRoot: '../src',
-            declarationDir: 'dist',
             // vuePlugin generates code with implicit `any`s. We're relying on vue-tsc to report
             // errors in our source files anyways, so we'll still get errors if there's implicit
             // `any`s in the source.
