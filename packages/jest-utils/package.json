@@ -1,12 +1,15 @@
 {
   "name": "@eternagame/jest-utils",
   "description": "Eterna standard Jest setup and utilities",
-  "version": "1.1.0",
+  "version": "2.0.0-dev",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
     "url": "https://github.com/eternagame/workspace-helpers.git",
     "directory": "packages/jest-utils"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "type": "module",
   "scripts": {

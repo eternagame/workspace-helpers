@@ -4,4 +4,5 @@ export { default as vueAppGenerator } from './generators/app-vue';
 export { default as licenseGenerator } from './generators/license';
 export { default as packageGenerator } from './generators/package';
 export { default as presetGenerator } from './generators/preset';
+export { default as releaseGenerator } from './generators/release';
 export { default as tsLibGenerator } from './generators/lib-ts';

@@ -1,13 +1,16 @@
 {
   "name": "@eternagame/vite-utils",
   "description": "Eterna standard Vite setup and utilities",
-  "version": "1.0.2",
+  "version": "2.0.0-dev",
   "license": "BSD-3-Clause",
   "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/eternagame/workspace-helpers.git",
     "directory": "packages/vite-utils"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "prepublishOnly": "nx build",

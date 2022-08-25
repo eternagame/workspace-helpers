@@ -1,12 +1,15 @@
 {
   "name": "@eternagame/nx-plugin",
   "description": "Eterna standard Nx setup and utilities",
-  "version": "1.7.0",
+  "version": "2.0.0-dev",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
     "url": "https://github.com/eternagame/workspace-helpers.git",
     "directory": "packages/nx-plugin"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "prepublishOnly": "nx build",
@@ -20,11 +23,11 @@
   "generators": "./generators.json",
   "executors": "./executors.json",
   "dependencies": {
-    "@nrwl/devkit": "^14.5.0"
+    "@nrwl/devkit": "^14.5.6"
   },
   "peerDependencies": {
-    "@nrwl/eslint-plugin-nx": "^14.5.0",
-    "nx": "^14.5.0"
+    "@nrwl/eslint-plugin-nx": "^14.5.6",
+    "nx": "^14.5.6"
   },
   "nx": {
     "implicitDependencies": [

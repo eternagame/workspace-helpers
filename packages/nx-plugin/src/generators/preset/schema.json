@@ -26,6 +26,21 @@
       "description": "Npm scope packages should be scoped to/published under",
       "default": ""
     },
+    "release": {
+      "type": "string",
+      "description": "Release configuration to use",
+      "enum": ["no-release", "no-publish", "default-private", "default-publish"],
+      "x-prompt": {
+        "message": "How do you want to set up releases?",
+        "type": "list",
+        "items": [
+          { "value": "no-release", "label": "Don't configure a release workflow" },
+          { "value": "no-publish", "label": "Don't configure publishing as part of the release workflow" },
+          { "value": "default-private", "label": "Configure publishing, but assume packages are private (not published) by default" },
+          { "value": "default-publish", "label": "Configure publishing and assume packages should be published by default" }
+        ]
+      }
+    },
     "license": {
       "type": "string",
       "description": "Repository license",

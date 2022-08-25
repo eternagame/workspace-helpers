@@ -6,6 +6,7 @@ import {
   type Tree,
 } from '@nrwl/devkit';
 import generateLicense from '../license';
+import generateRelease from '../release';
 import { installDevDependencies } from '../../utils/dependencies';
 
 const ETERNA_NPM_SCOPE = 'eternagame';
@@ -18,6 +19,7 @@ interface Schema {
   name: string;
   description: string;
   npmScope: string;
+  release: 'no-release' | 'no-publish' | 'default-private' | 'default-publish';
   license: 'MIT' | 'BSD3' | 'EternaNoncommercial' | 'Custom' | 'None';
   copyrightHolder: string;
   readmePrologue: string;
@@ -66,14 +68,21 @@ export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(options);
   addFiles(tree, normalizedOptions);
   updateNxFiles(tree, normalizedOptions);
-  const finalizeGenerateLicense = generateLicense(tree, {
+  const finalizeGenerateLicense = await generateLicense(tree, {
     license: normalizedOptions.license,
     copyrightHolder:
       normalizedOptions.copyrightHolder
       || (normalizedOptions.eternaDefaults ? 'Eterna Commons' : ''),
   });
+
+  let finalizeGenerateRelease = () => {};
+  if (options.release !== 'no-release') {
+    finalizeGenerateRelease = await generateRelease(tree, { publishing: options.release });
+  }
+
   return () => {
     finalizeGenerateLicense();
+    finalizeGenerateRelease();
     installDevDependencies(tree, [
       '@eternagame/nx-plugin',
       '@eternagame/eslint-plugin',

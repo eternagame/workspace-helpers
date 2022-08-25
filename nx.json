@@ -6,6 +6,9 @@
     "@eternagame/nx-plugin:license": {
       "license": "BSD3",
       "copyrightHolder": "Eterna Commons"
+    },
+    "@eternagame/nx-plugin:release": {
+      "publishing": "default-publish"
     }
   }
 }
