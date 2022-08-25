@@ -1,13 +1,21 @@
 {
   "name": "@eternagame/bootstrap",
   "description": "Bootstrap a new project using the Eternagame standards",
-  "version": "1.0.0",
+  "version": "1.0.0-dev",
   "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eternagame/workspace-helpers.git",
+    "directory": "packages/bootstrap"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "start": "node dist/index.js",
     "prepublishOnly": "nx build",
     "build": "vite build",
-    "postbuild": "shx chmod +x dist/index.js && npm install --save=false",
+    "postbuild": "npm install --save=false",
     "lint": "eslint ."
   },
   "files": [

@@ -1,17 +1,14 @@
 import * as path from 'path';
 import {
-  addDependenciesToPackageJson,
-  formatFiles,
   generateFiles,
   getWorkspaceLayout,
-  installPackagesTask,
   joinPathFragments,
   names,
   updateJson,
   type Tree,
 } from '@nrwl/devkit';
-import generateTsWeb from '../ts-web';
-import getDependencyVersions from '../../utils/dependencies';
+import generateTsLib from '../lib-ts';
+import { installDevDependencies } from '../../utils/dependencies';
 
 interface Schema {
   name: string;
@@ -21,6 +18,7 @@ interface Schema {
 
 interface NormalizedSchema extends Schema {
   projectRoot: string;
+  env: 'web';
 }
 
 function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
@@ -36,6 +34,7 @@ function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
   return {
     ...options,
     projectRoot,
+    env: 'web',
   };
 }
 
@@ -55,15 +54,9 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
 export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
 
-  const finalizeTsNode = await generateTsWeb(tree, options);
+  const finalizeTsLib = await generateTsLib(tree, normalizedOptions);
 
   addFiles(tree, normalizedOptions);
-
-  addDependenciesToPackageJson(
-    tree,
-    {},
-    getDependencyVersions(['@eternagame/nx-spawn']),
-  );
 
   const projectPackageJsonPath = path.join(
     normalizedOptions.projectRoot,
@@ -82,10 +75,8 @@ export default async function generate(tree: Tree, options: Schema) {
   });
   /* eslint-enable no-param-reassign */
 
-  await formatFiles(tree);
-
-  return () => {
-    finalizeTsNode();
-    installPackagesTask(tree);
+  return async () => {
+    await finalizeTsLib();
+    installDevDependencies(tree, ['@eternagame/nx-spawn']);
   };
 }

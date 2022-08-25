@@ -1,0 +1,33 @@
+{
+  "name": "@eternagame/lint-staged-utils",
+  "description": "Eterna standard lint-staged setup and utilities",
+  "version": "1.0.0-dev",
+  "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eternagame/workspace-helpers.git",
+    "directory": "packages/lint-staged-utils"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "prepublishOnly": "nx build",
+    "build": "vite build",
+    "build:watch": "vite build --mode development",
+    "lint": "eslint ."
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "micromatch": "^4.0.5"
+  },
+  "nx": {
+    "implicitDependencies": [
+      "vite-utils"
+    ]
+  }
+}

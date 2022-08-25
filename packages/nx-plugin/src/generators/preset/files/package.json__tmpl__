@@ -3,9 +3,9 @@
   "description": "<%= description %>",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "lint-project": "npm run _lint-project .",
-    "_lint-project": "npx eslint --ignore-path .gitignore --ignore-pattern packages/",
+    "lint-project": "eslint --ignore-pattern packages/ .",
     "prepare": "husky install"
   },
   "devDependencies": {},

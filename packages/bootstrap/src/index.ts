@@ -21,7 +21,12 @@ async function main() {
     .option('npmScope', {
       describe: 'Npm scope packages should be scoped to/published under',
       type: 'string',
-    }).argv;
+    })
+    .option('generator-version', {
+      describe: 'Specifies the version of @eternagame/nx-plugin used for repository generation (eg --nx-plugin-version canary for the latest canary)',
+      type: 'string',
+    })
+    .argv;
 
   mkdirSync(args.project);
   writeFileSync(
@@ -29,7 +34,9 @@ async function main() {
     JSON.stringify({ name: args.project }),
   );
   await spawn('git', ['init'], { cwd: args.project });
-  await spawn('npm', ['install', '@eternagame/nx-plugin'], { cwd: args.project });
+
+  const pluginVersion = args.generatorVersion ?? 'latest';
+  await spawn('npm', ['install', `@eternagame/nx-plugin@${pluginVersion}`], { cwd: args.project });
 
   const options = [
     args.project,
