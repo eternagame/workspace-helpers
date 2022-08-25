@@ -137,7 +137,7 @@ export default function getConfig(settings: Settings) {
               noImplicitAny: false,
             },
           },
-          abortOnError: false,
+          abortOnError: mode !== 'development',
         }),
       },
       ...(settings.resourceFiles
