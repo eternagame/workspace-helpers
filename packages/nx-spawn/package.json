@@ -20,6 +20,10 @@
   },
   "type": "module",
   "main": "./dist/index.js",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
+  },
   "bin": "./dist/index.js",
   "files": [
     "dist"

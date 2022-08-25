@@ -2,7 +2,7 @@
 
 Bootstrap a new project using the Eternagame standards
 
-# Usage
+## Usage
 
 `npx @eternagame/bootstrap <project>`
 

@@ -7,7 +7,11 @@ This package is heavily based on `nx/src/task-runner`, though significantly simp
 
 ## Usage
 
+```sh
+npm install -D @eternagame/nx-spawn
 ```
+
+```sh
 nx-spawn <command>
 ```
 

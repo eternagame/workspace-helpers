@@ -4,12 +4,16 @@ Eterna standard ESLint setup and utilities
 
 ## Installation
 
-Note that the following are marked as optional peer dependencies, so you need to explicitly
+```sh
+npm install -D @eternagame/eslint-plugin
+```
+
+Note that the following are marked as optional peer dependencies, so you also need to explicitly
 install them if using the relevant configs (in order to avoid downloading them when you aren't):
 
 - `eslint-config-airbnb-typescript` (for the typescript configurations)
 - `eslint-config-airbnb-vue` (for the vue configurations)
-- `@nrwl/eslint-plugin-nx` (for the Nx configs)
+- `@nrwl/eslint-plugin-nx` (for the Nx configurations)
 
 ## Configuration
 
@@ -30,6 +34,16 @@ The Nx configurations must be added separately, but if you use `@eternagame/nx-j
 use any of the core configs and if you use `@eternagame/nx-typescript` you must use one of the
 typescript core configs (as they override rules in the relevant js/ts airbnb config).
 
+As with any other shared configuration, you can use them by adding them to your eslint config like so:
+```json
+{
+  "extends": [
+    "plugin:@eternagame/typescript",
+    "plugin:@eternagame/nx-typescript",
+  ]
+}
+```
+
 ## Background/Rationale/Design
 
 Core configurations are based on airbnb, a relatively popular style guide. Typescript core
@@ -40,7 +54,7 @@ using relatively standard configurations for each technology.
 
 As we use Nx monorepos, we've also included the additional configuration for that setting.
 
-Under `src/configs/base-rules`, you will find additional rule customizations we have opted for. Each change is
+Under `src/configs/base`, you will find additional rule customizations we have opted for. Each change is
 documented with specific rationale, but in general reflects our personal experience with what we find
 useful for our workflow and stylistic preferences.
 
@@ -49,5 +63,5 @@ only applies to js/jsx files, and the typescript config uses that plus a separat
 for ts/tsx files, rather than the js configuration applying for js and ts then overriding specific
 parts of the config for ts files. This is to cleanly handle issues with mixed codebases in addition
 to the specific ordering requirements of the various base configurations used in the core configurations.
-Shared configuration is still made available in `src/configs/base-rules` (and in the case of parserOptions, the
+Shared configuration is still made available in `src/configs/base` (and in the case of parserOptions, the
 javascript config which is included in all other core configs).

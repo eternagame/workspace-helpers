@@ -20,6 +20,13 @@
     "dist"
   ],
   "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./preset.json": "./preset.json"
+  },
   "generators": "./generators.json",
   "executors": "./executors.json",
   "dependencies": {

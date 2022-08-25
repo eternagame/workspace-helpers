@@ -69,6 +69,10 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
 
     json['type'] = 'module';
     json['main'] = './dist/index.js';
+    json['exports'] = {
+      import: './dist/index.js',
+      require: './dist/index.cjs',
+    };
 
     return json;
   });

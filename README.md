@@ -19,7 +19,7 @@ configuration and package generators.
 
 ### Configuration and Utility Libraries
 
-- [`@eternagame/tsconfig`](./packages/tsconfig) - Eterna standard `tsconfig`s
+- [`@eternagame/tsconfig`](./packages/tsconfig) - Eterna standard TypeScript configurations
 - [`@eternagame/eslint-plugin`](./packages/eslint-plugin) - Eterna standard ESLint setup and utilities
 - [`@eternagame/jest-utils`](./packages/jest-utils) - Eterna standard Jest setup and utilities
 - [`@eternagame/vite-utils`](./packages/vite-utils) - Eterna standard Vite setup and utilities

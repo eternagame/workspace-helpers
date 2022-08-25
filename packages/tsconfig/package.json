@@ -1,6 +1,6 @@
 {
   "name": "@eternagame/tsconfig",
-  "description": "Opinionated TypeScript configurations",
+  "description": "Eterna standard TypeScript configurations",
   "version": "2.0.0-dev",
   "license": "BSD-3-Clause",
   "repository": {
