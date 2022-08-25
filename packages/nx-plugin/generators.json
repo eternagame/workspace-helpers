@@ -32,6 +32,11 @@
       "factory": "./dist/generators/license",
       "schema": "./dist/generators/license/schema.json",
       "description": "Re-licenses an Nx project"
+    },
+    "release": {
+      "factory": "./dist/generators/release",
+      "schema": "./dist/generators/release/schema.json",
+      "description": "Sets up a release flow for an Nx project"
     }
   }
 }

@@ -61,9 +61,6 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
   updateJson(tree, projectPackageJsonPath, (json: Record<string, unknown>) => {
     if (!json['scripts']) json['scripts'] = {};
     const scripts = json['scripts'] as Record<string, string>;
-    scripts['prepublishOnly'] = scripts['prepublishOnly']
-      ? `${scripts['prepublishOnly']} && nx build`
-      : 'nx build';
     scripts['build'] = 'vite build';
     scripts['build:watch'] = 'vite build --mode development';
     scripts['test'] = 'jest';
@@ -72,7 +69,6 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
 
     json['type'] = 'module';
     json['main'] = './dist/index.js';
-    json['files'] = ['dist'];
 
     return json;
   });
