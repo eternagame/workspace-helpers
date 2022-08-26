@@ -28,6 +28,29 @@
     "directory": {
       "type": "string",
       "description": "A directory under the packages directory to create the package in"
+    },
+    "publish": {
+      "type": "string",
+      "description": "How the package should be configured for publishing",
+      "enum": ["private", "restricted", "public"],
+      "x-prompt": {
+        "message": "How should the package be configured for publishing",
+        "type": "list",
+        "items": [
+          { "value": "private", "label": "Mark package as not publishable" },
+          { "value": "restricted", "label": "Configure package for publishing with restricted access" },
+          { "value": "public", "label": "Configure package for publishing with public access" }
+        ]
+      }
+    },
+    "license": {
+      "type": "string",
+      "description": "Repository license",
+      "enum": ["MIT", "BSD3", "Custom", "None"]
+    },
+    "copyrightHolder": {
+      "type": "string",
+      "description": "Who should be designated as holding the copyright in the LICENSE file (if license is provided)"
     }
   },
   "required": ["name", "description"]

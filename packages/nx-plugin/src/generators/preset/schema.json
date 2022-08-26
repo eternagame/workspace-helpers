@@ -26,18 +26,32 @@
       "description": "Npm scope packages should be scoped to/published under",
       "default": ""
     },
-    "release": {
+    "defaultPublish": {
       "type": "string",
-      "description": "Release configuration to use",
-      "enum": ["no-release", "no-publish", "default-private", "default-publish"],
+      "description": "How packages should be configured for publishing by default",
+      "enum": ["private", "restricted", "public"],
       "x-prompt": {
-        "message": "How do you want to set up releases?",
+        "message": "How should the package be configured for publishing",
         "type": "list",
         "items": [
-          { "value": "no-release", "label": "Don't configure a release workflow" },
-          { "value": "no-publish", "label": "Don't configure publishing as part of the release workflow" },
-          { "value": "default-private", "label": "Configure publishing, but assume packages are private (not published) by default" },
-          { "value": "default-publish", "label": "Configure publishing and assume packages should be published by default" }
+          { "value": "private", "label": "Mark package as not publishable" },
+          { "value": "restricted", "label": "Configure package for publishing with restricted access" },
+          { "value": "public", "label": "Configure package for publishing with public access" }
+        ]
+      }
+    },
+    "release": {
+      "type": "string",
+      "description": "How automatic releases should be configured",
+      "enum": ["disable", "no-publish", "publish", "publish-with-canary"],
+      "x-prompt": {
+        "message": "How do you want to set up automated releases?",
+        "type": "list",
+        "items": [
+          { "value": "disable", "label": "Don't configure automated releases" },
+          { "value": "no-publish", "label": "Don't configure publishing as part of automated releases" },
+          { "value": "publish", "label": "Publish packages automatically during an automated release" },
+          { "value": "publish-with-canary", "label": "Publish packages automatically during an automated release AND publish canary versions on every push to main" }
         ]
       }
     },
