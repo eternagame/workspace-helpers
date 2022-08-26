@@ -5,6 +5,7 @@ export { default as nodeLibGenerator } from './generators/package/node/lib';
 export { default as nodeAppGenerator } from './generators/package/node/app';
 export { default as webLibGenerator } from './generators/package/web/lib';
 export { default as webAppGenerator } from './generators/package/web/app';
+export { default as vueLibGenerator } from './generators/package/vue/lib';
 export { default as vueAppGenerator } from './generators/package/vue/app';
 export { default as licenseGenerator } from './generators/license/repo';
 export { default as licensePackageGenerator } from './generators/license/package';

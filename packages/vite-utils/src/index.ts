@@ -1,5 +1,8 @@
 import { existsSync, readFileSync } from 'fs';
-import { dirname, join, parse } from 'path';
+import {
+  dirname, join, parse, resolve,
+} from 'path';
+import { cwd } from 'process';
 import { builtinModules } from 'module';
 import type { UserConfigFn } from 'vite';
 import typescriptPlugin from 'rollup-plugin-typescript2';
@@ -53,12 +56,13 @@ export default function getConfig(settings: Settings) {
   // if a consumer wants to override our config, they know the type they're modifying
   const config: UserConfigFn = ({ mode }) => ({
     root: 'src',
+    publicDir: '../public',
     esbuild: {
       exclude: '**/*',
     },
     resolve: {
       alias: {
-        '@': './src',
+        '@': resolve(cwd(), 'src'),
       },
     },
     build: {
@@ -130,7 +134,8 @@ export default function getConfig(settings: Settings) {
             // source map merging differently, leaving the incorrect source resolution intact.
             // To get around this, we'll tell typescript how to resolve source file locations
             // See https://github.com/ezolenko/rollup-plugin-typescript2/issues/407
-            sourceRoot: '../src',
+            // Note that we use src/ because that's what we set our rootDir to
+            sourceRoot: resolve(cwd(), 'src'),
             // vuePlugin generates code with implicit `any`s. We're relying on vue-tsc to report
             // errors in our source files anyways, so we'll still get errors if there's implicit
             // `any`s in the source.

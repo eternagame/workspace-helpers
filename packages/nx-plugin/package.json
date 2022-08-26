@@ -25,7 +25,11 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
-    "./preset.json": "./preset.json"
+    "./dist/*.js": {
+      "import": "./dist/*.mjs",
+      "require": "./dist/*.js"
+    },
+    "./*.json": "./*.json"
   },
   "generators": "./generators.json",
   "executors": "./executors.json",
