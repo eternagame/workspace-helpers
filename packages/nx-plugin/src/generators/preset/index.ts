@@ -6,8 +6,8 @@ import {
   type Tree,
 } from '@nrwl/devkit';
 import { setGeneratorDefaults } from 'utils/wrap-generator';
-import generateLicense from '../license/core';
-import generateRelease from '../release/core';
+import generateLicense from '../license/repo';
+import generateRelease from '../release/repo';
 import { installDevDependencies } from '../../utils/dependencies';
 
 const ETERNA_NPM_SCOPE = 'eternagame';
