@@ -44,19 +44,24 @@
       "description": "Adds a new Vue browser application to an Nx project"
     },
     "license": {
-      "factory": "./dist/generators/license",
-      "schema": "./dist/generators/license/schema.json",
+      "factory": "./dist/generators/license/core",
+      "schema": "./dist/generators/license/core/schema.json",
       "description": "Re-licenses an Nx project"
     },
     "license-package": {
-      "factory": "./dist/generators/license",
-      "schema": "./dist/generators/license/schema.json",
+      "factory": "./dist/generators/license/package",
+      "schema": "./dist/generators/license/package/schema.json",
       "description": "Re-licenses a package"
     },
     "release": {
-      "factory": "./dist/generators/release",
-      "schema": "./dist/generators/release/schema.json",
-      "description": "Sets up a release workflow for an Nx project"
+      "factory": "./dist/generators/release/core",
+      "schema": "./dist/generators/release/core/schema.json",
+      "description": "Sets up automated releases"
+    },
+    "release-package": {
+      "factory": "./dist/generators/release/package",
+      "schema": "./dist/generators/release/package/schema.json",
+      "description": "Sets up automated releases for a package"
     }
   }
 }
