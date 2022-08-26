@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "name": "eternagame/nx",
+  "name": "eternagame/nx-plugin",
   "version": "1.0.0",
   "generators": {
     "preset": {
@@ -37,6 +37,11 @@
       "factory": "./dist/generators/package/web/app",
       "schema": "./dist/generators/package/web/app/schema.json",
       "description": "Adds a new Typescript browser application to an Nx project"
+    },
+    "vue-lib": {
+      "factory": "./dist/generators/package/vue/lib",
+      "schema": "./dist/generators/package/vue/lib/schema.json",
+      "description": "Adds a new Vue browser library to an Nx project"
     },
     "vue-app": {
       "factory": "./dist/generators/package/vue/app",

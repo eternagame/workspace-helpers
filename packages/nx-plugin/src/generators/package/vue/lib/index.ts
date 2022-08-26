@@ -7,7 +7,7 @@ import {
   updateJson,
   type Tree,
 } from '@nrwl/devkit';
-import generateWebApp from '../../web/app';
+import generateWebLib from '../../web/lib';
 import { installDependencies, installDevDependencies } from '../../../../utils/dependencies';
 
 interface Schema {
@@ -52,7 +52,7 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
 export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
 
-  const finalizeWebApp = await generateWebApp(tree, normalizedOptions);
+  const finalizeWebLib = await generateWebLib(tree, normalizedOptions);
 
   addFiles(tree, normalizedOptions);
 
@@ -89,8 +89,8 @@ export default async function generate(tree: Tree, options: Schema) {
   );
 
   return async () => {
-    await finalizeWebApp();
-    installDependencies(tree, ['vue', 'vue-router'], normalizedOptions.projectRoot);
+    await finalizeWebLib();
+    installDependencies(tree, ['vue'], normalizedOptions.projectRoot);
     installDevDependencies(tree, ['vue-tsc']);
   };
 }
