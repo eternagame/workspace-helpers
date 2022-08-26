@@ -88,6 +88,12 @@ export default async function generate(tree: Tree, options: Schema) {
     },
   );
 
+  // We want to use the vue eslint config, not the typescript config
+  const eslintrc = tree.read('.eslintrc.js', 'utf-8');
+  if (eslintrc) {
+    tree.write('.eslintrc.js', eslintrc.replace('plugin:@eternagame/typescript', 'plugin:@eternagame/vue3-typescript'));
+  }
+
   return async () => {
     await finalizeWebLib();
     installDependencies(tree, ['vue'], normalizedOptions.projectRoot);
