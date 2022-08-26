@@ -78,6 +78,16 @@ export default async function generate(tree: Tree, options: Schema) {
     },
   );
 
+  // Add to recommended vs code extensions
+  updateJson(
+    tree,
+    normalizedOptions.projectRoot,
+    (json: { recommendations: string[] }) => {
+      if (!json.recommendations.includes('Vue.volar')) json.recommendations.push('Vue.volar');
+      return json;
+    },
+  );
+
   return async () => {
     await finalizeWebApp();
     installDependencies(tree, ['vue', 'vue-router'], normalizedOptions.projectRoot);
