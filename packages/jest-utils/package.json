@@ -29,5 +29,8 @@
     "implicitDependencies": [
       "vite-utils"
     ]
+  },
+  "peerDependencies": {
+    "jest": "28.x"
   }
 }

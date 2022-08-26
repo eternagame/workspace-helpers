@@ -91,6 +91,6 @@ export default async function generate(tree: Tree, options: Schema) {
   return async () => {
     await finalizeWebLib();
     installDependencies(tree, ['vue'], normalizedOptions.projectRoot);
-    installDevDependencies(tree, ['vue-tsc']);
+    installDevDependencies(tree, ['vue-tsc', 'eslint-plugin-vue']);
   };
 }
