@@ -1,6 +1,7 @@
 import {
   detectPackageManager,
   generateFiles,
+  GeneratorCallback,
   getPackageManagerCommand,
   getWorkspaceLayout,
   joinPathFragments,
@@ -10,21 +11,46 @@ import {
   type Tree,
 } from '@nrwl/devkit';
 import * as path from 'path';
-import { inOperator } from 'utils/json';
+import {
+  inOperator, isArrayMember, isRecord, maybeInitObject,
+} from 'utils/json';
 import { join } from 'path';
 import { execSync } from 'child_process';
-import { setupReleaseForPackage } from 'generators/release';
-import { updatePackageLicense } from '../../license';
+import { getLicenseDefaults } from 'generators/license/util';
+import { getGeneratorDefaults } from 'utils/wrap-generator';
+import generateReleasePackage from '../../release/package';
+import generateLicensePackage from '../../license/package';
+
+const publishOptions = ['private', 'restricted', 'public'] as const;
+type PublishOption = typeof publishOptions[number];
 
 interface Schema {
   name: string;
   description: string;
-  directory: string;
+  publish?: PublishOption;
+  directory?: string;
+  license?: string;
+  copyrightHolder?: string;
 }
 
 interface NormalizedSchema extends Schema {
+  publish:PublishOption;
   importPath: string;
   projectRoot: string;
+}
+
+function getPublish(tree: Tree, override?: NormalizedSchema['publish']): NormalizedSchema['publish'] {
+  if (override) return override;
+  const defaults = getGeneratorDefaults(tree, 'package');
+  if (!defaults || !defaults['publish']) {
+    throw new Error('Publish property is required in generator defaults for package in nx.json');
+  }
+  const { publish } = defaults;
+  if (!isArrayMember(publish, publishOptions)) {
+    throw new Error(`License property in generator defaults for license-package in nx.json must be one of: [${publishOptions.join(',')}]`);
+  }
+
+  return publish;
 }
 
 function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
@@ -40,10 +66,13 @@ function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
 
   const projectRoot = joinPathFragments(libsDir, projectDirectory);
 
+  const publish = getPublish(tree, options.publish);
+
   return {
     ...options,
     importPath,
     projectRoot,
+    publish,
   };
 }
 
@@ -107,12 +136,55 @@ function addPackageInfoFields(tree: Tree, options: NormalizedSchema) {
   });
 }
 
+function setupPublishing(tree: Tree, options: NormalizedSchema) {
+  /* eslint-disable no-param-reassign */
+  if (options.publish !== 'private') {
+    // Set properties in package.json necessary for publishing
+    updateJson(tree, joinPathFragments(options.projectRoot, 'package.json'), (json) => {
+      if (!isRecord(json)) throw new Error('package.json format is invalid');
+      const scripts = maybeInitObject(json, 'scripts');
+      if (!scripts) throw new Error('package.json format is invalid');
+
+      json['publishConfig'] = { access: options.publish };
+      json['files'] = ['dist'];
+      scripts['prepublishOnly'] = 'nx build';
+
+      return json;
+    });
+  } else {
+    // This package shouldn't be published, so mark as private
+    updateJson(tree, joinPathFragments(options.projectRoot, 'package.json'), (json) => {
+      if (!isRecord(json)) throw new Error('package.json format is invalid');
+
+      return {
+        private: true,
+        ...json,
+      };
+    });
+  }
+  /* eslint-enable no-param-reassign */
+}
+
 export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
   addFiles(tree, normalizedOptions);
   addPackageInfoFields(tree, normalizedOptions);
-  updatePackageLicense(tree, normalizedOptions.projectRoot);
-  setupReleaseForPackage(tree, normalizedOptions.projectRoot);
+
+  const finalizeTasks: GeneratorCallback[] = [];
+
+  const licenseDefaults = getLicenseDefaults(tree);
+  if (licenseDefaults) {
+    finalizeTasks.push(await generateLicensePackage(tree, {
+      ...licenseDefaults,
+      packageName: normalizedOptions.name,
+    }));
+  }
+
+  setupPublishing(tree, normalizedOptions);
+
+  if (getGeneratorDefaults(tree, 'release-package')) {
+    finalizeTasks.push(await generateReleasePackage(tree, { packageName: normalizedOptions.name }));
+  }
 
   return async () => {
     const pmc = getPackageManagerCommand(detectPackageManager());
@@ -122,5 +194,11 @@ export default async function generate(tree: Tree, options: Schema) {
       cwd: tree.root,
       stdio: [0, 1, 2],
     });
+
+    for (const finalize of finalizeTasks) {
+      // Don't parallelize to avoid potential race conditions
+      // eslint-disable-next-line no-await-in-loop
+      await finalize();
+    }
   };
 }

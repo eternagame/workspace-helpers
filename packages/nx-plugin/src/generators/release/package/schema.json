@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "package",
+  "cli": "nx",
+  "title": "Sets up automated releases for a package",
+  "type": "object",
+  "properties": {
+    "packageName": {
+      "type": "string",
+      "$default": {
+        "$source": "projectName"
+      },
+      "alias": "p",
+      "x-prompt": "What package would you like to target?"
+    }
+  },
+  "required": []
+}
