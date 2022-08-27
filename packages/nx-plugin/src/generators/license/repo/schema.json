@@ -8,7 +8,7 @@
     "license": {
       "type": "string",
       "description": "Repository license",
-      "enum": ["MIT", "BSD3", "Custom", "None"],
+      "enum": ["MIT", "BSD3", "EternaNoncommercial", "Custom", "None"],
       "x-prompt": {
         "message": "Which license would you like to use?",
         "type": "list",
