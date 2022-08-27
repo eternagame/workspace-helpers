@@ -23,5 +23,7 @@ export default {
       'always',
       { exceptAfterSingleLine: true },
     ],
+    // Until https://github.com/airbnb/javascript/pull/2623 is released
+    'no-spaced-func': 'off',
   },
 };

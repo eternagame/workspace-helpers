@@ -97,6 +97,6 @@ export default async function generate(tree: Tree, options: Schema) {
   return async () => {
     await finalizeWebApp();
     installDependencies(tree, ['vue', 'vue-router'], normalizedOptions.projectRoot);
-    installDevDependencies(tree, ['vue-tsc', 'eslint-plugin-vue']);
+    installDevDependencies(tree, ['vue-tsc', 'eslint-plugin-vue', 'vue-eslint-parser']);
   };
 }
