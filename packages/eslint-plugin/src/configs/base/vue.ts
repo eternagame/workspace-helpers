@@ -3,8 +3,8 @@ export default {
   parserOptions: {
     extraFileExtensions: ['.vue'],
     parser: {
-      // plugin:vue/vue3-recommended will set the main parser, but we need to tell eslint what to
-      // use for the internal js/ts parts of the SFC
+      // We set the main parser above, but we need to tell eslint what to use for the
+      // internal js/ts parts of the SFC
       js: 'espree',
       jsx: 'espree',
       ts: require.resolve('@typescript-eslint/parser'),
