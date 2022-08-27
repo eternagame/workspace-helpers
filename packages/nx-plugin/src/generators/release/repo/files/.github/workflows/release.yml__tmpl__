@@ -39,7 +39,7 @@ jobs:
           git add .
           git commit --amend --no-edit
           git push -f
-<% if (publishing !== 'no-publish') { -%>
+<% if (publish) { -%>
 
   npm-publish:
     needs: release-please
@@ -62,6 +62,8 @@ jobs:
       - run: npm publish -ws
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+<% } -%>
+<% if (canary) { -%>
 
   canary-release:
     name: Release canary versions to NPM

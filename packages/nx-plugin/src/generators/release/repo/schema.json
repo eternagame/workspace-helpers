@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "package",
+  "cli": "nx",
+  "title": "Sets up automated releases",
+  "type": "object",
+  "properties": {
+    "publish": {
+      "type": "boolean",
+      "description": "Whether to automatically publish non-private packages as part of a release",
+      "x-prompt": "Should non-private packages be published as part of a release?"
+    },
+    "canary": {
+      "type": "boolean",
+      "description": "Whether a canary version should be published on each commit to main",
+      "x-prompt": "Publish a canary version on each commit to main?"
+    }
+  },
+  "required": ["publish", "canary"]
+}

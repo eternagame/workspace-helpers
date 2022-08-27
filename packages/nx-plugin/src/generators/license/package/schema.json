@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "license-package",
+  "cli": "nx",
+  "title": "Re-licenses a package",
+  "type": "object",
+  "properties": {
+    "packageName": {
+      "type": "string",
+      "$default": {
+        "$source": "projectName"
+      },
+      "alias": "p",
+      "x-prompt": "What package would you like to target?"
+    },
+    "license": {
+      "type": "string",
+      "description": "Package license",
+      "enum": ["MIT", "BSD3", "Custom", "None"],
+      "x-prompt": {
+        "message": "Which license would you like to use?",
+        "type": "list",
+        "items": [
+          { "value": "MIT", "label": "MIT" },
+          { "value": "BSD3", "label": "BSD 3-Clause" },
+          { "value": "EternaNoncommercial", "label": "Eterna Noncommercial" },
+          {
+            "value": "Custom",
+            "label": "Include no default license, but specify SEE LICENSE IN LICENSE in the package.json"
+          },
+          {
+            "value": "None",
+            "label": "Include no default license (you may add a LICENSE file and modify the package.json license field yourself)"
+          }
+        ]
+      }
+    },
+    "copyrightHolder": {
+      "type": "string",
+      "description": "Who should be designated as holding the copyright in the LICENSE file",
+      "x-prompt": "If you've specified a license, who is the copyright holder?"
+    }
+  },
+  "required": ["project", "license", "copyrightHolder"]
+}
