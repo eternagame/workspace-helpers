@@ -1,0 +1,3 @@
+import { getE2EConfig } from '@eternagame/cypress-utils';
+
+export default getE2EConfig();

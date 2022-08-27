@@ -24,6 +24,7 @@ configuration and package generators.
 - [`@eternagame/jest-utils`](./packages/jest-utils) - Eterna standard Jest setup and utilities
 - [`@eternagame/vite-utils`](./packages/vite-utils) - Eterna standard Vite setup and utilities
 - [`@eternagame/lint-staged-utils`](./packages/lint-staged-utils) - Eterna standard lint-staged setup and utilities
+- [`@eternagame/cypress-utils`](./packages/cypress-utils) - Eterna standard cypress setup and utilities
 
 ### Utility Applications
 
