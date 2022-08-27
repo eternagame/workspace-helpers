@@ -5,8 +5,9 @@ import {
   updateWorkspaceConfiguration,
   type Tree,
 } from '@nrwl/devkit';
-import generateLicense from '../license';
-import generateRelease from '../release';
+import { setGeneratorDefaults } from 'utils/wrap-generator';
+import generateLicense from '../license/repo';
+import generateRelease from '../release/repo';
 import { installDevDependencies } from '../../utils/dependencies';
 
 const ETERNA_NPM_SCOPE = 'eternagame';
@@ -19,7 +20,8 @@ interface Schema {
   name: string;
   description: string;
   npmScope: string;
-  release: 'no-release' | 'no-publish' | 'default-private' | 'default-publish';
+  defaultPublish: 'private' | 'restricted' | 'public';
+  release: 'disable' | 'no-publish' | 'publish' | 'publish-with-canary';
   license: 'MIT' | 'BSD3' | 'EternaNoncommercial' | 'Custom' | 'None';
   copyrightHolder: string;
   readmePrologue: string;
@@ -75,14 +77,21 @@ export default async function generate(tree: Tree, options: Schema) {
       || (normalizedOptions.eternaDefaults ? 'Eterna Commons' : ''),
   });
 
-  let finalizeGenerateRelease = () => {};
-  if (options.release !== 'no-release') {
-    finalizeGenerateRelease = await generateRelease(tree, { publishing: options.release });
+  setGeneratorDefaults(tree, 'package', {
+    publish: normalizedOptions.defaultPublish,
+  });
+
+  let finalizeGenerateRelease = async () => {};
+  if (normalizedOptions.release !== 'disable') {
+    finalizeGenerateRelease = await generateRelease(tree, {
+      publish: normalizedOptions.release === 'publish' || normalizedOptions.release === 'publish-with-canary',
+      canary: normalizedOptions.release === 'publish-with-canary',
+    });
   }
 
-  return () => {
-    finalizeGenerateLicense();
-    finalizeGenerateRelease();
+  return async () => {
+    await finalizeGenerateLicense();
+    await finalizeGenerateRelease();
     installDevDependencies(tree, [
       '@eternagame/nx-plugin',
       '@eternagame/eslint-plugin',
@@ -92,6 +101,7 @@ export default async function generate(tree: Tree, options: Schema) {
       'eslint-config-airbnb-typescript',
       'eslint-plugin-import',
       '@typescript-eslint/eslint-plugin',
+      '@typescript-eslint/parser',
       'husky',
       'lint-staged',
     ]);

@@ -20,5 +20,8 @@ export default {
     ],
     // It's nice to put the primary class up front in a file
     '@typescript-eslint/no-use-before-define': ['error', { classes: false }],
+    // Typescript can handle this + configuration is a pain
+    // https://github.com/iamturns/eslint-config-airbnb-typescript/tree/v17.0.0#why-is-importno-unresolved-disabled
+    'import/no-unresolved': 'off',
   },
 };
