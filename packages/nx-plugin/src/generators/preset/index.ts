@@ -101,6 +101,7 @@ export default async function generate(tree: Tree, options: Schema) {
       'eslint-config-airbnb-typescript',
       'eslint-plugin-import',
       '@typescript-eslint/eslint-plugin',
+      '@typescript-eslint/parser',
       'husky',
       'lint-staged',
     ]);
