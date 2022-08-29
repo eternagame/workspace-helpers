@@ -6,6 +6,7 @@ import {
   updateJson,
 } from '@nrwl/devkit';
 import { join } from 'path';
+import { installDevDependencies } from 'utils/dependencies';
 
 interface Schema {
   packageName: string;
@@ -75,5 +76,23 @@ export default async function generate(tree: Tree, options: Schema) {
     },
   );
 
-  return async () => {};
+  updateJson(
+    tree,
+    joinPathFragments(normalizedOptions.projectRoot, 'tsconfig.build.json'),
+    (json: { 'exclude': string[] }) => {
+      // eslint-disable-next-line no-param-reassign
+      json.exclude.push('**/*.cy.ts');
+      return json;
+    },
+  );
+
+  return async () => {
+    installDevDependencies(
+      tree,
+      [
+        '@eternagame/cypress-utils',
+        'cypress',
+      ],
+    );
+  };
 }

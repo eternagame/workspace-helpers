@@ -87,6 +87,7 @@ export default async function generate(tree: Tree, options: Schema) {
         '@eternagame/tsconfig',
         'cypress',
         'typescript',
+        'wait-on',
       ],
     );
   };

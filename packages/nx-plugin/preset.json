@@ -30,7 +30,7 @@
       "{projectRoot}/**/(__tests__|test|tests|spec)/**/*.(js|mjs|cjs|ts|mts|cts)",
       "{projectRoot}/jest.config.(js|mjs|cjs|ts|mts|cts)"
     ],
-    "e2e": [
+    "cypress": [
       "{projectRoot}/**/*.cy.(js|mjs|cjs|ts|mts|cts)",
       "{projectRoot}/cypress.config.(js|mjs|cjs|ts|mts|cts)"
     ]
@@ -54,8 +54,17 @@
       "dependsOn": ["build"],
       "outputs": ["./coverage"]
     },
+    "test:unit": {
+      "inputs": ["default", "^default", "test"],
+      "dependsOn": ["build"]
+    },
+    "test:component": {
+      "inputs": ["default", "^default", "cypress"],
+      "dependsOn": ["^build"],
+      "outputs": ["./cypress-run"]
+    },
     "_e2e": {
-      "inputs": ["default", "^default", "e2e"],
+      "inputs": ["default", "^default", "cypress"],
       "outputs": ["./cypress-run"],
       "dependsOn": ["^start"]
     },

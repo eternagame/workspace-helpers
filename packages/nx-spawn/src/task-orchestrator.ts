@@ -18,7 +18,6 @@ import { ForkedProcessTaskRunner } from 'nx/src/tasks-runner/forked-process-task
 import { createRunOneDynamicOutputRenderer } from 'nx/src/tasks-runner/life-cycles/dynamic-run-one-terminal-output-life-cycle.js';
 /* eslint-enable import/extensions */
 import PromiseWalker from 'promise-walker';
-import { exit } from 'process';
 
 /** The result of the process run for a task */
 interface ProcessResult {
@@ -103,10 +102,15 @@ export default class TaskOrchestrator {
           ) {
             // eslint-disable-next-line no-console
             console.info('Primary task exited successfully');
-            exit(1);
+            // Nx cleans up child processes when the current process receives SIGINT/SIGTERM/SIGHUP,
+            // so this ensures we don't leave processes hanging
+            this._success = true;
+            process.kill(process.pid, 'SIGTERM');
           }
         })
         .catch((reason) => {
+          // This is an error coming from the child processes we intentionally killed
+          if (this._success) return;
           // eslint-disable-next-line no-console
           console.warn(reason);
           throw new Error(
@@ -260,4 +264,6 @@ export default class TaskOrchestrator {
     'nx-spawn',
     'terminal-outputs',
   );
+
+  private _success = false;
 }
