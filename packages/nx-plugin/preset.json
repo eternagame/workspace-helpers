@@ -13,22 +13,26 @@
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "test:cov", "e2e"]
+        "cacheableOperations": ["build", "lint", "test", "test:cov", "_e2e"]
       }
     }
   },
   "namedInputs": {
     "default": [
       "{projectRoot}/**/*",
-      "!{projectRoot}/**/*.(spec|test).(js|mjs|cjs|ts|mts|cts)",
+      "!{projectRoot}/**/*.(spec|test|cy).(js|mjs|cjs|ts|mts|cts)",
       "!{projectRoot}/**/(__tests__|test|tests|spec)/**/*.(js|mjs|cjs|ts|mts|cts)",
-      "!{projectRoot}/jest.config.(js|mjs|cjs|ts|mts|cts)",
+      "!{projectRoot}/(jest|cypress).config.(js|mjs|cjs|ts|mts|cts)",
       { "runtime": "node -v" }
     ],
     "test": [
-      "!{projectRoot}/**/*.(spec|test).(js|mjs|cjs|ts|mts|cts)",
-      "!{projectRoot}/**/(__tests__|test|tests|spec)/**/*.(js|mjs|cjs|ts|mts|cts)",
+      "{projectRoot}/**/*.(spec|test).(js|mjs|cjs|ts|mts|cts)",
+      "{projectRoot}/**/(__tests__|test|tests|spec)/**/*.(js|mjs|cjs|ts|mts|cts)",
       "{projectRoot}/jest.config.(js|mjs|cjs|ts|mts|cts)"
+    ],
+    "e2e": [
+      "{projectRoot}/**/*.cy.(js|mjs|cjs|ts|mts|cts)",
+      "{projectRoot}/cypress.config.(js|mjs|cjs|ts|mts|cts)"
     ]
   },
   "targetDefaults": {
@@ -50,9 +54,13 @@
       "dependsOn": ["build"],
       "outputs": ["./coverage"]
     },
-    "e2e": {
-      "inputs": ["default", "^default"],
-      "dependsOn": ["build"]
+    "_e2e": {
+      "inputs": ["default", "^default", "e2e"],
+      "outputs": ["./cypress-run"],
+      "dependsOn": ["^start"]
+    },
+    "e2e:_dev": {
+      "dependsOn": ["^_dev"]
     },
     "build:watch": {
       "dependsOn": ["^build:watch"],

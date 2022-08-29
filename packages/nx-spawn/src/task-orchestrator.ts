@@ -18,6 +18,7 @@ import { ForkedProcessTaskRunner } from 'nx/src/tasks-runner/forked-process-task
 import { createRunOneDynamicOutputRenderer } from 'nx/src/tasks-runner/life-cycles/dynamic-run-one-terminal-output-life-cycle.js';
 /* eslint-enable import/extensions */
 import PromiseWalker from 'promise-walker';
+import { exit } from 'process';
 
 /** The result of the process run for a task */
 interface ProcessResult {
@@ -96,6 +97,13 @@ export default class TaskOrchestrator {
             throw new Error(
               `${finished.task.target.project}:${finished.task.target.target} exited with code ${result.code}`,
             );
+          } else if (
+            finished.task.target.project === this._rootPackage
+            && finished.task.target.target === this._rootCommand
+          ) {
+            // eslint-disable-next-line no-console
+            console.info('Primary task exited successfully');
+            exit(1);
           }
         })
         .catch((reason) => {
