@@ -1,3 +1,3 @@
-import { getE2EConfig } from '@eternagame/cypress-utils';
+import { getE2EPackageConfig } from '@eternagame/cypress-utils';
 
-export default getE2EConfig();
+export default getE2EPackageConfig();

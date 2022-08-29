@@ -21,7 +21,7 @@ export function getCTConfig() {
   });
 }
 
-export function getE2EConfig() {
+export function getE2EPackageConfig() {
   return defineConfig({
     ...getBaseConfig(),
     e2e: {
