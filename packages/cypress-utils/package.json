@@ -28,5 +28,10 @@
   ],
   "peerDependencies": {
     "cypress": "10.x"
+  },
+  "nx": {
+    "implicitDependencies": [
+      "vite-utils"
+    ]
   }
 }
