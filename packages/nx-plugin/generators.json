@@ -67,6 +67,16 @@
       "factory": "./dist/generators/release/package",
       "schema": "./dist/generators/release/package/schema.json",
       "description": "Sets up automated releases for a package"
+    },
+    "cypress-e2e": {
+      "factory": "./dist/generators/cypress/e2e",
+      "schema": "./dist/generators/cypress/e2e/schema.json",
+      "description": "Adds a new Cypress end to end testing package"
+    },
+    "cypress-ct": {
+      "factory": "./dist/generators/cypress/ct",
+      "schema": "./dist/generators/cypress/ct/schema.json",
+      "description": "Adds Cypress component testing to an existing package"
     }
   }
 }

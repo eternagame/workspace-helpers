@@ -1,1 +1,17 @@
-{}
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "cypress-ct",
+  "cli": "nx",
+  "title": "Adds Cypress component testing to an existing package",
+  "type": "object",
+  "properties": {
+    "packageName": {
+      "type": "string",
+      "$default": {
+        "$source": "projectName"
+      },
+      "alias": "p",
+      "x-prompt": "What package would you like to target?"
+    }
+  }
+}
