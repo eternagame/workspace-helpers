@@ -95,11 +95,19 @@ export default class TaskOrchestrator {
             // We're in the process of shutting down our child processes forcefully
             if (this._finished) return;
 
-            // eslint-disable-next-line no-console
+            /* eslint-disable no-console */
+            console.warn('Task Failed. See below for task output.');
+            console.warn('==========================================================');
             console.warn(result.terminalOutput);
-            throw new Error(
-              `${finished.task.target.project}:${finished.task.target.target} exited with code ${result.code}`,
-            );
+            console.warn('==========================================================');
+            console.error(`${finished.task.target.project}:${finished.task.target.target} exited with code ${result.code}`);
+            /* eslint-enable no-console */
+            // We need to kill all tasks that have been started - see https://github.com/nrwl/nx/issues/11782
+            // Note that we can't just throw an error because treeKill will kill this process too
+            // before we get a chance to do that (in particular, on Windows we don't have the
+            // opportunity to send ourselves a SIGINT and then catch it). Using SIGKILL will ensure
+            // that this process exits with a nonzero exit code
+            await treeKill(process.pid, 'SIGKILL');
           } else if (
             finished.task.target.project === this._rootPackage
             && finished.task.target.target === this._rootCommand
