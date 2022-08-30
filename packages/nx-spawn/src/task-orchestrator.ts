@@ -18,6 +18,7 @@ import { ForkedProcessTaskRunner } from 'nx/src/tasks-runner/forked-process-task
 import { createRunOneDynamicOutputRenderer } from 'nx/src/tasks-runner/life-cycles/dynamic-run-one-terminal-output-life-cycle.js';
 /* eslint-enable import/extensions */
 import PromiseWalker from 'promise-walker';
+import treeKill from './tree-kill';
 
 /** The result of the process run for a task */
 interface ProcessResult {
@@ -89,8 +90,11 @@ export default class TaskOrchestrator {
       // If one of the processes we've started fails, we should bail, because we're no longer
       // running all processes like the user intended
       finished.process
-        .then((result) => {
+        .then(async (result) => {
           if (result.code > 0) {
+            // We're in the process of shutting down our child processes forcefully
+            if (this._finished) return;
+
             // eslint-disable-next-line no-console
             console.warn(result.terminalOutput);
             throw new Error(
@@ -101,16 +105,13 @@ export default class TaskOrchestrator {
             && finished.task.target.target === this._rootCommand
           ) {
             // eslint-disable-next-line no-console
-            console.info('Primary task exited successfully');
-            // Nx cleans up child processes when the current process receives SIGINT/SIGTERM/SIGHUP,
-            // so this ensures we don't leave processes hanging
-            this._success = true;
-            process.kill(process.pid, 'SIGTERM');
+            console.info('[nx-spawn] Primary task exited successfully');
+            this._finished = true;
+            // We need to kill all tasks that have been started - see https://github.com/nrwl/nx/issues/11782
+            await treeKill(process.pid, 'SIGINT');
           }
         })
         .catch((reason) => {
-          // This is an error coming from the child processes we intentionally killed
-          if (this._success) return;
           // eslint-disable-next-line no-console
           console.warn(reason);
           throw new Error(
@@ -228,22 +229,40 @@ export default class TaskOrchestrator {
       ignoreInitial: false,
     });
 
-    // Assuming the task has outputs, make sure the task has written the outputs at least once
-    // before moving on and starting subsequent tasks
-    await Promise.all(
-      outputs.map(
-        (f) => new Promise<void>((resolve) => {
-          watcher.on('add', (path) => {
-            if (path.startsWith(f)) resolve();
-          });
-        }),
-      ),
-    );
+    if (this.isLongRunningTask(task)) {
+      // Assuming the task has outputs, make sure the task has written the outputs at least once
+      // before moving on and starting subsequent tasks
+      await Promise.all(
+        outputs.map(
+          (f) => new Promise<void>((resolve) => {
+            watcher.on('add', (path) => {
+              if (path.startsWith(f)) resolve();
+            });
+          }),
+        ),
+      );
+    } else {
+      // Wait for the task to exit
+      await process;
+    }
 
     return {
       task,
       process,
     };
+  }
+
+  private isLongRunningTask(task: Task) {
+    return (
+      (
+        !!(task.overrides as Record<string, unknown>)['watch']
+        && (task.overrides as Record<string, unknown>)['watch'] !== 'false'
+      )
+      || task.target.target.endsWith(':watch')
+      || task.target.target.endsWith('-watch')
+      || task.target.target === 'serve'
+      || task.target.target === 'dev'
+      || task.target.target === 'start');
   }
 
   /**
@@ -265,5 +284,5 @@ export default class TaskOrchestrator {
     'terminal-outputs',
   );
 
-  private _success = false;
+  private _finished = false;
 }
