@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { workspaceRoot, Workspaces } from '@nrwl/devkit';
+import chalk from 'chalk';
 import { argv, cwd, exit } from 'process';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
@@ -37,6 +38,6 @@ async function run() {
 
 run().catch((e) => {
   // eslint-disable-next-line no-console
-  console.error(e);
+  console.error(chalk.redBright(e));
   exit(1);
 });

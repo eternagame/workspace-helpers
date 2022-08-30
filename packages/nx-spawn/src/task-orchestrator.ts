@@ -18,6 +18,7 @@ import { ForkedProcessTaskRunner } from 'nx/src/tasks-runner/forked-process-task
 import { createRunOneDynamicOutputRenderer } from 'nx/src/tasks-runner/life-cycles/dynamic-run-one-terminal-output-life-cycle.js';
 /* eslint-enable import/extensions */
 import PromiseWalker from 'promise-walker';
+import chalk from 'chalk';
 import treeKill from './tree-kill';
 
 /** The result of the process run for a task */
@@ -94,13 +95,10 @@ export default class TaskOrchestrator {
           if (result.code > 0) {
             // We're in the process of shutting down our child processes forcefully
             if (this._finished) return;
+            this._finished = true;
 
             /* eslint-disable no-console */
-            console.warn('Task Failed. See below for task output.');
-            console.warn('==========================================================');
-            console.warn(result.terminalOutput);
-            console.warn('==========================================================');
-            console.error(`${finished.task.target.project}:${finished.task.target.target} exited with code ${result.code}`);
+            console.error(chalk.redBright(`${finished.task.target.project}:${finished.task.target.target} exited with code ${result.code}. See above for output logs.`));
             /* eslint-enable no-console */
             // We need to kill all tasks that have been started - see https://github.com/nrwl/nx/issues/11782
             // Note that we can't just throw an error because treeKill will kill this process too
@@ -121,7 +119,7 @@ export default class TaskOrchestrator {
         })
         .catch((reason) => {
           // eslint-disable-next-line no-console
-          console.warn(reason);
+          console.error(chalk.redBright(reason));
           throw new Error(
             `The task runner threw an error while trying to run ${finished.task.target.project}:${finished.task.target.target}`,
           );
