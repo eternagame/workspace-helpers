@@ -47,7 +47,8 @@
     },
     "test": {
       "inputs": ["default", "^default", "test"],
-      "dependsOn": ["build"]
+      "dependsOn": ["build"],
+      "outputs": ["./cypress-run"]
     },
     "test:cov": {
       "inputs": ["default", "^default", "test"],
