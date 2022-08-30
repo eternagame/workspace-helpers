@@ -24,7 +24,16 @@ export default async function treeKill(
   const isLinux = process.platform === 'linux';
 
   if (isWindows) {
-    await promisify(execFile)('taskkill', ['/T', '/F', '/PID', pid.toString()]);
+    // I tried /FI STATUS eq RUNNING and /FI STATUS ne UNKNOWN, but in both cases providing this
+    // prevented subprocesses from being killed properly, so our only option is to eat errors, as
+    // it probably just means the task has already exited
+    // Similar reason why /F is always included, even if it would be preferable based on `signal`
+    // to not force exit
+    try {
+      await promisify(execFile)('taskkill', ['/T', '/F', '/PID', pid.toString()]);
+    } catch {
+      // Fall through
+    }
   } else if (isLinux || isMacintosh) {
     const cmd = resolve(DIRNAME, './tree-kill.sh');
     await promisify(execFile)(cmd, [pid.toString(), signal.toString()], {});

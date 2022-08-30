@@ -19,6 +19,8 @@ import { createRunOneDynamicOutputRenderer } from 'nx/src/tasks-runner/life-cycl
 /* eslint-enable import/extensions */
 import PromiseWalker from 'promise-walker';
 import chalk from 'chalk';
+import type { ChildProcess } from 'child_process';
+import { exit } from 'process';
 import treeKill from './tree-kill';
 
 /** The result of the process run for a task */
@@ -97,15 +99,9 @@ export default class TaskOrchestrator {
             if (this._finished) return;
             this._finished = true;
 
-            /* eslint-disable no-console */
-            console.error(chalk.redBright(`${finished.task.target.project}:${finished.task.target.target} exited with code ${result.code}. See above for output logs.`));
             /* eslint-enable no-console */
-            // We need to kill all tasks that have been started - see https://github.com/nrwl/nx/issues/11782
-            // Note that we can't just throw an error because treeKill will kill this process too
-            // before we get a chance to do that (in particular, on Windows we don't have the
-            // opportunity to send ourselves a SIGINT and then catch it). Using SIGKILL will ensure
-            // that this process exits with a nonzero exit code
-            await treeKill(process.pid, 'SIGKILL');
+            await this.killRunnerProcesses(runner, 'SIGINT');
+            throw new Error(`${finished.task.target.project}:${finished.task.target.target} exited with code ${result.code}. See above for output logs.`);
           } else if (
             finished.task.target.project === this._rootPackage
             && finished.task.target.target === this._rootCommand
@@ -113,8 +109,8 @@ export default class TaskOrchestrator {
             // eslint-disable-next-line no-console
             console.info('[nx-spawn] Primary task exited successfully');
             this._finished = true;
-            // We need to kill all tasks that have been started - see https://github.com/nrwl/nx/issues/11782
-            await treeKill(process.pid, 'SIGINT');
+            await this.killRunnerProcesses(runner, 'SIGINT');
+            exit();
           }
         })
         .catch((reason) => {
@@ -128,6 +124,21 @@ export default class TaskOrchestrator {
 
     // Block, as we want the processes we've spawned to keep running
     await Promise.all(readyProcesses);
+  }
+
+  private async killRunnerProcesses(runner: ForkedProcessTaskRunner, signal: string) {
+    // We need to kill all tasks that have been started - see https://github.com/nrwl/nx/issues/11782
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore runner.processes is private, but we need the PIDs
+    const processes = (runner.processes as Set<ChildProcess>);
+    for (const proc of processes) {
+      const { pid } = proc;
+      // If pid is undefined, the process failed to start
+      // eslint-disable-next-line no-continue
+      if (!pid) continue;
+      // eslint-disable-next-line no-await-in-loop
+      await treeKill(pid, signal);
+    }
   }
 
   /**
