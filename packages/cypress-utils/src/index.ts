@@ -29,6 +29,7 @@ export function getE2EPackageConfig() {
       specPattern: 'src/e2e/**/*.cy.{js,jsx,ts,tsx}',
       supportFile: 'src/support/e2e.ts',
       fixturesFolder: 'src/fixtures',
+      // TODO: Use an env var or some other way of keeping this in sync with whatever the app uses?
       baseUrl: 'http://localhost:4173',
     },
   });

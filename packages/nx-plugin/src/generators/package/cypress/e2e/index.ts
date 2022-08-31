@@ -60,6 +60,7 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
   updateJson(tree, projectPackageJsonPath, (json: Record<string, unknown>) => {
     if (!json['scripts']) json['scripts'] = {};
     const scripts = json['scripts'] as Record<string, string>;
+    // TODO: Use an env var or some other way of keeping the URLs sync with whatever the app uses?
     scripts['e2e:dev'] = 'nx-spawn e2e:_dev';
     scripts['e2e:_dev'] = 'wait-on http://localhost:4173 && cypress open --e2e';
     scripts['e2e'] = 'nx-spawn _e2e';
