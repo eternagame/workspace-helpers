@@ -86,6 +86,16 @@ export default async function generate(tree: Tree, options: Schema) {
   addFiles(tree, normalizedOptions);
   updatePackageJson(tree, normalizedOptions);
 
+  // Add vitest extension configuration
+  updateJson(
+    tree,
+    '.vscode/settings.json',
+    (json: Record<string, unknown>) => ({
+      ...json,
+      'vitest.commandLine': 'npm exec vitest -ws -- --passWithNoTests',
+    }),
+  );
+
   return async () => {
     await finalizePackage();
     installDevDependencies(
