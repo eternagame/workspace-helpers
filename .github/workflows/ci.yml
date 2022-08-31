@@ -39,10 +39,6 @@ jobs:
       # which requires it
       - name: Build eslint-plugin
         run: npx nx build eslint-plugin
-      # Any packages that use jest also need to import @eternagame/jest-utils in their config - if not present,
-      # linting the jest config will fail
-      - name: Build jest-utils
-        run: npx nx build jest-utils
       # Our lint-staged.config.mjs also relies on @eternagame/lint-staged-utils so that needs to be built to lint
       - name: Build lint-staged-utils
         run: npx nx build lint-staged-utils

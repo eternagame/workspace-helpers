@@ -6,7 +6,7 @@
     "module": "es2020",
     "moduleResolution": "node",
     // By default all @types packages are included, but they may not be valid in all scenarios,
-    // eg globals from jest and node are not valid in runtime frontend code, so we don't want them
+    // eg globals from vitest and node are not valid in runtime frontend code, so we don't want them
     // available for isomorphic projects
     "types": [],
 

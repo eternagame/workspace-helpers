@@ -62,8 +62,9 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
     const scripts = json['scripts'] as Record<string, string>;
     scripts['build'] = 'vite build';
     scripts['build:watch'] = 'vite build --mode development';
-    scripts['test'] = 'jest';
-    scripts['test:cov'] = 'jest --coverage';
+    scripts['test'] = 'vitest run';
+    scripts['test:watch'] = 'vitest';
+    scripts['test:cov'] = 'vitest run --coverage';
     scripts['lint'] = 'eslint .';
 
     json['type'] = 'module';
@@ -85,6 +86,16 @@ export default async function generate(tree: Tree, options: Schema) {
   addFiles(tree, normalizedOptions);
   updatePackageJson(tree, normalizedOptions);
 
+  // Add vitest extension configuration
+  updateJson(
+    tree,
+    '.vscode/settings.json',
+    (json: Record<string, unknown>) => ({
+      ...json,
+      'vitest.commandLine': 'npm exec vitest -ws -- --passWithNoTests',
+    }),
+  );
+
   return async () => {
     await finalizePackage();
     installDevDependencies(
@@ -92,11 +103,8 @@ export default async function generate(tree: Tree, options: Schema) {
       [
         'vite',
         '@eternagame/tsconfig',
-        '@eternagame/jest-utils',
         '@eternagame/vite-utils',
-        'jest',
-        '@types/jest',
-        'ts-jest',
+        'vitest',
         'typescript',
       ],
     );

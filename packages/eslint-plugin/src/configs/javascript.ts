@@ -13,7 +13,7 @@ export default {
       ],
     },
     {
-      files: ['{jest,vite,cypress}.config.{js,mjs,cjs}'],
+      files: ['{jest,vitest,vite,cypress}.config.{js,mjs,cjs}'],
       rules: {
         // Allow our configs to import dev dependencies
         ...noExtraneousDependencies(true, false),

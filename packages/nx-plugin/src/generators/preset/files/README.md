@@ -50,7 +50,7 @@ Run `npx nx lint <package-name> --fix` to run linting with automatic fixes
 <!-- Managed by @eternagame/nx-plugin - commands/test -->
 ### Unit Tests
 
-Run `npx nx test <package-name>` to execute the unit tests for a package via [Jest](https://jestjs.io/).
+Run `npx nx test <package-name>` to execute the unit tests for a package via [Vitest](https://vitest.dev/).
 
 Run `npx nx affected:test` to execute the unit tests for all packages affected by a code change.
 <!-- End managed by @eternagame/nx-plugin - commands/test -->

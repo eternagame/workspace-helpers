@@ -62,7 +62,7 @@ function updateTsconfigs(tree: Tree, options: NormalizedSchema) {
     tree,
     path.join(options.projectRoot, 'tsconfig.spec.json'),
     (json: Record<string, unknown>) => {
-      json['extends'] = '@eternagame/tsconfig/tsconfig.jest-web.json';
+      json['extends'] = '@eternagame/tsconfig/tsconfig.vitest-web.json';
       return json;
     },
   );

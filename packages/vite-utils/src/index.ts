@@ -122,7 +122,7 @@ export default function getConfig(settings: Settings) {
         ? [vuePlugin()]
         : []),
       typescriptPlugin({
-        tsconfig: 'tsconfig.build.json',
+        tsconfig: mode === 'test' ? 'tsconfig.spec.json' : 'tsconfig.build.json',
         tsconfigOverride: {
           compilerOptions: {
             // rollup-plugin-tsconfig2 runs typescript in a cache directory, so the paths to the
@@ -148,6 +148,10 @@ export default function getConfig(settings: Settings) {
         ? [resourcePlugin(settings.resourceFiles)]
         : []),
     ],
+    test: {
+      globals: true,
+      environment: settings.env === 'web' || settings.env === 'vue' ? 'happy-dom' : 'node',
+    },
   });
 
   return config;
