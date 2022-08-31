@@ -1,6 +1,6 @@
 {
   "name": "@eternagame/cypress-utils",
-  "description": "Eterna standard cypress setup and utilities",
+  "description": "Eterna standard Cypress setup and utilities",
   "version": "1.0.0-dev",
   "repository": {
     "type": "git",

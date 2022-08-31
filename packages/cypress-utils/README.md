@@ -1,6 +1,6 @@
 # @eternagame/cypress-utils
 
-Eterna standard cypress setup and utilities
+Eterna standard Cypress setup and utilities
 
 ## Usage
 
