@@ -1,0 +1,37 @@
+{
+  "name": "@eternagame/cypress-utils",
+  "description": "Eterna standard Cypress setup and utilities",
+  "version": "1.0.0-dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eternagame/workspace-helpers.git",
+    "directory": "packages/cypress-utils"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "BSD-3-Clause",
+  "scripts": {
+    "prepublishOnly": "nx build",
+    "build": "vite build",
+    "build:watch": "vite build --mode development",
+    "lint": "eslint ."
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "cypress": "10.x"
+  },
+  "nx": {
+    "implicitDependencies": [
+      "vite-utils"
+    ]
+  }
+}

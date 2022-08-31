@@ -35,8 +35,9 @@ node_modules
 # Diagnostic reports (https://nodejs.org/api/report.html) (Managed by @eternagame/nx-plugin)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
-# Test coverage (Managed by @eternagame/nx-plugin)
-coverage
+# Test output (Managed by @eternagame/nx-plugin)
+coverage/
+cypress-run/
 
 # Logs (Managed by @eternagame/nx-plugin)
 logs

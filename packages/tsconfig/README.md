@@ -34,3 +34,7 @@ Add one of the available configurations to your `tsconfig.json`:
   ```json
   { "extends": "@eternagame/tsconfig/tsconfig.jest-web.json" }
   ```
+- Configuration for cypress environment
+  ```json
+  "extends": "@eternagame/tsconfig/tsconfig.jest-web.json"
+  ```

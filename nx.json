@@ -3,12 +3,13 @@
   "extends": "@eternagame/nx-plugin/preset.json",
   "npmScope": "eternagame",
   "generators": {
-    "@eternagame/nx-plugin:license": {
+    "@eternagame/nx-plugin:license-package": {
       "license": "BSD3",
       "copyrightHolder": "Eterna Commons"
     },
-    "@eternagame/nx-plugin:release": {
-      "publishing": "default-publish"
+    "@eternagame/nx-plugin:release-package": {},
+    "@eternagame/nx-plugin:package": {
+      "publish": "public"
     }
   }
 }

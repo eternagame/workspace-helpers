@@ -19,7 +19,7 @@ export default {
       ],
     },
     {
-      files: ['{jest,vite}.config.{ts,mts,cts}'],
+      files: ['{jest,vite,cypress}.config.{ts,mts,cts}'],
       parserOptions: {
         // Our configurations aren't tied to our tsconfig, so we can't use rules that require
         // typechecking (nor indicate they should be tied to a tsconfig file)

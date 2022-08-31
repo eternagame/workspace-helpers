@@ -29,6 +29,7 @@ jobs:
           scopes: |
             repo
             bootstrap
+            cypress-utils
             eslint-plugin
             jest-utils
             lint-staged-utils

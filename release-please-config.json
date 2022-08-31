@@ -39,6 +39,9 @@
     "packages/bootstrap": {
       "release-as": "1.0.0"
     },
+    "packages/cypress-utils": {
+      "release-as": "1.0.0"
+    },
     "packages/eslint-plugin": {
       "release-as": "2.0.0"
     },

@@ -8,6 +8,7 @@ import {
   type Tree,
 } from '@nrwl/devkit';
 import generateWebApp from '../../web/app';
+import generateCypressCt from '../../cypress/ct';
 import { installDependencies, installDevDependencies } from '../../../../utils/dependencies';
 
 interface Schema {
@@ -94,8 +95,11 @@ export default async function generate(tree: Tree, options: Schema) {
     tree.write('.eslintrc.js', eslintrc.replace('plugin:@eternagame/typescript', 'plugin:@eternagame/vue3-typescript'));
   }
 
+  const finalizeCypress = await generateCypressCt(tree, { packageName: options.name });
+
   return async () => {
     await finalizeWebApp();
+    await finalizeCypress();
     installDependencies(tree, ['vue', 'vue-router'], normalizedOptions.projectRoot);
     installDevDependencies(tree, ['vue-tsc', 'eslint-plugin-vue', 'vue-eslint-parser']);
   };

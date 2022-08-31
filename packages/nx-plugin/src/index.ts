@@ -7,6 +7,8 @@ export { default as webLibGenerator } from './generators/package/web/lib';
 export { default as webAppGenerator } from './generators/package/web/app';
 export { default as vueLibGenerator } from './generators/package/vue/lib';
 export { default as vueAppGenerator } from './generators/package/vue/app';
+export { default as cypressCtGenerator } from './generators/package/cypress/ct';
+export { default as cypressE2eGenerator } from './generators/package/cypress/e2e';
 export { default as licenseGenerator } from './generators/license/repo';
 export { default as licensePackageGenerator } from './generators/license/package';
 export { default as releaseGenerator } from './generators/release/repo';

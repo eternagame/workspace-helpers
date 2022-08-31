@@ -18,6 +18,10 @@ import { ForkedProcessTaskRunner } from 'nx/src/tasks-runner/forked-process-task
 import { createRunOneDynamicOutputRenderer } from 'nx/src/tasks-runner/life-cycles/dynamic-run-one-terminal-output-life-cycle.js';
 /* eslint-enable import/extensions */
 import PromiseWalker from 'promise-walker';
+import chalk from 'chalk';
+import type { ChildProcess } from 'child_process';
+import { exit } from 'process';
+import treeKill from './tree-kill';
 
 /** The result of the process run for a task */
 interface ProcessResult {
@@ -89,18 +93,29 @@ export default class TaskOrchestrator {
       // If one of the processes we've started fails, we should bail, because we're no longer
       // running all processes like the user intended
       finished.process
-        .then((result) => {
+        .then(async (result) => {
           if (result.code > 0) {
+            // We're in the process of shutting down our child processes forcefully
+            if (this._finished) return;
+            this._finished = true;
+
+            /* eslint-enable no-console */
+            await this.killRunnerProcesses(runner, 'SIGINT');
+            throw new Error(`${finished.task.target.project}:${finished.task.target.target} exited with code ${result.code}. See above for output logs.`);
+          } else if (
+            finished.task.target.project === this._rootPackage
+            && finished.task.target.target === this._rootCommand
+          ) {
             // eslint-disable-next-line no-console
-            console.warn(result.terminalOutput);
-            throw new Error(
-              `${finished.task.target.project}:${finished.task.target.target} exited with code ${result.code}`,
-            );
+            console.info('[nx-spawn] Primary task exited successfully');
+            this._finished = true;
+            await this.killRunnerProcesses(runner, 'SIGINT');
+            exit();
           }
         })
         .catch((reason) => {
           // eslint-disable-next-line no-console
-          console.warn(reason);
+          console.error(chalk.redBright(reason));
           throw new Error(
             `The task runner threw an error while trying to run ${finished.task.target.project}:${finished.task.target.target}`,
           );
@@ -109,6 +124,21 @@ export default class TaskOrchestrator {
 
     // Block, as we want the processes we've spawned to keep running
     await Promise.all(readyProcesses);
+  }
+
+  private async killRunnerProcesses(runner: ForkedProcessTaskRunner, signal: string) {
+    // We need to kill all tasks that have been started - see https://github.com/nrwl/nx/issues/11782
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore runner.processes is private, but we need the PIDs
+    const processes = (runner.processes as Set<ChildProcess>);
+    for (const proc of processes) {
+      const { pid } = proc;
+      // If pid is undefined, the process failed to start
+      // eslint-disable-next-line no-continue
+      if (!pid) continue;
+      // eslint-disable-next-line no-await-in-loop
+      await treeKill(pid, signal);
+    }
   }
 
   /**
@@ -216,22 +246,40 @@ export default class TaskOrchestrator {
       ignoreInitial: false,
     });
 
-    // Assuming the task has outputs, make sure the task has written the outputs at least once
-    // before moving on and starting subsequent tasks
-    await Promise.all(
-      outputs.map(
-        (f) => new Promise<void>((resolve) => {
-          watcher.on('add', (path) => {
-            if (path.startsWith(f)) resolve();
-          });
-        }),
-      ),
-    );
+    if (this.isLongRunningTask(task)) {
+      // Assuming the task has outputs, make sure the task has written the outputs at least once
+      // before moving on and starting subsequent tasks
+      await Promise.all(
+        outputs.map(
+          (f) => new Promise<void>((resolve) => {
+            watcher.on('add', (path) => {
+              if (path.startsWith(f)) resolve();
+            });
+          }),
+        ),
+      );
+    } else {
+      // Wait for the task to exit
+      await process;
+    }
 
     return {
       task,
       process,
     };
+  }
+
+  private isLongRunningTask(task: Task) {
+    return (
+      (
+        !!(task.overrides as Record<string, unknown>)['watch']
+        && (task.overrides as Record<string, unknown>)['watch'] !== 'false'
+      )
+      || task.target.target.endsWith(':watch')
+      || task.target.target.endsWith('-watch')
+      || task.target.target === 'serve'
+      || task.target.target === 'dev'
+      || task.target.target === 'start');
   }
 
   /**
@@ -252,4 +300,6 @@ export default class TaskOrchestrator {
     'nx-spawn',
     'terminal-outputs',
   );
+
+  private _finished = false;
 }

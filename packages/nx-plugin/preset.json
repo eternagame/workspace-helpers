@@ -20,15 +20,19 @@
   "namedInputs": {
     "default": [
       "{projectRoot}/**/*",
-      "!{projectRoot}/**/*.(spec|test).(js|mjs|cjs|ts|mts|cts)",
+      "!{projectRoot}/**/*.(spec|test|cy).(js|mjs|cjs|ts|mts|cts)",
       "!{projectRoot}/**/(__tests__|test|tests|spec)/**/*.(js|mjs|cjs|ts|mts|cts)",
-      "!{projectRoot}/jest.config.(js|mjs|cjs|ts|mts|cts)",
+      "!{projectRoot}/(jest|cypress).config.(js|mjs|cjs|ts|mts|cts)",
       { "runtime": "node -v" }
     ],
     "test": [
-      "!{projectRoot}/**/*.(spec|test).(js|mjs|cjs|ts|mts|cts)",
-      "!{projectRoot}/**/(__tests__|test|tests|spec)/**/*.(js|mjs|cjs|ts|mts|cts)",
+      "{projectRoot}/**/*.(spec|test).(js|mjs|cjs|ts|mts|cts)",
+      "{projectRoot}/**/(__tests__|test|tests|spec)/**/*.(js|mjs|cjs|ts|mts|cts)",
       "{projectRoot}/jest.config.(js|mjs|cjs|ts|mts|cts)"
+    ],
+    "cypress": [
+      "{projectRoot}/**/*.cy.(js|mjs|cjs|ts|mts|cts)",
+      "{projectRoot}/cypress.config.(js|mjs|cjs|ts|mts|cts)"
     ]
   },
   "targetDefaults": {
@@ -43,16 +47,32 @@
     },
     "test": {
       "inputs": ["default", "^default", "test"],
-      "dependsOn": ["build"]
+      "dependsOn": ["build"],
+      "outputs": ["./cypress-run"]
     },
     "test:cov": {
       "inputs": ["default", "^default", "test"],
       "dependsOn": ["build"],
       "outputs": ["./coverage"]
     },
-    "e2e": {
-      "inputs": ["default", "^default"],
+    "test:unit": {
+      "inputs": ["default", "^default", "test"],
       "dependsOn": ["build"]
+    },
+    "test:component": {
+      "inputs": ["default", "^default", "cypress"],
+      "dependsOn": ["^build"],
+      "outputs": ["./cypress-run"]
+    },
+    "e2e": {
+      "inputs": ["default", "^default", "cypress"],
+      "outputs": ["./cypress-run"]
+    },
+    "_e2e": {
+      "dependsOn": ["^start"]
+    },
+    "e2e:_dev": {
+      "dependsOn": ["^_dev"]
     },
     "build:watch": {
       "dependsOn": ["^build:watch"],
