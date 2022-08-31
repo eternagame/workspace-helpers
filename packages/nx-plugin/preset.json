@@ -22,13 +22,13 @@
       "{projectRoot}/**/*",
       "!{projectRoot}/**/*.(spec|test|cy).(js|mjs|cjs|ts|mts|cts)",
       "!{projectRoot}/**/(__tests__|test|tests|spec)/**/*.(js|mjs|cjs|ts|mts|cts)",
-      "!{projectRoot}/(jest|cypress).config.(js|mjs|cjs|ts|mts|cts)",
+      "!{projectRoot}/(jest|vitest|cypress).config.(js|mjs|cjs|ts|mts|cts)",
       { "runtime": "node -v" }
     ],
     "test": [
       "{projectRoot}/**/*.(spec|test).(js|mjs|cjs|ts|mts|cts)",
       "{projectRoot}/**/(__tests__|test|tests|spec)/**/*.(js|mjs|cjs|ts|mts|cts)",
-      "{projectRoot}/jest.config.(js|mjs|cjs|ts|mts|cts)"
+      "{projectRoot}/(jest|vitest).config.(js|mjs|cjs|ts|mts|cts)"
     ],
     "cypress": [
       "{projectRoot}/**/*.cy.(js|mjs|cjs|ts|mts|cts)",

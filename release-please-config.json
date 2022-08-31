@@ -45,9 +45,6 @@
     "packages/eslint-plugin": {
       "release-as": "2.0.0"
     },
-    "packages/jest-utils": {
-      "release-as": "2.0.0"
-    },
     "packages/lint-staged-utils": {
       "release-as": "1.0.0"
     },

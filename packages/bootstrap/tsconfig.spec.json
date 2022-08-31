@@ -1,5 +1,5 @@
 {
-  "extends": "@eternagame/tsconfig/tsconfig.jest-node.json",
+  "extends": "@eternagame/tsconfig/tsconfig.vitest-node.json",
   "references": [
     {
       "path": "./tsconfig.build.json"

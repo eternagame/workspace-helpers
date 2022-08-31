@@ -21,7 +21,6 @@ configuration and package generators.
 
 - [`@eternagame/tsconfig`](./packages/tsconfig) - Eterna standard TypeScript configurations
 - [`@eternagame/eslint-plugin`](./packages/eslint-plugin) - Eterna standard ESLint setup and utilities
-- [`@eternagame/jest-utils`](./packages/jest-utils) - Eterna standard Jest setup and utilities
 - [`@eternagame/vite-utils`](./packages/vite-utils) - Eterna standard Vite setup and utilities
 - [`@eternagame/lint-staged-utils`](./packages/lint-staged-utils) - Eterna standard lint-staged setup and utilities
 - [`@eternagame/cypress-utils`](./packages/cypress-utils) - Eterna standard Cypress setup and utilities
@@ -72,7 +71,7 @@ Run `npx nx lint <package-name> --fix` to run linting with automatic fixes
 <!-- Managed by @eternagame/nx-plugin - commands/test -->
 ### Unit Tests
 
-Run `npx nx test <package-name>` to execute the unit tests for a package via [Jest](https://jestjs.io/).
+Run `npx nx test <package-name>` to execute the unit tests for a package via [Vitest](https://vitest.dev/).
 
 Run `npx nx affected:test` to execute the unit tests for all packages affected by a code change.
 <!-- End managed by @eternagame/nx-plugin - commands/test -->

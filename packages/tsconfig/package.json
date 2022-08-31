@@ -13,7 +13,6 @@
   },
   "scripts": {},
   "peerDependencies": {
-    "@types/node": "*",
-    "@types/jest": "*"
+    "@types/node": "*"
   }
 }

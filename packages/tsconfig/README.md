@@ -22,19 +22,15 @@ Add one of the available configurations to your `tsconfig.json`:
   ```json
   { "extends": "@eternagame/tsconfig/tsconfig.web.json" }
   ```
-- Configuration for jest when used in a runtime-agnostic environment
+- Configuration for Vitest when used with a Node environment
   ```json
-  { "extends": "@eternagame/tsconfig/tsconfig.jest.json" }
+  { "extends": "@eternagame/tsconfig/tsconfig.vitest-node.json" }
   ```
-- Configuration for jest when used with a Node environment
+- Configuration for Vitest when used with a browser environment
   ```json
-  { "extends": "@eternagame/tsconfig/tsconfig.jest-node.json" }
+  { "extends": "@eternagame/tsconfig/tsconfig.vitest-web.json" }
   ```
-- Configuration for jest when used with a browser environment
+- Configuration for Cypress environment
   ```json
-  { "extends": "@eternagame/tsconfig/tsconfig.jest-web.json" }
-  ```
-- Configuration for cypress environment
-  ```json
-  "extends": "@eternagame/tsconfig/tsconfig.jest-web.json"
+  "extends": "@eternagame/tsconfig/tsconfig.cypress.json"
   ```

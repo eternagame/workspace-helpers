@@ -12,4 +12,5 @@
     "source.fixAll.eslint"
   ],
   "eslint.workingDirectories": [{"mode": "auto"}],
+  "vitest.commandLine": "npm exec vitest -ws -- --passWithNoTests"
 }
