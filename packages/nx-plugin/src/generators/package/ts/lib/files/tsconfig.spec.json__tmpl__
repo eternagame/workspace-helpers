@@ -4,5 +4,5 @@
     "types": ["node", "vitest/globals"]
   },
   "include": ["index.ts", "src/**/*", "test/**/*"],
-  "exclude": [],
+  "exclude": []
 }
