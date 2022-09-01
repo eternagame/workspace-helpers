@@ -73,9 +73,19 @@ export default async function generate(tree: Tree, options: Schema) {
     delete scripts['build:watch'];
     return json;
   });
+
   updateJson(
     tree,
     joinPathFragments(normalizedOptions.projectRoot, 'tsconfig.build.json'),
+    (json: { 'include': string[] }) => {
+      // We have an index.html, not an index.ts, so no need to include it
+      json.include = json.include.filter((inc) => inc !== 'index.ts');
+      return json;
+    },
+  );
+  updateJson(
+    tree,
+    joinPathFragments(normalizedOptions.projectRoot, 'tsconfig.spec.json'),
     (json: { 'include': string[] }) => {
       // We have an index.html, not an index.ts, so no need to include it
       json.include = json.include.filter((inc) => inc !== 'index.ts');
