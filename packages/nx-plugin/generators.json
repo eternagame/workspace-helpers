@@ -4,78 +4,78 @@
   "version": "1.0.0",
   "generators": {
     "preset": {
-      "factory": "./dist/generators/preset",
-      "schema": "./dist/generators/preset/schema.json",
+      "factory": "./dist/src/generators/preset",
+      "schema": "./dist/src/generators/preset/schema.json",
       "description": "Initializes an Nx project"
     },
     "package": {
-      "factory": "./dist/generators/package/base",
-      "schema": "./dist/generators/package/base/schema.json",
+      "factory": "./dist/src/generators/package/base",
+      "schema": "./dist/src/generators/package/base/schema.json",
       "description": "Adds an empty generic package to an Nx project"
     },
     "ts-lib": {
-      "factory": "./dist/generators/package/ts/lib",
-      "schema": "./dist/generators/package/ts/lib/schema.json",
+      "factory": "./dist/src/generators/package/ts/lib",
+      "schema": "./dist/src/generators/package/ts/lib/schema.json",
       "description": "Adds new isomorphic TypeScript library to an Nx project"
     },
     "node-lib": {
-      "factory": "./dist/generators/package/node/lib",
-      "schema": "./dist/generators/package/node/lib/schema.json",
+      "factory": "./dist/src/generators/package/node/lib",
+      "schema": "./dist/src/generators/package/node/lib/schema.json",
       "description": "Adds a new Typescript NodeJS library to an Nx project"
     },
     "node-app": {
-      "factory": "./dist/generators/package/node/app",
-      "schema": "./dist/generators/package/node/app/schema.json",
+      "factory": "./dist/src/generators/package/node/app",
+      "schema": "./dist/src/generators/package/node/app/schema.json",
       "description": "Adds a new Typescript NodeJS application to an Nx project"
     },
     "web-lib": {
-      "factory": "./dist/generators/package/web/lib",
-      "schema": "./dist/generators/package/web/lib/schema.json",
+      "factory": "./dist/src/generators/package/web/lib",
+      "schema": "./dist/src/generators/package/web/lib/schema.json",
       "description": "Adds a new Typescript browser library to an Nx project"
     },
     "web-app": {
-      "factory": "./dist/generators/package/web/app",
-      "schema": "./dist/generators/package/web/app/schema.json",
+      "factory": "./dist/src/generators/package/web/app",
+      "schema": "./dist/src/generators/package/web/app/schema.json",
       "description": "Adds a new Typescript browser application to an Nx project"
     },
     "vue-lib": {
-      "factory": "./dist/generators/package/vue/lib",
-      "schema": "./dist/generators/package/vue/lib/schema.json",
+      "factory": "./dist/src/generators/package/vue/lib",
+      "schema": "./dist/src/generators/package/vue/lib/schema.json",
       "description": "Adds a new Vue browser library to an Nx project"
     },
     "vue-app": {
-      "factory": "./dist/generators/package/vue/app",
-      "schema": "./dist/generators/package/vue/app/schema.json",
+      "factory": "./dist/src/generators/package/vue/app",
+      "schema": "./dist/src/generators/package/vue/app/schema.json",
       "description": "Adds a new Vue browser application to an Nx project"
     },
     "license": {
-      "factory": "./dist/generators/license/repo",
-      "schema": "./dist/generators/license/repo/schema.json",
+      "factory": "./dist/src/generators/license/repo",
+      "schema": "./dist/src/generators/license/repo/schema.json",
       "description": "Re-licenses an Nx project"
     },
     "license-package": {
-      "factory": "./dist/generators/license/package",
-      "schema": "./dist/generators/license/package/schema.json",
+      "factory": "./dist/src/generators/license/package",
+      "schema": "./dist/src/generators/license/package/schema.json",
       "description": "Re-licenses a package"
     },
     "release": {
-      "factory": "./dist/generators/release/repo",
-      "schema": "./dist/generators/release/repo/schema.json",
+      "factory": "./dist/src/generators/release/repo",
+      "schema": "./dist/src/generators/release/repo/schema.json",
       "description": "Sets up automated releases"
     },
     "release-package": {
-      "factory": "./dist/generators/release/package",
-      "schema": "./dist/generators/release/package/schema.json",
+      "factory": "./dist/src/generators/release/package",
+      "schema": "./dist/src/generators/release/package/schema.json",
       "description": "Sets up automated releases for a package"
     },
     "cypress-e2e": {
-      "factory": "./dist/generators/package/cypress/e2e",
-      "schema": "./dist/generators/package/cypress/e2e/schema.json",
+      "factory": "./dist/src/generators/package/cypress/e2e",
+      "schema": "./dist/src/generators/package/cypress/e2e/schema.json",
       "description": "Adds a new Cypress end to end testing package"
     },
     "cypress-ct": {
-      "factory": "./dist/generators/package/cypress/ct",
-      "schema": "./dist/generators/package/cypress/ct/schema.json",
+      "factory": "./dist/src/generators/package/cypress/ct",
+      "schema": "./dist/src/generators/package/cypress/ct/schema.json",
       "description": "Adds Cypress component testing to an existing package"
     }
   }
