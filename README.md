@@ -126,7 +126,7 @@ to use the symlinked version instead of retrieving it from npm.
 A limitation of `npm link` is that calls to `npm install` will still pull from npm rather than using
 the global symlink. This is particularly problematic when testing changes to `@eternagame/bootstrap`
 or the `@eternagame/nx-plugin:preset` generator, as both packages install `@eternagame/nx-plugin` during the
-generation repository, and so it will use whatever the latest version is in npm rather than your local copy.
+generation process, and so it will use whatever the latest version is in npm rather than your local copy.
 
 To work around this, you can run a local npm registry using [verdaccio](https://github.com/verdaccio/verdaccio).
 
