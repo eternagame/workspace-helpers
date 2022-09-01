@@ -3,7 +3,8 @@
   "compilerOptions": {
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "types": ["cypress"]
   },
   "include": ["src/**/*.ts"]
 }

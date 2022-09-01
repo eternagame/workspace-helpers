@@ -68,8 +68,8 @@ export default async function generate(tree: Tree, options: Schema) {
   updateJson(
     tree,
     joinPathFragments(normalizedOptions.projectRoot, 'tsconfig.spec.json'),
-    (json: { 'include': string[] }) => {
-      // eslint-disable-next-line no-param-reassign
+    (json: { compilerOptions: { types: string[] }, include: string[] }) => {
+      json.compilerOptions.types = ['cypress'];
       json.include = [...json.include, 'cypress/**/*'];
       return json;
     },
