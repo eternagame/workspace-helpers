@@ -20,9 +20,9 @@ import './commands'
 // require('./commands')
 
 // Import global styles
-import '@/assets/style.css'
+import '@/assets/style.css';
 
-import { mount } from 'cypress/vue'
+import { mount } from 'cypress/vue';
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
@@ -37,7 +37,7 @@ declare global {
   }
 }
 
-Cypress.Commands.add('mount', mount)
+Cypress.Commands.add('mount', mount);
 
 // Example use:
 // cy.mount(MyComponent)
