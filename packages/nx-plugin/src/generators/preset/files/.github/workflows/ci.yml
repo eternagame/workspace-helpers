@@ -46,4 +46,4 @@ jobs:
       - name: Unit Tests
         run: npx nx affected --target=test --parallel=3
       - name: End to End Tests
-        run: nx affected --target e2e
+        run: npx nx affected --target e2e
