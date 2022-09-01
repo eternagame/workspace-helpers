@@ -5,7 +5,7 @@ Eterna standard TypeScript configurations
 ## Usage
 
 ```sh
-npm install -D @eternagame/nx-spawn
+npm install -D @eternagame/tsconfig
 ```
 
 Add one of the available configurations to your `tsconfig.json`:
@@ -21,16 +21,4 @@ Add one of the available configurations to your `tsconfig.json`:
 - Configuration for browser environment
   ```json
   { "extends": "@eternagame/tsconfig/tsconfig.web.json" }
-  ```
-- Configuration for Vitest when used with a Node environment
-  ```json
-  { "extends": "@eternagame/tsconfig/tsconfig.vitest-node.json" }
-  ```
-- Configuration for Vitest when used with a browser environment
-  ```json
-  { "extends": "@eternagame/tsconfig/tsconfig.vitest-web.json" }
-  ```
-- Configuration for Cypress environment
-  ```json
-  "extends": "@eternagame/tsconfig/tsconfig.cypress.json"
   ```

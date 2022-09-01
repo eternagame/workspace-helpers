@@ -1,11 +1,8 @@
 {
-  "extends": "@eternagame/tsconfig/tsconfig.vitest-node.json",
-  "include": [
-    "**/*.spec.ts",
-    "**/*.test.ts",
-    "**/__tests__/**/*.ts",
-    "**/test/**/*.ts",
-    "**/tests/**/*.ts",
-    "**/spec/**/*.ts"
-  ]
+  "extends": "./tsconfig.build.json",
+  "compilerOptions": {
+    "types": ["node", "vitest/globals"]
+  },
+  "include": ["index.ts", "src/**/*", "test/**/*"],
+  "exclude": [],
 }

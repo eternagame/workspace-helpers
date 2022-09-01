@@ -8,7 +8,7 @@ import {
   type Tree,
 } from '@nrwl/devkit';
 import generateWebLib from '../lib';
-import { installDevDependencies } from '../../../../utils/dependencies';
+import { installDevDependencies } from '@/utils/dependencies';
 
 interface Schema {
   name: string;
@@ -37,6 +37,8 @@ function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
 }
 
 function addFiles(tree: Tree, options: NormalizedSchema) {
+  tree.delete(joinPathFragments(options.projectRoot, 'index.ts'));
+  tree.delete(joinPathFragments(options.projectRoot, 'src/lib.ts'));
   const templateOptions = {
     ...options,
     tmpl: '',
@@ -71,6 +73,25 @@ export default async function generate(tree: Tree, options: Schema) {
     delete scripts['build:watch'];
     return json;
   });
+
+  updateJson(
+    tree,
+    joinPathFragments(normalizedOptions.projectRoot, 'tsconfig.build.json'),
+    (json: { 'include': string[] }) => {
+      // We have an index.html, not an index.ts, so no need to include it
+      json.include = json.include.filter((inc) => inc !== 'index.ts');
+      return json;
+    },
+  );
+  updateJson(
+    tree,
+    joinPathFragments(normalizedOptions.projectRoot, 'tsconfig.spec.json'),
+    (json: { 'include': string[] }) => {
+      // We have an index.html, not an index.ts, so no need to include it
+      json.include = json.include.filter((inc) => inc !== 'index.ts');
+      return json;
+    },
+  );
   /* eslint-enable no-param-reassign */
 
   return async () => {

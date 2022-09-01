@@ -1,7 +1,7 @@
 import { generateFiles, Tree, updateJson } from '@nrwl/devkit';
 import { join } from 'path';
-import { getValue, isArrayMember } from 'utils/json';
-import { getGeneratorDefaults } from 'utils/wrap-generator';
+import { getValue, isArrayMember } from '@/utils/json';
+import { getGeneratorDefaults } from '@/utils/wrap-generator';
 
 /** Supported licenses */
 export const licenses = [

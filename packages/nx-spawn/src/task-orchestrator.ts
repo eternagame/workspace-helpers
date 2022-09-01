@@ -17,10 +17,10 @@ import { createTaskGraph } from 'nx/src/tasks-runner/create-task-graph.js';
 import { ForkedProcessTaskRunner } from 'nx/src/tasks-runner/forked-process-task-runner.js';
 import { createRunOneDynamicOutputRenderer } from 'nx/src/tasks-runner/life-cycles/dynamic-run-one-terminal-output-life-cycle.js';
 /* eslint-enable import/extensions */
-import PromiseWalker from 'promise-walker';
 import chalk from 'chalk';
 import type { ChildProcess } from 'child_process';
 import { exit } from 'process';
+import PromiseWalker from './promise-walker';
 import treeKill from './tree-kill';
 
 /** The result of the process run for a task */

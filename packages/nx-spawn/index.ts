@@ -4,7 +4,7 @@ import chalk from 'chalk';
 import { argv, cwd, exit } from 'process';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
-import TaskOrchestrator from './task-orchestrator';
+import TaskOrchestrator from './src/task-orchestrator';
 
 async function run() {
   // Handle CLI args

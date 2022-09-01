@@ -7,8 +7,8 @@ import { builtinModules } from 'module';
 import type { UserConfigFn } from 'vite';
 import typescriptPlugin from 'rollup-plugin-typescript2';
 import vuePlugin from '@vitejs/plugin-vue';
-import preserveShebangs from './rollup-preserve-shebangs';
-import resourcePlugin from './rollup-resource-files';
+import preserveShebangs from './src/rollup-preserve-shebangs';
+import resourcePlugin from './src/rollup-resource-files';
 
 function readPackageLock(): Record<string, unknown> {
   let checkDir = process.cwd();
@@ -55,9 +55,11 @@ export default function getConfig(settings: Settings) {
   // Explicitly specify we're using UserConfigFn instead of using defineConfig so that
   // if a consumer wants to override our config, they know the type they're modifying
   const config: UserConfigFn = ({ mode }) => ({
-    root: 'src',
-    publicDir: '../public',
     esbuild: {
+      // This will prevent esbuild from running its initial transpilation step (because we're using
+      // rpt2), but it will still do tree shaking, bundling, minification, etc. This is because vite
+      // actually has two internal esbuild plugins, the first one doing transpilation and the second
+      // doing bundling, and the exclude pattern is only applied to the first one
       exclude: '**/*',
     },
     resolve: {
@@ -67,7 +69,6 @@ export default function getConfig(settings: Settings) {
     },
     build: {
       sourcemap: true,
-      outDir: '../dist',
       // While node applications are not libraries, using library mode does essentially what we need
       // anyways - avoiding Vite's browser-centric defaults
       lib:
@@ -134,8 +135,9 @@ export default function getConfig(settings: Settings) {
             // source map merging differently, leaving the incorrect source resolution intact.
             // To get around this, we'll tell typescript how to resolve source file locations
             // See https://github.com/ezolenko/rollup-plugin-typescript2/issues/407
-            // Note that we use src/ because that's what we set our rootDir to
-            sourceRoot: resolve(cwd(), 'src'),
+            // Note that we use the root directory of our package because that's what
+            // rootDir will evaluate to
+            sourceRoot: resolve(cwd()),
             // vuePlugin generates code with implicit `any`s. We're relying on vue-tsc to report
             // errors in our source files anyways, so we'll still get errors if there's implicit
             // `any`s in the source.

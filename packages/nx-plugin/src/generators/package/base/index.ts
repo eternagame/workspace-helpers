@@ -11,13 +11,13 @@ import {
   type Tree,
 } from '@nrwl/devkit';
 import * as path from 'path';
-import {
-  inOperator, isArrayMember, isRecord, maybeInitObject,
-} from 'utils/json';
 import { join } from 'path';
 import { execSync } from 'child_process';
-import { getLicenseDefaults } from 'generators/license/util';
-import { getGeneratorDefaults } from 'utils/wrap-generator';
+import {
+  inOperator, isArrayMember, isRecord, maybeInitObject,
+} from '@/utils/json';
+import { getGeneratorDefaults } from '@/utils/wrap-generator';
+import { getLicenseDefaults } from '../../license/util';
 import generateReleasePackage from '../../release/package';
 import generateLicensePackage from '../../license/package';
 

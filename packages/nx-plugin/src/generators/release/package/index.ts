@@ -4,7 +4,7 @@ import {
 } from '@nrwl/devkit';
 import {
   isRecord, maybeInitObject,
-} from 'utils/json';
+} from '@/utils/json';
 
 interface Schema {
   packageName: string;

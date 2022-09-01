@@ -4,7 +4,7 @@ export default getConfig({
   type: 'app',
   env: 'node',
   resourceFiles: {
-    sourceRoot: 'src',
-    sourceGlobs: ['tree-kill/tree-kill.sh'],
+    sourceRoot: '.',
+    sourceGlobs: ['src/tree-kill/tree-kill.sh'],
   },
 });

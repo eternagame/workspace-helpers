@@ -8,7 +8,7 @@ import {
   type Tree,
 } from '@nrwl/devkit';
 import generatePackage from '../../base';
-import { installDevDependencies } from '../../../../utils/dependencies';
+import { installDevDependencies } from '@/utils/dependencies';
 
 interface Schema {
   name: string;

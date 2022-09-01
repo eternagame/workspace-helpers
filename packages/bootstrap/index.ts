@@ -3,7 +3,7 @@ import { mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
-import spawn from './await-spawn';
+import spawn from './src/await-spawn';
 
 async function main() {
   const args = await yargs(hideBin(process.argv))

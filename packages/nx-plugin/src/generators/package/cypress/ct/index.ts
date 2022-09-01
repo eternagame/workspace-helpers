@@ -1,11 +1,12 @@
 import {
   generateFiles,
   getProjects,
+  joinPathFragments,
   Tree,
   updateJson,
 } from '@nrwl/devkit';
 import { join } from 'path';
-import { installDevDependencies } from 'utils/dependencies';
+import { installDevDependencies } from '@/utils/dependencies';
 
 interface Schema {
   packageName: string;
@@ -27,6 +28,7 @@ function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
 }
 
 function addFiles(tree: Tree, options: NormalizedSchema) {
+  tree.delete(joinPathFragments(options.projectRoot, 'src/__tests__'));
   const templateOptions = {
     ...options,
     tmpl: '',
@@ -61,6 +63,18 @@ export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
   addFiles(tree, normalizedOptions);
   updatePackageJson(tree, normalizedOptions);
+
+  /* eslint-disable no-param-reassign */
+  updateJson(
+    tree,
+    joinPathFragments(normalizedOptions.projectRoot, 'tsconfig.spec.json'),
+    (json: { compilerOptions: { types: string[] }, include: string[] }) => {
+      json.compilerOptions.types = ['cypress'];
+      json.include = [...json.include, 'cypress/**/*'];
+      return json;
+    },
+  );
+  /* eslint-enable no-param-reassign */
 
   return async () => {
     installDevDependencies(

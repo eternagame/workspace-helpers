@@ -2,7 +2,7 @@ import {
   getProjects,
   type Tree,
 } from '@nrwl/devkit';
-import { setGeneratorDefaults } from '../../../utils/wrap-generator';
+import { setGeneratorDefaults } from '@/utils/wrap-generator';
 import { isFullLicenseOptions, LicenseOptions, updateLicense } from '../util';
 
 export default async function generate(tree: Tree, options: LicenseOptions) {
