@@ -17,7 +17,5 @@ export default function lintStaged(allStagedFiles: string[]) {
     // Lint any packages affected by uncommitted changes (we're having it lint all files on all
     // affected packages so that if a typechecking rule became invalidated, it gets caught)
     'nx affected --target=lint --uncommitted --fix',
-    // Test packages affected by uncommitted changes
-    'nx affected --target=test --uncommitted',
   ];
 }
