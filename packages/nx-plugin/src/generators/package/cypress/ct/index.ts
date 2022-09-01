@@ -1,7 +1,6 @@
 import {
   generateFiles,
   getProjects,
-  joinPathFragments,
   Tree,
   updateJson,
 } from '@nrwl/devkit';
@@ -46,15 +45,12 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
   updateJson(tree, projectPackageJsonPath, (json: Record<string, unknown>) => {
     if (!json['scripts']) json['scripts'] = {};
     const scripts = json['scripts'] as Record<string, string>;
+    scripts['test'] = 'cypress run --component';
+    scripts['test:ui'] = 'cypress open --component';
+    // TODO: Figure out cypress ct test coverage. Related: https://github.com/cypress-io/cypress/issues/16798
     delete scripts['test:cov'];
-    if (scripts['test']) {
-      scripts['test:unit'] = scripts['test'];
-      scripts['test:component'] = 'cypress run --component';
-      scripts['test'] = 'npm run test:unit && npm run test:component';
-    } else {
-      scripts['test:component'] = 'cypress run --component';
-    }
-    scripts['test:component-ui'] = 'cypress open --component';
+    // Cypress doesn't have a non-ui watch mode - see https://github.com/cypress-io/cypress/issues/3665
+    delete scripts['test:watch'];
 
     return json;
   });
@@ -65,26 +61,6 @@ export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
   addFiles(tree, normalizedOptions);
   updatePackageJson(tree, normalizedOptions);
-
-  updateJson(
-    tree,
-    joinPathFragments(normalizedOptions.projectRoot, 'tsconfig.json'),
-    (json: { 'references': unknown[] }) => {
-      // eslint-disable-next-line no-param-reassign
-      json.references.push({ path: './tsconfig.cy.json' });
-      return json;
-    },
-  );
-
-  updateJson(
-    tree,
-    joinPathFragments(normalizedOptions.projectRoot, 'tsconfig.build.json'),
-    (json: { 'exclude': string[] }) => {
-      // eslint-disable-next-line no-param-reassign
-      json.exclude.push('**/*.cy.ts');
-      return json;
-    },
-  );
 
   return async () => {
     installDevDependencies(

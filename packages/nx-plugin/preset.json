@@ -26,13 +26,9 @@
       { "runtime": "node -v" }
     ],
     "test": [
-      "{projectRoot}/**/*.(spec|test).(js|mjs|cjs|ts|mts|cts)",
+      "{projectRoot}/**/*.(spec|test|cy).(js|mjs|cjs|ts|mts|cts)",
       "{projectRoot}/**/(__tests__|test|tests|spec)/**/*.(js|mjs|cjs|ts|mts|cts)",
-      "{projectRoot}/(jest|vitest).config.(js|mjs|cjs|ts|mts|cts)"
-    ],
-    "cypress": [
-      "{projectRoot}/**/*.cy.(js|mjs|cjs|ts|mts|cts)",
-      "{projectRoot}/cypress.config.(js|mjs|cjs|ts|mts|cts)"
+      "{projectRoot}/(jest|vitest|cypress).config.(js|mjs|cjs|ts|mts|cts)"
     ]
   },
   "targetDefaults": {
@@ -47,25 +43,14 @@
     },
     "test": {
       "inputs": ["default", "^default", "test"],
-      "dependsOn": ["build"],
       "outputs": ["./cypress-run"]
     },
     "test:cov": {
       "inputs": ["default", "^default", "test"],
-      "dependsOn": ["build"],
-      "outputs": ["./coverage"]
-    },
-    "test:unit": {
-      "inputs": ["default", "^default", "test"],
-      "dependsOn": ["build"]
-    },
-    "test:component": {
-      "inputs": ["default", "^default", "cypress"],
-      "dependsOn": ["^build"],
-      "outputs": ["./cypress-run"]
+      "outputs": ["./cypress-run", "./coverage"]
     },
     "e2e": {
-      "inputs": ["default", "^default", "cypress"],
+      "inputs": ["default", "^default", "test"],
       "outputs": ["./cypress-run"]
     },
     "_e2e": {

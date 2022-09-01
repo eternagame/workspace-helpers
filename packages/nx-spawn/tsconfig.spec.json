@@ -1,10 +1,5 @@
 {
   "extends": "@eternagame/tsconfig/tsconfig.vitest-node.json",
-  "references": [
-    {
-      "path": "./tsconfig.build.json"
-    }
-  ],
   "include": [
     "**/*.spec.ts",
     "**/*.test.ts",
