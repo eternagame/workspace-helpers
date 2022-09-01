@@ -1,5 +1,4 @@
 {
-  "references": [{ "path": "./tsconfig.build.json" }],
   "extends": "@eternagame/tsconfig/tsconfig.cypress.json",
   "compilerOptions": {
     "outDir": "dist",
