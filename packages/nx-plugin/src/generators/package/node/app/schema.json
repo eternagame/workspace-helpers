@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/schema",
   "$id": "node-app",
   "cli": "nx",
-  "title": "Adds a new Typescript NodeJS application to an Nx project",
+  "title": "Adds a new Typescript NodeJS application",
   "type": "object",
   "properties": {
     "name": {

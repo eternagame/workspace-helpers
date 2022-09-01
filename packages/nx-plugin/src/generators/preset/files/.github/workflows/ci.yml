@@ -37,9 +37,9 @@ jobs:
         run: npm ci
       - name: Build
         run: npx nx affected --target=build --parallel=3
-      - name: Lint Project
-        run: npm run lint-project
-      - name: Lint Projects
+      - name: Lint Core Files
+        run: npm run lint-core
+      - name: Lint Packages
         run: npx nx affected --target=lint --parallel=3
       - name: Nx Integrity Check
         run: npx nx workspace-lint

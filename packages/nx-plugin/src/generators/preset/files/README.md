@@ -18,8 +18,9 @@
 <!-- Managed by @eternagame/nx-plugin - commands -->
 ## Common Commands
 
-This project is structured as a monorepo, using [NPM Workspaces](https://docs.npmjs.com/cli/v8/using-npm/workspaces)
-and [Nx](https://nx.dev/) to manage its components. Here are some common actions you might want to take:
+This repository is structured as a [monorepo](https://monorepo.tools/), using
+[NPM Workspaces](https://docs.npmjs.com/cli/v8/using-npm/workspaces) and [Nx](https://nx.dev/) to
+manage its components. Here are some common actions you might want to take:
 <!-- End managed by @eternagame/nx-plugin - commands -->
 
 <!-- Managed by @eternagame/nx-plugin - commands/run -->
