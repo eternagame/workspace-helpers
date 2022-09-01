@@ -19,5 +19,13 @@ export default {
         ...noExtraneousDependencies(true, false),
       },
     },
+    {
+      files: ['index.{js,mjs,cjs}'],
+      rules: {
+        // Index files are useful for exposing public APIs which may initially only have
+        // one thing in them, but eventually are intended to have more exports
+        'import/prefer-default-export': 'off',
+      },
+    },
   ],
 };

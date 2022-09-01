@@ -43,11 +43,13 @@
     },
     "test": {
       "inputs": ["default", "^default", "test"],
-      "outputs": ["./cypress-run"]
+      "outputs": ["./cypress-run"],
+      "dependsOn": ["^build"]
     },
     "test:cov": {
       "inputs": ["default", "^default", "test"],
-      "outputs": ["./cypress-run", "./coverage"]
+      "outputs": ["./cypress-run", "./coverage"],
+      "dependsOn": ["^build"]
     },
     "e2e": {
       "inputs": ["default", "^default", "test"],

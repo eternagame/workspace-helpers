@@ -23,5 +23,8 @@ export default {
     // Typescript can handle this + configuration is a pain
     // https://github.com/iamturns/eslint-config-airbnb-typescript/tree/v17.0.0#why-is-importno-unresolved-disabled
     'import/no-unresolved': 'off',
+    // Similar deal as the above - the import plugin won't resolve our aliases properly, plus
+    // tsc already places limitations on allowed extensions
+    'import/extensions': 'off',
   },
 };

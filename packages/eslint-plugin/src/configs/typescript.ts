@@ -36,5 +36,13 @@ export default {
         ),
       },
     },
+    {
+      files: ['index.{ts,mts,cts}'],
+      rules: {
+        // Index files are useful for exposing public APIs which may initially only have
+        // one thing in them, but eventually are intended to have more exports
+        'import/prefer-default-export': 'off',
+      },
+    },
   ],
 };

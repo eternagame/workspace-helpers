@@ -1,15 +1,7 @@
 {
-  "extends": "@eternagame/tsconfig/tsconfig.cypress.json",
+  "extends": "./tsconfig.build.json",
   "compilerOptions": {
-    "outDir": "dist",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  },
-  "include": [
-    "cypress.config.ts",
-    "cypress/**/*.ts",
-    "**/*.cy.ts",
-    "**/*.d.ts"
-  ]
+    "types": ["cypress"]
+  }
+  "exclude": [],
 }

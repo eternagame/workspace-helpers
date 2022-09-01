@@ -5,10 +5,10 @@ import {
   updateWorkspaceConfiguration,
   type Tree,
 } from '@nrwl/devkit';
-import { setGeneratorDefaults } from 'utils/wrap-generator';
+import { setGeneratorDefaults } from '@/utils/wrap-generator';
 import generateLicense from '../license/repo';
 import generateRelease from '../release/repo';
-import { installDevDependencies } from '../../utils/dependencies';
+import { installDevDependencies } from '@/utils/dependencies';
 
 const ETERNA_NPM_SCOPE = 'eternagame';
 const ETERNA_COPYRIGHT_HOLDER = 'Eterna Commons';

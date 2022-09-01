@@ -2,8 +2,8 @@ import {
   generateFiles, GeneratorCallback, getProjects, Tree, writeJson,
 } from '@nrwl/devkit';
 import { join } from 'path';
-import { installDevDependencies } from 'utils/dependencies';
-import { setGeneratorDefaults } from 'utils/wrap-generator';
+import { installDevDependencies } from '@/utils/dependencies';
+import { setGeneratorDefaults } from '@/utils/wrap-generator';
 import generateReleasePackage from '../package';
 
 interface Schema {

@@ -7,7 +7,7 @@ import {
   updateJson,
   type Tree,
 } from '@nrwl/devkit';
-import { installDevDependencies } from 'utils/dependencies';
+import { installDevDependencies } from '@/utils/dependencies';
 import generateNodeLib from '../lib';
 
 interface Schema {

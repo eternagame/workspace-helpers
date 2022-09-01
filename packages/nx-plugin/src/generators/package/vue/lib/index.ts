@@ -9,7 +9,7 @@ import {
 } from '@nrwl/devkit';
 import generateWebLib from '../../web/lib';
 import generateCypressCt from '../../cypress/ct';
-import { installDependencies, installDevDependencies } from '../../../../utils/dependencies';
+import { installDependencies, installDevDependencies } from '@/utils/dependencies';
 
 interface Schema {
   name: string;
@@ -57,10 +57,19 @@ export default async function generate(tree: Tree, options: Schema) {
 
   addFiles(tree, normalizedOptions);
 
-  // Update build tsconfig
+  // Update tsconfigs to include Vue
   updateJson(
     tree,
     joinPathFragments(normalizedOptions.projectRoot, 'tsconfig.build.json'),
+    (json: { 'include': string[] }) => {
+      // eslint-disable-next-line no-param-reassign
+      json.include = [...json.include, 'src/**/*.vue'];
+      return json;
+    },
+  );
+  updateJson(
+    tree,
+    joinPathFragments(normalizedOptions.projectRoot, 'tsconfig.spec.json'),
     (json: { 'include': string[] }) => {
       // eslint-disable-next-line no-param-reassign
       json.include = [...json.include, 'src/**/*.vue'];
