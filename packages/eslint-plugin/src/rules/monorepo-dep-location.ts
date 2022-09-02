@@ -3,7 +3,7 @@ import TsEslintUtils from '@typescript-eslint/utils';
 import type JsoncEslintParser from 'jsonc-eslint-parser';
 import findPkgUp from '../utils/find-pkg-up';
 
-interface DepOptions {
+export interface DepOptions {
   root: boolean;
   subPackage: boolean;
 }
