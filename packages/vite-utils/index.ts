@@ -9,6 +9,7 @@ import typescriptPlugin from 'rollup-plugin-typescript2';
 import vuePlugin from '@vitejs/plugin-vue';
 import preserveShebangs from './src/rollup-preserve-shebangs';
 import resourcePlugin from './src/rollup-resource-files';
+import polyfillIoPlugin from './src/vite-polyfill-io';
 
 function readPackageLock(): Record<string, unknown> {
   let checkDir = process.cwd();
@@ -52,6 +53,8 @@ export interface Settings {
 }
 
 export default function getConfig(settings: Settings) {
+  const isWeb = settings.env === 'web' || settings.env === 'vue';
+
   // Explicitly specify we're using UserConfigFn instead of using defineConfig so that
   // if a consumer wants to override our config, they know the type they're modifying
   const config: UserConfigFn = ({ mode }) => ({
@@ -79,6 +82,9 @@ export default function getConfig(settings: Settings) {
             formats: ['es', 'cjs'],
           }
           : false,
+      // If we're not in a webapp, file size doesn't really matter that much. If we're a lib,
+      // rely on the app to minify the final output bundle
+      minify: settings.type === 'app' && isWeb,
       rollupOptions: {
         external: [
           // No need to process/bundle dependencies unless we're in a webapp
@@ -149,10 +155,11 @@ export default function getConfig(settings: Settings) {
       ...(settings.resourceFiles
         ? [resourcePlugin(settings.resourceFiles)]
         : []),
+      ...(settings.type === 'app' && isWeb ? [polyfillIoPlugin()] : []),
     ],
     test: {
       globals: true,
-      environment: settings.env === 'web' || settings.env === 'vue' ? 'happy-dom' : 'node',
+      environment: isWeb ? 'happy-dom' : 'node',
     },
   });
 
