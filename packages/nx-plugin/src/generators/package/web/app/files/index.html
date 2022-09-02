@@ -9,7 +9,16 @@
   </head>
   <body>
     <div id="app"></div>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=all"></script>
+    <!--
+      Our minspec is the browsers which Vite supports (https://vitejs.dev/guide/#browser-support)
+      Add in all other features necessary for supported browsers to be on-par with the version of
+      ecmascript we allow APIs from in our tsconfig (currently es2020), plus other browser features
+      that we may reasonably want to use (and where browsers that don't support a feature aren't
+      vanishingly small, eg Safari < 13). Not that Intl is added here by default
+
+      Last updated for polyfills available on v3.111.0
+    -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2Ces2016%2Ces2017%2Ces2018%2Ces2019%2Ces2020%2CWebAnimations%2CrequestIdleCallback%2Cscreen.orientation%2Csmoothscroll"></script>
     <script type="module" src="./src/main.ts"></script>
   </body>
 </html>
