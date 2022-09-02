@@ -3,10 +3,10 @@ import TsEslintUtils from '@typescript-eslint/utils';
 import type JsoncEslintParser from 'jsonc-eslint-parser';
 import findPkgUp from '../utils/find-pkg-up';
 
-type DepOptions = {
+interface DepOptions {
   root: boolean;
   subPackage: boolean;
-};
+}
 
 type Options = [
   {
