@@ -14,7 +14,10 @@
       Add in all other features necessary for supported browsers to be on-par with the version of
       ecmascript we allow APIs from in our tsconfig (currently es2020), plus other browser features
       that we may reasonably want to use (and where browsers that don't support a feature aren't
-      vanishingly small, eg Safari < 13). Not that Intl is added here by default
+      vanishingly small, eg Safari < 13). Note that Intl is added here by default because it is
+      extremely heavy if not needed - add any specific locale functions/datasets if required,
+      eg Intl.RelativeTimeFormat.~locale.en-GB.
+      See https://github.com/Financial-Times/polyfill-service/issues/1256#issuecomment-321717153
 
       Last updated for polyfills available on v3.111.0
     -->
