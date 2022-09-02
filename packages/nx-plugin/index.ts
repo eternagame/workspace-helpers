@@ -3,6 +3,7 @@ export { default as packageGenerator } from './src/generators/package/base';
 export { default as tsLibGenerator } from './src/generators/package/ts/lib';
 export { default as nodeLibGenerator } from './src/generators/package/node/lib';
 export { default as nodeAppGenerator } from './src/generators/package/node/app';
+export { default as nestAppGenerator } from './src/generators/package/nest/app';
 export { default as webLibGenerator } from './src/generators/package/web/lib';
 export { default as webAppGenerator } from './src/generators/package/web/app';
 export { default as vueLibGenerator } from './src/generators/package/vue/lib';

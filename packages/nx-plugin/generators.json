@@ -28,6 +28,11 @@
       "schema": "./dist/src/generators/package/node/app/schema.json",
       "description": "Adds a new Typescript NodeJS application to an Nx project"
     },
+    "nest-app": {
+      "factory": "./dist/src/generators/package/nest/app",
+      "schema": "./dist/src/generators/package/nest/app/schema.json",
+      "description": "Adds a new Typescript NestJS application"
+    },
     "web-lib": {
       "factory": "./dist/src/generators/package/web/lib",
       "schema": "./dist/src/generators/package/web/lib/schema.json",
