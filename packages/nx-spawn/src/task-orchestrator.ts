@@ -129,7 +129,7 @@ export default class TaskOrchestrator {
   private async killRunnerProcesses(runner: ForkedProcessTaskRunner, signal: string) {
     // We need to kill all tasks that have been started - see https://github.com/nrwl/nx/issues/11782
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore runner.processes is private, but we need the PIDs
+    // @ts-expect-error runner.processes is private, but we need the PIDs
     const processes = (runner.processes as Set<ChildProcess>);
     for (const proc of processes) {
       const { pid } = proc;

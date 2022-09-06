@@ -6,8 +6,9 @@ import { join } from 'path';
 import { tmpdir } from 'os';
 import type { OutputChunk } from 'rollup';
 import { mkdtemp, readFile } from 'fs/promises';
+import browserslist from 'browserslist';
 
-export default function polyfillIoPlugin() {
+export default function polyfillIoPlugin(browserTargets: string | string[]) {
   const plugin: Plugin = {
     name: 'vite-plugin-polyfill-io',
     apply: 'build',
@@ -20,6 +21,7 @@ export default function polyfillIoPlugin() {
       // Adapted from https://github.com/Financial-Times/polyfill-service-url-builder/blob/master/index.js
       const tmpFolder = await mkdtemp(join(tmpdir(), 'js-features-analyser'));
       const analyserOutput = join(tmpFolder, 'features.json');
+      const browsers = browserslist(browserTargets);
 
       const features = Object.values(ctx.bundle)
         .filter((output): output is OutputChunk => output.type === 'chunk').map(
@@ -41,7 +43,7 @@ export default function polyfillIoPlugin() {
           },
         );
       const uniqueFeatures = [...new Set((await Promise.all(features)).flat())];
-      const result = await generatePolyfillURL(uniqueFeatures, []);
+      const result = await generatePolyfillURL(uniqueFeatures, browsers);
       if (result.type === TYPE_NOTHING) {
         // Supported browsers support all required features, no need for polyfill
       } else if (result.type === TYPE_URL) {

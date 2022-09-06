@@ -16,10 +16,10 @@ export const licenses = [
 export type License = typeof licenses[number];
 
 /** Information required to generate a license when an actual license is specified */
-export type FullLicenseOptions = {
+export interface FullLicenseOptions {
   license: Exclude<License, 'None' | 'Custom'>;
   copyrightHolder: string;
-};
+}
 
 /** Information required to generate license information */
 export type LicenseOptions = {
