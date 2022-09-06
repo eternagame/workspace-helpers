@@ -7,6 +7,7 @@ import { builtinModules } from 'module';
 import type { UserConfigFn } from 'vite';
 import typescriptPlugin from 'rollup-plugin-typescript2';
 import vuePlugin from '@vitejs/plugin-vue';
+import type { TransformerFactoryCreator } from 'rollup-plugin-typescript2/dist/ioptions';
 import preserveShebangs from './src/rollup-preserve-shebangs';
 import resourcePlugin from './src/rollup-resource-files';
 import polyfillIoPlugin from './src/vite-polyfill-io';
@@ -50,6 +51,7 @@ export interface Settings {
     sourceRoot: string;
     sourceGlobs: string[];
   };
+  tsTransformers?: TransformerFactoryCreator[];
 }
 
 export default function getConfig(settings: Settings) {
@@ -151,6 +153,7 @@ export default function getConfig(settings: Settings) {
           },
         },
         abortOnError: mode !== 'development',
+        transformers: settings.tsTransformers ?? [],
       }),
       ...(settings.resourceFiles
         ? [resourcePlugin(settings.resourceFiles)]
