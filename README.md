@@ -1,6 +1,6 @@
 # Eterna Workspace Helpers
 
-Helper packages for JS projects
+Helper packages for JS/TS repositories
 
 <!-- Managed by @eternagame/nx-plugin - prologue -->
 Interested in development? Join the discussion on the Eterna Discord!
@@ -12,7 +12,7 @@ Interested in development? Join the discussion on the Eterna Discord!
 
 ### Bootstrapping
 
-Want to set up a new project/repository using Eterna's standard structure? Check out [`@eternagame/bootstrap`](./packages/bootstrap)
+Want to set up a new repository using Eterna's standard structure? Check out [`@eternagame/bootstrap`](./packages/bootstrap)
 
 This will also set you up to use our Nx plugin, [`@eternagame/nx-plugin`](./packages/nx-plugin), which has our standard Nx 
 configuration and package generators.
@@ -39,8 +39,9 @@ configuration and package generators.
 <!-- Managed by @eternagame/nx-plugin - commands -->
 ## Common Commands
 
-This project is structured as a monorepo, using [NPM Workspaces](https://docs.npmjs.com/cli/v8/using-npm/workspaces)
-and [Nx](https://nx.dev/) to manage its components. Here are some common actions you might want to take:
+This repository is structured as a [monorepo](https://monorepo.tools/), using
+[NPM Workspaces](https://docs.npmjs.com/cli/v8/using-npm/workspaces) and [Nx](https://nx.dev/) to
+manage its components. Here are some common actions you might want to take:
 <!-- End managed by @eternagame/nx-plugin - commands -->
 
 <!-- Managed by @eternagame/nx-plugin - commands/run -->
@@ -109,15 +110,15 @@ changes that we may want to incorporate:
 If you're on a unix-like system and want to remove all nested node_modules folders,
 you can run `find . -type d -name node_modules -prune | xargs rm -r`
 
-## Testing packages outside this project
+## Testing packages outside this repository
 
-If you want to test changes to packages outside of this project, you will need a way to install your
-local version in whatever other project you're using. There are generally two ways to do this:
+If you want to test changes to packages outside of this repository, you will need a way to install your
+local version in whatever other repository you're using. There are generally two ways to do this:
 
 ### npm link
 
 If you run `npm link -w @eternagame/<package>`, this will create a symlink to the local directory
-in your global node modules. You can then run `npm link @eternagame/<package>` in an existing project
+in your global node modules. You can then run `npm link @eternagame/<package>` in an existing repository
 to use the symlinked version instead of retrieving it from npm.
 
 ### Local registry
@@ -125,7 +126,7 @@ to use the symlinked version instead of retrieving it from npm.
 A limitation of `npm link` is that calls to `npm install` will still pull from npm rather than using
 the global symlink. This is particularly problematic when testing changes to `@eternagame/bootstrap`
 or the `@eternagame/nx-plugin:preset` generator, as both packages install `@eternagame/nx-plugin` during the
-generation project, and so it will use whatever the latest version is in npm rather than your local copy.
+generation process, and so it will use whatever the latest version is in npm rather than your local copy.
 
 To work around this, you can run a local npm registry using [verdaccio](https://github.com/verdaccio/verdaccio).
 

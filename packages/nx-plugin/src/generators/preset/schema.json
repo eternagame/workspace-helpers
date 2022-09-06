@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/schema",
   "$id": "preset",
   "cli": "nx",
-  "title": "Initializes an Nx project",
+  "title": "Initializes an Nx-managed repository",
   "type": "object",
   "properties": {
     "name": {
@@ -16,8 +16,8 @@
     },
     "description": {
       "type": "string",
-      "description": "Project description",
-      "x-prompt": "Provide a brief description for the project",
+      "description": "Repository description",
+      "x-prompt": "Provide a brief description for the repository",
       "pattern": "^[\\w -_']*$",
       "default": ""
     },

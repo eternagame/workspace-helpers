@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/schema",
   "$id": "package",
   "cli": "nx",
-  "title": "Adds an empty generic package to an Nx project",
+  "title": "Adds an empty generic package",
   "type": "object",
   "properties": {
     "name": {

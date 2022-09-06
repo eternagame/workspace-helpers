@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    // We polyfill our web projects (with polyfill.io), so we can rely on it to
+    // We polyfill our web apps (with polyfill.io), so we can rely on it to
     // handle polyfilling newer JS features (we'll assume we've correctly configured it)
     // The core ecmascript version should be updated in lockstep with the main tsconfig.json
     "lib": ["es2020", "DOM", "DOM.Iterable"],

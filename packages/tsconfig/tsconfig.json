@@ -7,7 +7,7 @@
     "moduleResolution": "node",
     // By default all @types packages are included, but they may not be valid in all scenarios,
     // eg globals from vitest and node are not valid in runtime frontend code, so we don't want them
-    // available for isomorphic projects
+    // available for isomorphic packages
     "types": [],
 
     // Emit
@@ -23,7 +23,7 @@
 
     // Language and Environment
     // Our target and built-ins reflect the lowest common denominator we need to support for
-    // isomorphic projects. Currently, that is determined by what Node 14 (oldest LTS) supports
+    // isomorphic packages. Currently, that is determined by what Node 14 (oldest LTS) supports
     // per https://github.com/tsconfig/bases/blob/main/bases/node14.json. We'll assume an external build
     // tool (vite in our case) is correctly configured to transpile further for older browsers if needed
     // When this gets updated, be sure to update lib in tsconfig.web.json

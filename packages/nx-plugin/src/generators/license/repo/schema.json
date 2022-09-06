@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/schema",
   "$id": "license",
   "cli": "nx",
-  "title": "Re-licenses an Nx project and its packages",
+  "title": "Re-licenses the repository and its packages",
   "type": "object",
   "properties": {
     "license": {
