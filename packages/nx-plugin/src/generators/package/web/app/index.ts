@@ -69,6 +69,7 @@ export default async function generate(tree: Tree, options: Schema) {
     scripts['start'] = 'vite preview';
     scripts['dev'] = 'nx-spawn _dev';
     scripts['_dev'] = 'vite';
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete json['main'];
     delete scripts['build:watch'];
     return json;
