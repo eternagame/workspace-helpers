@@ -29,7 +29,10 @@
     "vite": "3.x"
   },
   "dependencies": {
+    "@babel/core": "^7.18.13",
+    "@financial-times/js-features-analyser": "^0.4.3",
     "@vitejs/plugin-vue": "^3.0.3",
+    "create-polyfill-service-url": "^2.2.6",
     "fast-glob": "^3.2.11",
     "magic-string": "^0.26.2",
     "rollup": "^2.77.2",

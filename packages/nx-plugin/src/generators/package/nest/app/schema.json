@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "$id": "package",
+  "$id": "nest-app",
   "cli": "nx",
-  "title": "Adds an empty generic package",
+  "title": "Adds a new Typescript NestJS application",
   "type": "object",
   "properties": {
     "name": {
@@ -28,20 +28,6 @@
     "directory": {
       "type": "string",
       "description": "A directory under the packages directory to create the package in"
-    },
-    "publish": {
-      "type": "string",
-      "description": "How the package should be configured for publishing",
-      "enum": ["private", "restricted", "public"],
-      "x-prompt": {
-        "message": "How should the package be configured for publishing?",
-        "type": "list",
-        "items": [
-          { "value": "private", "label": "Mark package as not publishable" },
-          { "value": "restricted", "label": "Configure package for publishing with restricted access" },
-          { "value": "public", "label": "Configure package for publishing with public access" }
-        ]
-      }
     }
   },
   "required": ["name", "description"]

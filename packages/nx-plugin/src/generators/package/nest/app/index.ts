@@ -4,11 +4,10 @@ import {
   getWorkspaceLayout,
   joinPathFragments,
   names,
-  updateJson,
   type Tree,
 } from '@nrwl/devkit';
-import { installDevDependencies } from '@/utils/dependencies';
-import generateNodeLib from '../lib';
+import { installDependencies, installDevDependencies } from '@/utils/dependencies';
+import generateNodeApp from '../../node/app';
 
 interface Schema {
   name: string;
@@ -37,6 +36,11 @@ function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
 }
 
 function addFiles(tree: Tree, options: NormalizedSchema) {
+  tree.delete(joinPathFragments(options.projectRoot, 'src/lib.ts'));
+  tree.rename(
+    joinPathFragments(options.projectRoot, 'src/__tests__/lib.spec.ts'),
+    joinPathFragments(options.projectRoot, 'src/__tests__/app.spec.ts'),
+  );
   const templateOptions = {
     ...options,
     tmpl: '',
@@ -52,27 +56,22 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
 export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
 
-  const finalizeNodeLib = await generateNodeLib(tree, normalizedOptions);
+  const finalizeNodeApp = await generateNodeApp(tree, normalizedOptions);
 
   addFiles(tree, normalizedOptions);
 
-  const projectPackageJsonPath = path.join(
-    normalizedOptions.projectRoot,
-    'package.json',
-  );
-  /* eslint-disable no-param-reassign */
-  updateJson(tree, projectPackageJsonPath, (json: Record<string, unknown>) => {
-    if (!json['scripts']) json['scripts'] = {};
-    const scripts = json['scripts'] as Record<string, string>;
-    scripts['start'] = 'node dist/index.js';
-    scripts['dev'] = 'nx-spawn _dev';
-    scripts['_dev'] = 'node-dev dist/index.js';
-    return json;
-  });
-  /* eslint-enable no-param-reassign */
-
   return async () => {
-    await finalizeNodeLib();
-    installDevDependencies(tree, ['node-dev', '@eternagame/nx-spawn']);
+    await finalizeNodeApp();
+    installDependencies(tree, [
+      '@nestjs/core',
+      '@nestjs/common',
+      '@nestjs/config',
+      '@nestjs/swagger',
+      '@nestjs/platform-express',
+      'reflect-metadata',
+      'class-validator',
+      'class-transformer',
+    ], normalizedOptions.projectRoot);
+    installDevDependencies(tree, ['@types/express']);
   };
 }

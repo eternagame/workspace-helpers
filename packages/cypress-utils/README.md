@@ -25,7 +25,7 @@ const { getCTConfig } = require('@eternagame/cypress-utils');
 export default getCTConfig();
 ```
 
-If setting up e2e testing in a dedicated project, use the following in your `cypress.config.ts`:
+If setting up e2e testing in a dedicated package, use the following in your `cypress.config.ts`:
 
 ```js
 import { getE2EPackageConfig } from '@eternagame/cypress-utils';

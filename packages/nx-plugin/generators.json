@@ -6,52 +6,57 @@
     "preset": {
       "factory": "./dist/src/generators/preset",
       "schema": "./dist/src/generators/preset/schema.json",
-      "description": "Initializes an Nx project"
+      "description": "Initializes an Nx-managed repository"
     },
     "package": {
       "factory": "./dist/src/generators/package/base",
       "schema": "./dist/src/generators/package/base/schema.json",
-      "description": "Adds an empty generic package to an Nx project"
+      "description": "Adds an empty generic package"
     },
     "ts-lib": {
       "factory": "./dist/src/generators/package/ts/lib",
       "schema": "./dist/src/generators/package/ts/lib/schema.json",
-      "description": "Adds new isomorphic TypeScript library to an Nx project"
+      "description": "Adds a new isomorphic TypeScript library"
     },
     "node-lib": {
       "factory": "./dist/src/generators/package/node/lib",
       "schema": "./dist/src/generators/package/node/lib/schema.json",
-      "description": "Adds a new Typescript NodeJS library to an Nx project"
+      "description": "Adds a new Typescript NodeJS library"
     },
     "node-app": {
       "factory": "./dist/src/generators/package/node/app",
       "schema": "./dist/src/generators/package/node/app/schema.json",
-      "description": "Adds a new Typescript NodeJS application to an Nx project"
+      "description": "Adds a new Typescript NodeJS application"
+    },
+    "nest-app": {
+      "factory": "./dist/src/generators/package/nest/app",
+      "schema": "./dist/src/generators/package/nest/app/schema.json",
+      "description": "Adds a new Typescript NestJS application"
     },
     "web-lib": {
       "factory": "./dist/src/generators/package/web/lib",
       "schema": "./dist/src/generators/package/web/lib/schema.json",
-      "description": "Adds a new Typescript browser library to an Nx project"
+      "description": "Adds a new Typescript browser library"
     },
     "web-app": {
       "factory": "./dist/src/generators/package/web/app",
       "schema": "./dist/src/generators/package/web/app/schema.json",
-      "description": "Adds a new Typescript browser application to an Nx project"
+      "description": "Adds a new Typescript browser application"
     },
     "vue-lib": {
       "factory": "./dist/src/generators/package/vue/lib",
       "schema": "./dist/src/generators/package/vue/lib/schema.json",
-      "description": "Adds a new Vue browser library to an Nx project"
+      "description": "Adds a new Vue browser library"
     },
     "vue-app": {
       "factory": "./dist/src/generators/package/vue/app",
       "schema": "./dist/src/generators/package/vue/app/schema.json",
-      "description": "Adds a new Vue browser application to an Nx project"
+      "description": "Adds a new Vue browser application"
     },
     "license": {
       "factory": "./dist/src/generators/license/repo",
       "schema": "./dist/src/generators/license/repo/schema.json",
-      "description": "Re-licenses an Nx project"
+      "description": "Re-licenses the repository and its packages"
     },
     "license-package": {
       "factory": "./dist/src/generators/license/package",
