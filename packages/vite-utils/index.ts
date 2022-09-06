@@ -8,6 +8,7 @@ import type { UserConfigFn } from 'vite';
 import typescriptPlugin from 'rollup-plugin-typescript2';
 import vuePlugin from '@vitejs/plugin-vue';
 import type { TransformerFactoryCreator } from 'rollup-plugin-typescript2/dist/ioptions';
+import postcssPresetEnv from 'postcss-preset-env';
 import preserveShebangs from './src/rollup-preserve-shebangs';
 import resourcePlugin from './src/rollup-resource-files';
 import polyfillIoPlugin from './src/vite-polyfill-io';
@@ -56,6 +57,9 @@ export interface Settings {
 
 export default function getConfig(settings: Settings) {
   const isWeb = settings.env === 'web' || settings.env === 'vue';
+  // This is what Vite says its default esbuild target is equivalent to
+  // https://github.com/vitejs/vite/blob/9c1be108bfb1eac3dbbe432214349153d8b9ed5e/packages/vite/src/node/constants.ts#L15
+  const browserslist = 'defaults and supports es6-module and supports es6-module-dynamic-import';
 
   // Explicitly specify we're using UserConfigFn instead of using defineConfig so that
   // if a consumer wants to override our config, they know the type they're modifying
@@ -70,6 +74,15 @@ export default function getConfig(settings: Settings) {
     resolve: {
       alias: {
         '@': resolve(cwd(), 'src'),
+      },
+    },
+    css: {
+      postcss: {
+        plugins: [
+          postcssPresetEnv({
+            browsers: browserslist,
+          }),
+        ],
       },
     },
     build: {
@@ -158,7 +171,7 @@ export default function getConfig(settings: Settings) {
       ...(settings.resourceFiles
         ? [resourcePlugin(settings.resourceFiles)]
         : []),
-      ...(settings.type === 'app' && isWeb ? [polyfillIoPlugin()] : []),
+      ...(settings.type === 'app' && isWeb ? [polyfillIoPlugin(browserslist)] : []),
     ],
     test: {
       globals: true,
