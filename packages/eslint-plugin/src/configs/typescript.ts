@@ -12,6 +12,7 @@ export default {
       extends: [
         'plugin:@typescript-eslint/recommended',
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
+        'plugin:@typescript-eslint/strict',
         'airbnb-base',
         'airbnb-typescript/base',
         require.resolve('./base/javascript'),

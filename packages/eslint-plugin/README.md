@@ -48,9 +48,9 @@ As with any other shared configuration, you can use them by adding them to your 
 
 Core configurations are based on airbnb, a relatively popular style guide. Typescript core
 configurations also take advantage of typescript-eslint (with all recommended rules, including those
-requiring type checking) and airbnb-typescript to handle conflicting definitions. The vue3 configs
-add on the vue3 recommended rules. All and all, we feel these are overall sensible defaults to go with,
-using relatively standard configurations for each technology.
+requiring type checking as well as the strict config) and airbnb-typescript to handle conflicting
+definitions. The vue3 configs add on the vue3 recommended rules. All and all, we feel these are
+overall sensible defaults to go with, using relatively standard configurations for each technology.
 
 As we use Nx monorepos, we've also included the additional configuration for that setting.
 
