@@ -4,7 +4,7 @@ Eterna standard Nx setup and utilities
 
 ## Usage
 
-We recommend using [`@eternagame/bootstrap`](../bootstrap/) to set up a project that uses this plugin.
+We recommend using [`@eternagame/bootstrap`](../bootstrap/) to set up a repository that uses this plugin.
 
 Otherwise, run the following:
 
@@ -12,8 +12,8 @@ Otherwise, run the following:
 npm install -D nx @eternagame/nx-plugin
 ```
 
-To set up your project using the structure we recommend, you can then run `npx nx generate @eternagame/nx-plugin:preset`.
-Note however that this is liable to overwrite many of your core project files.
+To set up your repository using the structure we recommend, you can then run `npx nx generate @eternagame/nx-plugin:preset`.
+Note however that this is liable to overwrite many of your core repository files.
 
 ## Nx Presets
 

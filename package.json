@@ -1,6 +1,6 @@
 {
   "name": "@eternagame/workspace-helpers",
-  "description": "Workspace helpers for JS projects",
+  "description": "Helper packages for JS/TS repositories",
   "repository": {
     "type": "git",
     "url": "https://github.com/eternagame/workspace-helpers.git"
@@ -9,7 +9,7 @@
   "license": "BSD-3-Clause",
   "private": true,
   "scripts": {
-    "lint-project": "eslint --ignore-pattern packages/ .",
+    "lint-core": "eslint --ignore-pattern packages/ .",
     "prepare": "husky install"
   },
   "devDependencies": {
