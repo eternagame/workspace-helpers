@@ -16,6 +16,7 @@ export default function polyfillIoPlugin(browserTargets: string | string[]) {
     async transformIndexHtml(
       html: string,
       ctx: IndexHtmlTransformContext,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): Promise<IndexHtmlTransformResult | void> {
       if (!ctx.bundle) return;
       // Adapted from https://github.com/Financial-Times/polyfill-service-url-builder/blob/master/index.js

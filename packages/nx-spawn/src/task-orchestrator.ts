@@ -152,11 +152,11 @@ export default class TaskOrchestrator {
     projectGraph: ProjectGraph,
   ): Promise<TaskGraph> {
     // Determine tasks that need to be run
-    const defaults = readNxJson().targetDefaults || {};
+    const defaults = readNxJson().targetDefaults ?? {};
     const targetDeps = Object.fromEntries(
       Object.entries(defaults).map(([target, config]) => [
         target,
-        config.dependsOn || [],
+        config.dependsOn ?? [],
       ]),
     );
     const taskGraph = createTaskGraph(
