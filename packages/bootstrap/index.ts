@@ -8,9 +8,9 @@ import spawn from './src/await-spawn';
 async function main() {
   const args = await yargs(hideBin(process.argv))
     .command(
-      '$0 <project>',
-      'Initialize an Nx project using the eternagame layout preset',
-      (y) => y.positional('project', { type: 'string', demandOption: true }),
+      '$0 <name>',
+      'Initialize an Nx-managed repository using the eternagame layout preset',
+      (y) => y.positional('name', { type: 'string', demandOption: true }),
     )
     .option('eterna', {
       describe:
@@ -28,22 +28,22 @@ async function main() {
     })
     .argv;
 
-  mkdirSync(args.project);
+  mkdirSync(args.name);
   writeFileSync(
-    join(args.project, 'package.json'),
-    JSON.stringify({ name: args.project }),
+    join(args.name, 'package.json'),
+    JSON.stringify({ name: args.name }),
   );
-  await spawn('git', ['init'], { cwd: args.project });
+  await spawn('git', ['init'], { cwd: args.name });
 
   const pluginVersion = args.generatorVersion ?? 'latest';
-  await spawn('npm', ['install', `@eternagame/nx-plugin@${pluginVersion}`], { cwd: args.project });
+  await spawn('npm', ['install', `@eternagame/nx-plugin@${pluginVersion}`], { cwd: args.name });
 
   const options = [
-    args.project,
+    args.name,
     ...(args.npmScope ? ['--npmScope', args.npmScope] : []),
   ];
   await spawn('npx', ['nx', 'g', '@eternagame/nx-plugin:preset', ...options], {
-    cwd: args.project,
+    cwd: args.name,
   });
 }
 

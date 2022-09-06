@@ -9,7 +9,7 @@ First install this library:
 npm install -D @eternagame/vite-utils
 ```
 
-Then to use our provided config for your project, in your `vite.config.js` or `vite.config.ts`:
+Then to use our provided config, in your `vite.config.js` or `vite.config.ts`:
 
 ```ts
 import getConfig from '@eternagame/vite-utils';

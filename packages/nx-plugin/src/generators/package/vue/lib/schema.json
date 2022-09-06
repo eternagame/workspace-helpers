@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/schema",
   "$id": "vue-lib",
   "cli": "nx",
-  "title": "Adds a new Vue browser library to an Nx project",
+  "title": "Adds a new Vue browser library",
   "type": "object",
   "properties": {
     "name": {
