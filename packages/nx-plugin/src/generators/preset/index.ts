@@ -95,6 +95,7 @@ export default async function generate(tree: Tree, options: Schema) {
     installDevDependencies(tree, [
       '@eternagame/nx-plugin',
       '@eternagame/eslint-plugin',
+      '@eternagame/lint-staged-utils',
       'nx',
       'eslint',
       'eslint-config-airbnb-base',
