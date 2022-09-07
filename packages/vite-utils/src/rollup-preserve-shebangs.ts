@@ -38,7 +38,7 @@ export default function preserveShebangs() {
     transform(code, id) {
       const match = code.match(SHEBANG_RX);
 
-      if (match && match[0]) {
+      if (match?.[0]) {
         [shebangs[id]] = match;
       }
 
