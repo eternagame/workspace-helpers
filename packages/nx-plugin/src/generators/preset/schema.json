@@ -31,7 +31,7 @@
       "description": "How packages should be configured for publishing by default",
       "enum": ["private", "restricted", "public"],
       "x-prompt": {
-        "message": "How should the package be configured for publishing",
+        "message": "How should packages should be configured for publishing by default?",
         "type": "list",
         "items": [
           { "value": "private", "label": "Mark package as not publishable" },
@@ -58,7 +58,7 @@
     "license": {
       "type": "string",
       "description": "Repository license",
-      "enum": ["MIT", "BSD3", "Custom", "None"],
+      "enum": ["MIT", "BSD3", "EternaNoncommercial", "Custom", "None"],
       "x-prompt": {
         "message": "Which license would you like to use?",
         "type": "list",
