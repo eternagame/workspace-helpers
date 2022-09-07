@@ -16,7 +16,9 @@
     "lint": "eslint ."
   },
   "files": [
-    "dist"
+    "dist",
+    "preset.json",
+    "generators.json"
   ],
   "main": "./dist/index.js",
   "exports": {
