@@ -12,7 +12,6 @@
     "access": "public"
   },
   "scripts": {
-    "prepublishOnly": "nx build",
     "build": "vite build",
     "lint": "eslint ."
   },

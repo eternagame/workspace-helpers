@@ -147,7 +147,6 @@ function setupPublishing(tree: Tree, options: NormalizedSchema) {
 
       json['publishConfig'] = { access: options.publish };
       json['files'] = ['dist'];
-      scripts['prepublishOnly'] = 'nx build';
 
       return json;
     });
