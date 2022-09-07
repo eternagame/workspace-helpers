@@ -12,7 +12,6 @@
   },
   "license": "BSD-3-Clause",
   "scripts": {
-    "prepublishOnly": "nx build",
     "build": "vite build",
     "build:watch": "vite build --mode development",
     "lint": "eslint ."

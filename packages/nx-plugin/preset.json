@@ -35,7 +35,7 @@
     "build": {
       "inputs": ["default", "^default"],
       "dependsOn": ["^build"],
-      "outputs": ["./dist"]
+      "outputs": ["{projectRoot}/dist"]
     },
     "lint": {
       "inputs": ["default", "^default", "test", "{workspaceRoot}/.eslintrc.js"],
@@ -63,7 +63,7 @@
     },
     "build:watch": {
       "dependsOn": ["^build:watch"],
-      "outputs": ["./dist"]
+      "outputs": ["{projectRoot}/dist"]
     },
     "_dev": {
       "dependsOn": ["build:watch"]
