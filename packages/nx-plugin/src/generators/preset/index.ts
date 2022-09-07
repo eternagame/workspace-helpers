@@ -8,7 +8,7 @@ import {
 import { setGeneratorDefaults } from '@/utils/wrap-generator';
 import generateLicense from '../license/repo';
 import generateRelease from '../release/repo';
-import { installDevDependencies } from '@/utils/dependencies';
+import { installDevDependencies, NX_PLUGIN_VERSION } from '@/utils/dependencies';
 
 const ETERNA_NPM_SCOPE = 'eternagame';
 const ETERNA_COPYRIGHT_HOLDER = 'Eterna Commons';
@@ -93,7 +93,7 @@ export default async function generate(tree: Tree, options: Schema) {
     await finalizeGenerateLicense();
     await finalizeGenerateRelease();
     installDevDependencies(tree, [
-      '@eternagame/nx-plugin',
+      `@eternagame/nx-plugin@${NX_PLUGIN_VERSION}`,
       '@eternagame/eslint-plugin',
       '@eternagame/lint-staged-utils',
       'nx',

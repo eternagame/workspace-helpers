@@ -2,7 +2,23 @@ import {
   detectPackageManager, getPackageManagerCommand, joinPathFragments, readJson, Tree,
 } from '@nrwl/devkit';
 import { execSync } from 'child_process';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 import { inOperator } from './json';
+
+const selfPackage = JSON.parse(
+  readFileSync(join(__dirname, '../../package.json')).toString(),
+) as unknown;
+if (
+  !inOperator('version', selfPackage)
+) {
+  throw new Error("Can't detect version of @eternagame/nx-plugin");
+}
+const { version } = selfPackage;
+if (typeof version !== 'string') {
+  throw new Error("Can't detect version of @eternagame/nx-plugin");
+}
+export const NX_PLUGIN_VERSION = version;
 
 function testForDependencies(packageJson: unknown, dependencySection: string): string[] {
   if (!inOperator(dependencySection, packageJson)) return [];
