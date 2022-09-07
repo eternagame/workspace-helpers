@@ -29,15 +29,15 @@
     "vite": "3.x"
   },
   "dependencies": {
-    "@babel/core": "^7.18.13",
+    "@babel/core": "^7.19.0",
     "@financial-times/js-features-analyser": "^0.4.3",
-    "@vitejs/plugin-vue": "^3.0.3",
+    "@vitejs/plugin-vue": "^3.1.0",
     "browserslist": "^4.21.3",
     "create-polyfill-service-url": "^2.2.6",
     "fast-glob": "^3.2.11",
-    "magic-string": "^0.26.2",
+    "magic-string": "^0.26.3",
     "postcss-preset-env": "^7.8.0",
-    "rollup": "^2.77.2",
+    "rollup": "^2.79.0",
     "rollup-plugin-typescript2": "^0.33.0",
     "tslib": "^2.4.0"
   }

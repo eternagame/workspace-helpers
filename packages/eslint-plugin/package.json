@@ -43,7 +43,7 @@
     }
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^5.31.0",
+    "@typescript-eslint/utils": "^5.36.2",
     "jsonc-eslint-parser": "^2.1.0"
   },
   "nx": {
