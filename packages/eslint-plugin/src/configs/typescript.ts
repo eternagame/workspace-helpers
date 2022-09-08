@@ -38,7 +38,7 @@ export default {
       },
     },
     {
-      files: ['cypress/**/*.{js,mjs,cjs}'],
+      files: ['cypress/**/*.{ts,mts,cts}'],
       rules: {
         // Allow our dev tooling to import dev dependencies
         ...noExtraneousDependencies(true, false),
