@@ -1,11 +1,11 @@
-import type { INestApplication } from "@nestjs/common";
-import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
+import type { INestApplication } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 export default function createOpenAPIDocument(app: INestApplication) {
   const config = new DocumentBuilder()
-    .setTitle("API")
-    .setDescription("API")
-    .setVersion("1.0")
+    .setTitle('API')
+    .setDescription('API')
+    .setVersion('1.0')
     .build();
   return SwaggerModule.createDocument(app, config, {
     // The client generator uses the operation ID for method names. By default, the class name is

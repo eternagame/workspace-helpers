@@ -20,6 +20,8 @@ export default {
     ],
     // It's nice to put the primary class up front in a file
     '@typescript-eslint/no-use-before-define': ['error', { classes: false }],
+    // Don't warn about eg a nest module that doesn't have a class body
+    '@typescript-eslint/no-extraneous-class': ['warn', { allowWithDecorator: true }],
     // Typescript can handle this + configuration is a pain
     // https://github.com/iamturns/eslint-config-airbnb-typescript/tree/v17.0.0#why-is-importno-unresolved-disabled
     'import/no-unresolved': 'off',
