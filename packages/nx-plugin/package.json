@@ -33,7 +33,6 @@
     "./*.json": "./*.json"
   },
   "generators": "./generators.json",
-  "executors": "./executors.json",
   "dependencies": {
     "@nrwl/devkit": "^14.6.5"
   },
