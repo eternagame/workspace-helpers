@@ -49,11 +49,23 @@ Run `npx nx lint <package-name> --fix` to run linting with automatic fixes
 <!-- End managed by @eternagame/nx-plugin - commands/lint -->
 
 <!-- Managed by @eternagame/nx-plugin - commands/test -->
-### Unit Tests
+### Testing
 
-Run `npx nx test <package-name>` to execute the unit tests for a package via [Vitest](https://vitest.dev/).
+Run `npx nx test <package-name>` to execute unit/component tests for a package via [Vitest](https://vitest.dev/)
+or [Cypress](https://www.cypress.io/) (depending on which is configured for the package).
 
-Run `npx nx affected:test` to execute the unit tests for all packages affected by a code change.
+Run `npx nx test:watch <package-name>` to execute unit/component tests for a package in watch mode (Vitest only).
+
+Run `npx nx test:cov <package-name>` to execute unit/component tests and report code coverage for a
+package in watch mode (Vitest only).
+
+Run `npx nx test:ui <package-name>` to execute unit/component tests for a package using the UI-based test runner (Cypress only).
+
+Run `npx nx affected:test` to execute unit/component tests for all packages affected by a code change.
+
+Run `npx nx e2e <package-name>` to execute end to end tests in a package, if configured.
+
+Run `npx nx affected:e2e` to execute all end to end tests in packages affected by a code change.
 <!-- End managed by @eternagame/nx-plugin - commands/test -->
 
 <!-- Managed by @eternagame/nx-plugin - commands/generate -->
