@@ -81,6 +81,7 @@ export default async function generate(tree: Tree, options: Schema) {
       tree,
       [
         '@eternagame/cypress-utils',
+        '@cypress/vue',
         'cypress',
       ],
     );

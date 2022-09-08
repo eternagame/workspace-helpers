@@ -13,9 +13,9 @@ export default {
       ],
     },
     {
-      files: ['{jest,vitest,vite,cypress}.config.{js,mjs,cjs}'],
+      files: ['{jest,vitest,vite,cypress}.config.{js,mjs,cjs}', 'cypress/**/*.{js,mjs,cjs}'],
       rules: {
-        // Allow our configs to import dev dependencies
+        // Allow our dev tooling to import dev dependencies
         ...noExtraneousDependencies(true, false),
       },
     },
