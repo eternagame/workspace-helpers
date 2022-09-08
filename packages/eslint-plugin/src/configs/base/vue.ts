@@ -1,7 +1,6 @@
 export default {
   parser: require.resolve('vue-eslint-parser'),
   parserOptions: {
-    extraFileExtensions: ['.vue'],
     parser: {
       // We set the main parser above, but we need to tell eslint what to use for the
       // internal js/ts parts of the SFC

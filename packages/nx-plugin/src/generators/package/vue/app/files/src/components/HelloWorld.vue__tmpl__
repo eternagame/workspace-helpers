@@ -13,7 +13,5 @@ defineProps({
   },
 });
 
-const emit = defineEmits<{
-  (e: 'buttonClicked'): void
-}>();
+const emit = defineEmits<(e: 'buttonClicked') => void>();
 </script>

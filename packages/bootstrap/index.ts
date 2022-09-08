@@ -40,6 +40,7 @@ async function main() {
 
   const options = [
     args.name,
+    ...(args.eterna ? ['--eternaDefaults'] : []),
     ...(args.npmScope ? ['--npmScope', args.npmScope] : []),
   ];
   await spawn('npx', ['nx', 'g', '@eternagame/nx-plugin:preset', ...options], {

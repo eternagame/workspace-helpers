@@ -38,6 +38,13 @@ export default {
       },
     },
     {
+      files: ['cypress/**/*.{ts,mts,cts}'],
+      rules: {
+        // Allow our dev tooling to import dev dependencies
+        ...noExtraneousDependencies(true, false),
+      },
+    },
+    {
       files: ['index.{ts,mts,cts}'],
       rules: {
         // Index files are useful for exposing public APIs which may initially only have

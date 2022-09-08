@@ -14,7 +14,7 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import './commands';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
@@ -22,6 +22,8 @@ import './commands'
 // Import global styles
 import '@/assets/style.css';
 
+// eslint-plugin-import has a false positive here
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { mount } from 'cypress/vue';
 
 // Augment the Cypress namespace to include type definitions for
