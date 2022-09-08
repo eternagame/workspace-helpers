@@ -6,8 +6,10 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 import { inOperator } from './json';
 
+// Note that we have to go an extra level up because when built, this file will be in
+// dist/src/... not just dist/...
 const selfPackage = JSON.parse(
-  readFileSync(join(__dirname, '../../package.json')).toString(),
+  readFileSync(join(__dirname, '../../../package.json')).toString(),
 ) as unknown;
 if (
   !inOperator('version', selfPackage)
