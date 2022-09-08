@@ -17,5 +17,7 @@ async function bootstrap() {
   SwaggerModule.setup("swagger", app, document);
 
   await app.listen(3000);
+  // eslint-disable-next-line no-console
+  console.info(`Application is running on: ${await app.getUrl()}`)
 }
 bootstrap();
