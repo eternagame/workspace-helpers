@@ -39,7 +39,7 @@
     },
     "lint": {
       "inputs": ["default", "^default", "test", "{workspaceRoot}/.eslintrc.js"],
-      "dependsOn": ["build"]
+      "dependsOn": ["^build"]
     },
     "test": {
       "inputs": ["default", "^default", "test"],
