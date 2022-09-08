@@ -1,6 +1,6 @@
 export default {
   parserOptions: {
-    project: 'tsconfig.*?.json',
+    project: ['tsconfig.*?.json', 'tsconfig.json'],
   },
   rules: {
     // default-case doesn't understand the idea of exhaustivity (because it doesn't understand
