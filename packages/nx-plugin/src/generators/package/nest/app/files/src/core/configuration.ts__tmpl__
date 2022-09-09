@@ -5,5 +5,5 @@ export interface ConfigSchema {
 }
 
 export default (): ConfigSchema => ({
-  jwtSecret: process.env['JWT_SECRET'] || crypto.randomBytes(16),
+  jwtSecret: process.env['JWT_SECRET'] ?? crypto.randomBytes(16),
 });
