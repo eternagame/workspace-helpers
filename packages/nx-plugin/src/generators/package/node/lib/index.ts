@@ -8,6 +8,7 @@ import {
   type Tree,
 } from '@nrwl/devkit';
 import generateTsLib from '../../ts/lib';
+import { installDevDependencies } from '@/utils/dependencies';
 
 interface Schema {
   name: string;
@@ -70,5 +71,11 @@ export default async function generate(tree: Tree, options: Schema) {
 
   return async () => {
     await finalizeTsLib();
+    installDevDependencies(
+      tree,
+      [
+        '@types/node',
+      ],
+    );
   };
 }
