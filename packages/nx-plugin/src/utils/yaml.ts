@@ -13,7 +13,7 @@ function findStep(
       if (!(entry.key.value === 'name')) return false;
       if (!(entry.value instanceof Scalar)) return false;
       if (!(typeof entry.value.value === 'string')) return false;
-      if (typeof stepName === 'string') return entry.value.value === stepName;
+      if (typeof stepName === 'string') return entry.value.value.toLowerCase().trim() === stepName.toLowerCase().trim();
       return stepName(entry.value.value);
     });
   });

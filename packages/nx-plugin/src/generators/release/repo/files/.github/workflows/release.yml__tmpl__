@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  NODE_VERSION: 16
+
 jobs:
   release-please:
     runs-on: ubuntu-latest
@@ -29,7 +32,7 @@ jobs:
           fetch-depth: 2
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: ${{ env.NODE_VERSION }}
       - name: Update package-lock.json
         run: npm install --no-audit --no-fund --ignore-scripts --package-lock-only
       - name: Merge changes with last commit
@@ -51,13 +54,11 @@ jobs:
         with:
           node-version: 16
           registry-url: 'https://registry.npmjs.org'
-      - name: Use the node_modules cache if available
+      - name: Cache node modules
         uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ steps.versions.outputs.node_version }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ steps.versions.outputs.node_version }}-
+          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
       - run: npm ci
       - run: npx nx run-many --target build
       - run: npx nx publish -ws
@@ -79,13 +80,11 @@ jobs:
         with:
           node-version: 16
           registry-url: 'https://registry.npmjs.org'
-      - name: Use the node_modules cache if available
+      - name: Cache node modules
         uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ steps.versions.outputs.node_version }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ steps.versions.outputs.node_version }}-
+          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
       - run: npm ci
       - run: npx nx run-many --target build
       - run: npx lerna publish --yes

@@ -103,6 +103,20 @@ describe('insertStep', () => {
     checkTestStep(steps.items[2]);
   });
 
+  it('should insert on the correct node when differing in case', () => {
+    const inserted = insertStep(doc, steps, 'after', 'second', TEST_STEP);
+    expect(inserted).toBe(true);
+    expect(steps.items).toHaveLength(4);
+    checkTestStep(steps.items[2]);
+  });
+
+  it('should insert on the correct node when differing in whitespace', () => {
+    const inserted = insertStep(doc, steps, 'after', ' second ', TEST_STEP);
+    expect(inserted).toBe(true);
+    expect(steps.items).toHaveLength(4);
+    checkTestStep(steps.items[2]);
+  });
+
   it('should do nothing and report failure if the step to insert by is not found with a name matcher', () => {
     const inserted = insertStep(doc, steps, 'after', (name) => name === 'fake step', TEST_STEP);
     expect(inserted).toBe(false);
@@ -119,5 +133,13 @@ describe('stepExists', () => {
 
   it('should return false if a step does not exist', () => {
     expect(stepExists(steps, 'Fake step')).toBe(false);
+  });
+
+  it('should match with different casing', () => {
+    expect(stepExists(steps, 'first')).toBe(true);
+  });
+
+  it('should match with differing whitespace', () => {
+    expect(stepExists(steps, ' first ')).toBe(true);
   });
 });

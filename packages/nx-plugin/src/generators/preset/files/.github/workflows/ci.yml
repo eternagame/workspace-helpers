@@ -35,13 +35,13 @@ jobs:
         run: npm ci
       - name: Build
         run: npx nx affected --target=build
-      - name: Lint Core Files
+      - name: Lint core files
         run: npm run lint-core
-      - name: Lint Packages
+      - name: Lint packages
         run: npx nx affected --target=lint
-      - name: Nx Integrity Check
+      - name: Nx integrity check
         run: npx nx workspace-lint
-      - name: Unit Tests
+      - name: Unit tests
         run: npx nx affected --target=test
-      - name: End to End Tests
+      - name: End to end tests
         run: npx nx affected --target e2e
