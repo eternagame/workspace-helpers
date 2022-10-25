@@ -9,6 +9,7 @@ import {
 } from '@nrwl/devkit';
 import generatePackage from '../../base';
 import { installDevDependencies } from '@/utils/dependencies';
+import updateGitHubActions from '../utils/actions';
 
 interface Schema {
   name: string;
@@ -78,6 +79,7 @@ export default async function generate(tree: Tree, options: Schema) {
   const finalizePackage = await generatePackage(tree, options);
   addFiles(tree, normalizedOptions);
   updatePackageJson(tree, normalizedOptions);
+  updateGitHubActions(tree);
 
   return async () => {
     await finalizePackage();
