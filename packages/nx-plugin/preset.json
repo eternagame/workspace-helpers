@@ -6,7 +6,6 @@
   "implicitDependencies": {
     "package.json": "*",
     "package-lock.json": "*",
-    ".github/workflows/ci.yml": "*",
     "nx.json": "*"
   },
   "tasksRunnerOptions": {
