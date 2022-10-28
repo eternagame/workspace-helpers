@@ -15,11 +15,11 @@ const CACHE_CYPRESS_STEP = {
 };
 
 const CYPRESS_DEPS_STEP = {
-  name: 'Install cypress dependencies',
+  name: 'Install Cypress dependencies',
   run: 'sudo apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb',
 };
 
-const SETUP_XVFP_STEP = {
+const SETUP_XVFB_STEP = {
   name: 'Set up xvfb for Cypress',
   run: 'Xvfb -screen 0 1024x768x24 :99 &\necho "DISPLAY=:99" >> $GITHUB_ENV',
 };
@@ -53,17 +53,17 @@ export default function updateGitHubActions(tree: Tree) {
     }
 
     if (!stepExists(steps, CYPRESS_DEPS_STEP.name)) {
-      if (insertStep(workflow, steps, 'before', (name) => name.startsWith('Use Node.js'), CYPRESS_DEPS_STEP)) {
+      if (insertStep(workflow, steps, 'before', (name) => name.toLowerCase().startsWith('Use Node.js'.toLowerCase()), CYPRESS_DEPS_STEP)) {
         // Good
-      } else if (insertStep(workflow, steps, 'before', (name) => name.startsWith('Install dependencies'), CYPRESS_DEPS_STEP)) {
+      } else if (insertStep(workflow, steps, 'before', (name) => name.toLowerCase().startsWith('Install dependencies'.toLowerCase()), CYPRESS_DEPS_STEP)) {
         // Good
       } else {
         logger.warn('Can\'t find location to insert Cypress dependency install step in Actions CI workflow - skipping');
       }
     }
 
-    if (!stepExists(steps, SETUP_XVFP_STEP.name)) {
-      if (insertStep(workflow, steps, 'before', (name) => name.startsWith('End to End Tests'), SETUP_XVFP_STEP)) {
+    if (!stepExists(steps, SETUP_XVFB_STEP.name)) {
+      if (insertStep(workflow, steps, 'before', (name) => name.toLowerCase().startsWith('End to end tests'.toLowerCase()), SETUP_XVFB_STEP)) {
         // Good
       } else {
         logger.warn('Can\'t find location to insert Cypress xvfb setup step in Actions CI workflow - skipping');
