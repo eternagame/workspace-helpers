@@ -1,44 +1,34 @@
 import * as path from 'path';
 import {
   generateFiles,
-  getWorkspaceLayout,
   joinPathFragments,
-  names,
   updateJson,
   type Tree,
 } from '@nrwl/devkit';
 import generateWebLib from '../lib';
 import { installDevDependencies } from '@/utils/dependencies';
+import getPackageNames from '@/utils/names';
 
 interface Schema {
   name: string;
   description: string;
-  directory: string;
+  directory?: string;
 }
 
 interface NormalizedSchema extends Schema {
-  projectRoot: string;
+  directory: string;
 }
 
 function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
-  const name = names(options.name).fileName;
-  const { libsDir } = getWorkspaceLayout(tree);
-
-  const projectDirectory = options.directory
-    ? `${names(options.directory).fileName}/${name}`
-    : name;
-
-  const projectRoot = joinPathFragments(libsDir, projectDirectory);
-
   return {
     ...options,
-    projectRoot,
+    ...getPackageNames(tree, options),
   };
 }
 
 function addFiles(tree: Tree, options: NormalizedSchema) {
-  tree.delete(joinPathFragments(options.projectRoot, 'index.ts'));
-  tree.delete(joinPathFragments(options.projectRoot, 'src/lib.ts'));
+  tree.delete(joinPathFragments(options.directory, 'index.ts'));
+  tree.delete(joinPathFragments(options.directory, 'src/lib.ts'));
   const templateOptions = {
     ...options,
     tmpl: '',
@@ -46,7 +36,7 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
   generateFiles(
     tree,
     path.join(__dirname, 'files'),
-    options.projectRoot,
+    options.directory,
     templateOptions,
   );
 }
@@ -54,12 +44,12 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
 export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
 
-  const finalizeWebLib = await generateWebLib(tree, normalizedOptions);
+  const finalizeWebLib = await generateWebLib(tree, options);
 
   addFiles(tree, normalizedOptions);
 
   const projectPackageJsonPath = path.join(
-    normalizedOptions.projectRoot,
+    normalizedOptions.directory,
     'package.json',
   );
   /* eslint-disable no-param-reassign */
@@ -77,7 +67,7 @@ export default async function generate(tree: Tree, options: Schema) {
 
   updateJson(
     tree,
-    joinPathFragments(normalizedOptions.projectRoot, 'tsconfig.build.json'),
+    joinPathFragments(normalizedOptions.directory, 'tsconfig.build.json'),
     (json: { 'include': string[] }) => {
       // We have an index.html, not an index.ts, so no need to include it
       json.include = json.include.filter((inc) => inc !== 'index.ts');
@@ -86,7 +76,7 @@ export default async function generate(tree: Tree, options: Schema) {
   );
   updateJson(
     tree,
-    joinPathFragments(normalizedOptions.projectRoot, 'tsconfig.spec.json'),
+    joinPathFragments(normalizedOptions.directory, 'tsconfig.spec.json'),
     (json: { 'include': string[] }) => {
       // We have an index.html, not an index.ts, so no need to include it
       json.include = json.include.filter((inc) => inc !== 'index.ts');
