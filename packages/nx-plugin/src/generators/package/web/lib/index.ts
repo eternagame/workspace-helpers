@@ -1,37 +1,26 @@
 import * as path from 'path';
 import {
   generateFiles,
-  getWorkspaceLayout,
-  joinPathFragments,
-  names,
   updateJson,
   type Tree,
 } from '@nrwl/devkit';
 import generateTsLib from '../../ts/lib';
+import getPackageNames from '@/utils/names';
 
 interface Schema {
   name: string;
   description: string;
-  directory: string;
+  directory?: string;
 }
 
 interface NormalizedSchema extends Schema {
-  projectRoot: string;
+  directory: string;
 }
 
 function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
-  const name = names(options.name).fileName;
-  const { libsDir } = getWorkspaceLayout(tree);
-
-  const projectDirectory = options.directory
-    ? `${names(options.directory).fileName}/${name}`
-    : name;
-
-  const projectRoot = joinPathFragments(libsDir, projectDirectory);
-
   return {
     ...options,
-    projectRoot,
+    ...getPackageNames(tree, options),
   };
 }
 
@@ -43,7 +32,7 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
   generateFiles(
     tree,
     path.join(__dirname, 'files'),
-    options.projectRoot,
+    options.directory,
     templateOptions,
   );
 }
@@ -52,7 +41,7 @@ function updateTsconfigs(tree: Tree, options: NormalizedSchema) {
   /* eslint-disable no-param-reassign */
   updateJson(
     tree,
-    path.join(options.projectRoot, 'tsconfig.build.json'),
+    path.join(options.directory, 'tsconfig.build.json'),
     (json: Record<string, unknown>) => {
       json['extends'] = '@eternagame/tsconfig/tsconfig.web.json';
       return json;
@@ -64,7 +53,7 @@ function updateTsconfigs(tree: Tree, options: NormalizedSchema) {
 export default async function generate(tree: Tree, options: Schema) {
   const normalizedOptions = normalizeOptions(tree, options);
 
-  const finalizeTsLib = await generateTsLib(tree, options);
+  const finalizeTsLib = await generateTsLib(tree, normalizedOptions);
   addFiles(tree, normalizedOptions);
   updateTsconfigs(tree, normalizedOptions);
 
