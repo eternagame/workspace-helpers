@@ -1,45 +1,35 @@
 import * as path from 'path';
 import {
   generateFiles,
-  getWorkspaceLayout,
   joinPathFragments,
-  names,
   type Tree,
 } from '@nrwl/devkit';
 import { installDependencies, installDevDependencies } from '@/utils/dependencies';
 import generateNodeApp from '../../node/app';
+import getPackageNames from '@/utils/names';
 
 interface Schema {
   name: string;
   description: string;
-  directory: string;
+  directory?: string;
 }
 
 interface NormalizedSchema extends Schema {
-  projectRoot: string;
+  directory: string;
 }
 
 function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
-  const name = names(options.name).fileName;
-  const { libsDir } = getWorkspaceLayout(tree);
-
-  const projectDirectory = options.directory
-    ? `${names(options.directory).fileName}/${name}`
-    : name;
-
-  const projectRoot = joinPathFragments(libsDir, projectDirectory);
-
   return {
     ...options,
-    projectRoot,
+    ...getPackageNames(tree, options),
   };
 }
 
 function addFiles(tree: Tree, options: NormalizedSchema) {
-  tree.delete(joinPathFragments(options.projectRoot, 'src/lib.ts'));
+  tree.delete(joinPathFragments(options.directory, 'src/lib.ts'));
   tree.rename(
-    joinPathFragments(options.projectRoot, 'src/__tests__/lib.spec.ts'),
-    joinPathFragments(options.projectRoot, 'src/__tests__/app.spec.ts'),
+    joinPathFragments(options.directory, 'src/__tests__/lib.spec.ts'),
+    joinPathFragments(options.directory, 'src/__tests__/app.spec.ts'),
   );
   const templateOptions = {
     ...options,
@@ -48,7 +38,7 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
   generateFiles(
     tree,
     path.join(__dirname, 'files'),
-    options.projectRoot,
+    options.directory,
     templateOptions,
   );
 }
@@ -71,7 +61,7 @@ export default async function generate(tree: Tree, options: Schema) {
       'reflect-metadata',
       'class-validator',
       'class-transformer',
-    ], normalizedOptions.projectRoot);
+    ], normalizedOptions.directory);
     installDevDependencies(tree, ['@types/express']);
   };
 }
