@@ -24,6 +24,15 @@ const SETUP_XVFB_STEP = {
   run: 'Xvfb -screen 0 1024x768x24 :99 &\necho "DISPLAY=:99" >> $GITHUB_ENV',
 };
 
+/**
+ * Update the GitHub Actions CI workflow with the necessary steps for running Cypress.
+ * This includes:
+ *   - Caching the Cypress binary
+ *   - Installing system dependencies
+ *   - Manually configuring X server
+ *
+ * @param tree
+ */
 export default function updateGitHubActions(tree: Tree) {
   const WORKFLOW_PATH = '.github/workflows/ci.yml';
 
@@ -42,6 +51,7 @@ export default function updateGitHubActions(tree: Tree) {
       return;
     }
 
+    // If it doesn't exist, add a step to the workflow to cache the Cypress binary
     if (!stepExists(steps, CACHE_CYPRESS_STEP.name)) {
       if (insertStep(workflow, steps, 'after', 'Cache node modules', CACHE_CYPRESS_STEP)) {
         // Good
@@ -52,6 +62,7 @@ export default function updateGitHubActions(tree: Tree) {
       }
     }
 
+    // If it doesn't exist, add a step to the workflow to install system dependencies for Cypress
     if (!stepExists(steps, CYPRESS_DEPS_STEP.name)) {
       if (insertStep(workflow, steps, 'before', (name) => name.toLowerCase().startsWith('Use Node.js'.toLowerCase()), CYPRESS_DEPS_STEP)) {
         // Good
@@ -62,6 +73,8 @@ export default function updateGitHubActions(tree: Tree) {
       }
     }
 
+    // If it doesn't exist, add a step to the workflow to manually configure X server before
+    // running Cypress to protect against intermittent test failures
     if (!stepExists(steps, SETUP_XVFB_STEP.name)) {
       if (insertStep(workflow, steps, 'before', (name) => name.toLowerCase().startsWith('End to end tests'.toLowerCase()), SETUP_XVFB_STEP)) {
         // Good
