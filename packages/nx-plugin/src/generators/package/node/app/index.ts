@@ -1,38 +1,27 @@
 import * as path from 'path';
 import {
   generateFiles,
-  getWorkspaceLayout,
-  joinPathFragments,
-  names,
   updateJson,
   type Tree,
 } from '@nrwl/devkit';
 import { installDevDependencies } from '@/utils/dependencies';
 import generateNodeLib from '../lib';
+import getPackageNames from '@/utils/names';
 
 interface Schema {
   name: string;
   description: string;
-  directory: string;
+  directory?: string;
 }
 
 interface NormalizedSchema extends Schema {
-  projectRoot: string;
+  directory: string;
 }
 
 function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
-  const name = names(options.name).fileName;
-  const { libsDir } = getWorkspaceLayout(tree);
-
-  const projectDirectory = options.directory
-    ? `${names(options.directory).fileName}/${name}`
-    : name;
-
-  const projectRoot = joinPathFragments(libsDir, projectDirectory);
-
   return {
     ...options,
-    projectRoot,
+    ...getPackageNames(tree, options),
   };
 }
 
@@ -44,7 +33,7 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
   generateFiles(
     tree,
     path.join(__dirname, 'files'),
-    options.projectRoot,
+    options.directory,
     templateOptions,
   );
 }
@@ -57,7 +46,7 @@ export default async function generate(tree: Tree, options: Schema) {
   addFiles(tree, normalizedOptions);
 
   const projectPackageJsonPath = path.join(
-    normalizedOptions.projectRoot,
+    normalizedOptions.directory,
     'package.json',
   );
   /* eslint-disable no-param-reassign */

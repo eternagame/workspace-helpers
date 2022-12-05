@@ -3,9 +3,7 @@ import {
   generateFiles,
   GeneratorCallback,
   getPackageManagerCommand,
-  getWorkspaceLayout,
   joinPathFragments,
-  names,
   readJson,
   updateJson,
   type Tree,
@@ -20,6 +18,7 @@ import { getGeneratorDefaults } from '@/utils/wrap-generator';
 import { getLicenseDefaults } from '../../license/util';
 import generateReleasePackage from '../../release/package';
 import generateLicensePackage from '../../license/package';
+import getPackageNames from '@/utils/names';
 
 const publishOptions = ['private', 'restricted', 'public'] as const;
 type PublishOption = typeof publishOptions[number];
@@ -36,7 +35,7 @@ interface Schema {
 interface NormalizedSchema extends Schema {
   publish:PublishOption;
   importPath: string;
-  projectRoot: string;
+  directory: string;
 }
 
 function getPublish(tree: Tree, override?: NormalizedSchema['publish']): NormalizedSchema['publish'] {
@@ -54,24 +53,13 @@ function getPublish(tree: Tree, override?: NormalizedSchema['publish']): Normali
 }
 
 function normalizeOptions(tree: Tree, options: Schema): NormalizedSchema {
-  const name = names(options.name).fileName;
-  const { libsDir, npmScope } = getWorkspaceLayout(tree);
-
-  const projectDirectory = options.directory
-    ? `${names(options.directory).fileName}/${name}`
-    : name;
-
-  const projectName = projectDirectory.replace(/\//g, '-');
-  const importPath = npmScope ? `@${npmScope}/${projectName}` : projectName;
-
-  const projectRoot = joinPathFragments(libsDir, projectDirectory);
+  const packageNames = getPackageNames(tree, options);
 
   const publish = getPublish(tree, options.publish);
 
   return {
     ...options,
-    importPath,
-    projectRoot,
+    ...packageNames,
     publish,
   };
 }
@@ -84,7 +72,7 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
   generateFiles(
     tree,
     path.join(__dirname, 'files'),
-    options.projectRoot,
+    options.directory,
     templateOptions,
   );
 }
@@ -123,15 +111,15 @@ function parseRepoInfo(originalRepoInfo: unknown) {
 
 function addPackageInfoFields(tree: Tree, options: NormalizedSchema) {
   const rootPackage: unknown = readJson(tree, 'package.json');
-  updateJson(tree, join(options.projectRoot, 'package.json'), (packagePackage: unknown) => {
-    if (typeof packagePackage !== 'object') throw new Error(`Unable to parse ${options.projectRoot}/package.json`);
+  updateJson(tree, join(options.directory, 'package.json'), (packagePackage: unknown) => {
+    if (typeof packagePackage !== 'object') throw new Error(`Unable to parse ${options.directory}/package.json`);
     return {
       ...packagePackage,
       ...(inOperator('author', rootPackage) ? { author: rootPackage.author } : {}),
       ...(inOperator('homepage', rootPackage) ? { homepage: rootPackage.homepage } : {}),
       ...(inOperator('bugs', rootPackage) ? { bugs: rootPackage.bugs } : {}),
       ...(inOperator('funding', rootPackage) ? { funding: rootPackage.funding } : {}),
-      ...(inOperator('repository', rootPackage) ? { repository: { ...parseRepoInfo(rootPackage.repository), directory: options.projectRoot } } : {}),
+      ...(inOperator('repository', rootPackage) ? { repository: { ...parseRepoInfo(rootPackage.repository), directory: options.directory } } : {}),
     };
   });
 }
@@ -140,7 +128,7 @@ function setupPublishing(tree: Tree, options: NormalizedSchema) {
   /* eslint-disable no-param-reassign */
   if (options.publish !== 'private') {
     // Set properties in package.json necessary for publishing
-    updateJson(tree, joinPathFragments(options.projectRoot, 'package.json'), (json) => {
+    updateJson(tree, joinPathFragments(options.directory, 'package.json'), (json) => {
       if (!isRecord(json)) throw new Error('package.json format is invalid');
       const scripts = maybeInitObject(json, 'scripts');
       if (!scripts) throw new Error('package.json format is invalid');
@@ -152,7 +140,7 @@ function setupPublishing(tree: Tree, options: NormalizedSchema) {
     });
   } else {
     // This package shouldn't be published, so mark as private
-    updateJson(tree, joinPathFragments(options.projectRoot, 'package.json'), (json) => {
+    updateJson(tree, joinPathFragments(options.directory, 'package.json'), (json) => {
       if (!isRecord(json)) throw new Error('package.json format is invalid');
 
       return {

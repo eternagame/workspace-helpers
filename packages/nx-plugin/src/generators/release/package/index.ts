@@ -20,7 +20,9 @@ export default async function generate(tree: Tree, options: Schema) {
     if (!isRecord(json)) throw new Error('release-please-config.json format is invalid');
     const packages = maybeInitObject(json, 'packages');
     if (!packages) throw new Error('release-please-config.json format is invalid');
-    packages[project.root] = {};
+    packages[project.root] = {
+      component: options.packageName,
+    };
     return json;
   });
 

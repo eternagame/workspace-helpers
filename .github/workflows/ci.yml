@@ -26,13 +26,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Update NPM
         run: npm install -g npm@">=7"
-      - name: Use the node_modules cache if available
+      - name: Cache node modules
         uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ steps.versions.outputs.node_version }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ steps.versions.outputs.node_version }}-
+          key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         run: npm ci
       # We need to make sure eslint-plugin is built even if not affected, as we always run linting,
@@ -44,13 +42,13 @@ jobs:
         run: npx nx build lint-staged-utils
       - name: Build
         run: npx nx affected --target=build
-      - name: Lint Core Files
+      - name: Lint core files
         run: npm run lint-core
-      - name: Lint Packages
+      - name: Lint packages
         run: npx nx affected --target=lint
-      - name: Nx Integrity Check
+      - name: Nx integrity check
         run: npx nx workspace-lint
-      - name: Unit Tests
+      - name: Unit tests
         run: npx nx affected --target=test
-      - name: End to End Tests
+      - name: End to end tests
         run: npx nx affected --target e2e
