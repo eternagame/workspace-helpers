@@ -6,6 +6,7 @@ import {
 } from '@nrwl/devkit';
 import generatePackage from '../../base';
 import { installDevDependencies } from '@/utils/dependencies';
+import updateGitHubActions from '../utils/actions';
 import getPackageNames from '@/utils/names';
 
 interface Schema {
@@ -64,6 +65,7 @@ export default async function generate(tree: Tree, options: Schema) {
 
   addFiles(tree, normalizedOptions);
   updatePackageJson(tree, normalizedOptions);
+  updateGitHubActions(tree);
 
   return async () => {
     await finalizePackage();

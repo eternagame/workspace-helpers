@@ -7,6 +7,7 @@ import {
 } from '@nrwl/devkit';
 import { join } from 'path';
 import { installDevDependencies } from '@/utils/dependencies';
+import updateGitHubActions from '../utils/actions';
 
 interface Schema {
   packageName: string;
@@ -75,6 +76,8 @@ export default async function generate(tree: Tree, options: Schema) {
     },
   );
   /* eslint-enable no-param-reassign */
+
+  updateGitHubActions(tree);
 
   return async () => {
     installDevDependencies(
