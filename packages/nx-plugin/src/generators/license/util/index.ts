@@ -91,7 +91,7 @@ export function getLicenseDefaults(tree: Tree): LicenseOptions | null {
   if (!licenseDefaults) return null;
 
   const license = getValue(licenseDefaults, null, 'license');
-  const copyrightHolder = getValue(licenseDefaults, null, 'copyrightHolder');
+  const copyrightHolder = getValue(licenseDefaults, '', 'copyrightHolder');
   if (!license) {
     throw new Error('License property is required in generator defaults for license-package in nx.json');
   }
