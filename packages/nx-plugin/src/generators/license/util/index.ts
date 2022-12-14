@@ -91,17 +91,24 @@ export function getLicenseDefaults(tree: Tree): LicenseOptions | null {
   if (!licenseDefaults) return null;
 
   const license = getValue(licenseDefaults, null, 'license');
-  const copyrightHolder = getValue(licenseDefaults, '', 'copyrightHolder');
+  const copyrightHolder = getValue(licenseDefaults, null, 'copyrightHolder');
   if (!license) {
     throw new Error('License property is required in generator defaults for license-package in nx.json');
   }
   if (typeof license !== 'string' || !isArrayMember(license, licenses)) {
     throw new Error(`License property in generator defaults for license-package in nx.json must be one of: [${licenses.join(',')}]`);
   }
+
+  // If not using a license or using a custom license, there's no reason to specify
+  // a copyright holder, so we can just return the license
+  if (license === 'None' || license === 'Custom') {
+    return { license };
+  }
+
   if (typeof copyrightHolder !== 'string') {
     throw new Error('Copyright holder property in defaults for license-package in nx.json must be a string');
   }
-  if (license !== 'None' && license !== 'Custom' && (!copyrightHolder)) {
+  if (!copyrightHolder) {
     throw new Error('Copyright holder property in defaults for license-package in nx.json must be specified');
   }
 
