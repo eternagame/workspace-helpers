@@ -50,6 +50,11 @@
       "outputs": ["./cypress-run", "./coverage"],
       "dependsOn": ["^build"]
     },
+    "test:ui": {
+      "inputs": ["default", "^default", "test"],
+      "outputs": ["./cypress-run"],
+      "dependsOn": ["^build"]
+    },
     "e2e": {
       "inputs": ["default", "^default", "test"],
       "outputs": ["./cypress-run"]
