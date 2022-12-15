@@ -48,7 +48,8 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
     scripts['build'] = 'vite build';
     scripts['build:watch'] = 'vite build --mode development';
     scripts['test'] = 'vitest run';
-    scripts['test:watch'] = 'vitest';
+    scripts['test:watch'] = 'nx-spawn test:_watch';
+    scripts['test:_watch'] = 'vitest';
     scripts['test:cov'] = 'vitest run --coverage';
     scripts['lint'] = 'eslint .';
 

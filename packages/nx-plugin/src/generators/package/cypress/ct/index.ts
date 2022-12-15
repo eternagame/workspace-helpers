@@ -49,7 +49,8 @@ function updatePackageJson(tree: Tree, options: NormalizedSchema) {
     if (!json['scripts']) json['scripts'] = {};
     const scripts = json['scripts'] as Record<string, string>;
     scripts['test'] = 'cypress run --component';
-    scripts['test:ui'] = 'cypress open --component';
+    scripts['test:ui'] = 'nx-spawn test:_ui';
+    scripts['test:_ui'] = 'cypress open --component';
     // TODO: Figure out cypress ct test coverage. Related: https://github.com/cypress-io/cypress/issues/16798
     delete scripts['test:cov'];
     // Cypress doesn't have a non-ui watch mode - see https://github.com/cypress-io/cypress/issues/3665
