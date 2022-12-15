@@ -51,8 +51,6 @@
       "dependsOn": ["^build"]
     },
     "test:ui": {
-      "inputs": ["default", "^default", "test"],
-      "outputs": ["./cypress-run"],
       "dependsOn": ["^build"]
     },
     "e2e": {
