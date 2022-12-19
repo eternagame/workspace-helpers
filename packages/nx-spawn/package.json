@@ -29,10 +29,10 @@
   ],
   "dependencies": {
     "@nrwl/devkit": "15.x",
-    "chalk": "^5.0.1",
+    "chalk": "^5.2.0",
     "chokidar": "^3.5.3",
     "nx": "15.x",
-    "yargs": "^17.5.1"
+    "yargs": "^17.6.2"
   },
   "nx": {
     "implicitDependencies": [
