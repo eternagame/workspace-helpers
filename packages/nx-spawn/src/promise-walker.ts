@@ -25,7 +25,7 @@ export default class PromiseWalker<T> {
         return { promise, result };
       }),
     );
-    this._promises.splice(this._promises.indexOf(wrapper.promise));
+    this._promises.splice(this._promises.indexOf(wrapper.promise), 1);
     return wrapper.result;
   }
 
