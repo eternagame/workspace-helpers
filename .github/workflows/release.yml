@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       releases_created:  ${{ steps.prep-release.outputs.releases_created }}
+      prs_exist: ${{ steps.prep-release.outputs.prs || 'false' }}
     steps:
       - name: Prep release
         id: prep-release
@@ -24,7 +25,7 @@ jobs:
     name: Update release PR with lockfile updates
     runs-on: ubuntu-latest
     needs: release-please
-    if: needs.release-please.outputs.releases_created != 'true'
+    if: needs.release-please.outputs.releases_created != 'true' && needs.release-please.outputs.prs_exist != 'false'
     steps:
       - uses: actions/checkout@v3
         with:

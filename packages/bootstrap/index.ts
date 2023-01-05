@@ -23,7 +23,7 @@ async function main() {
       type: 'string',
     })
     .option('generator-version', {
-      describe: 'Specifies the version of @eternagame/nx-plugin used for repository generation (eg --nx-plugin-version canary for the latest canary)',
+      describe: 'Specifies the version of @eternagame/nx-plugin used for repository generation (eg --generator-version canary for the latest canary)',
       type: 'string',
     })
     .argv;

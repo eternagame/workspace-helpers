@@ -230,34 +230,49 @@ export default class TaskOrchestrator {
     runner: ForkedProcessTaskRunner,
     projectGraph: ProjectGraph,
   ): Promise<StartedProcess> {
-    // Start the task
-    const process = runner.forkProcessPipeOutputCapture(task, {
+    const runTask = () => runner.forkProcessPipeOutputCapture(task, {
       temporaryOutputPath: this.temporaryOutputPath(task),
       streamOutput: true,
     });
 
-    // Spin up a chokidar watcher to notify us when the output files for the task are written
-    const node = projectGraph.nodes[task.target.project];
-    if (!node) throw new Error(`Can't find node for ${task.target.project}`);
-    const outputs = getOutputsForTargetAndConfiguration(task, node);
-    const watcher = watch(outputs, {
-      cwd: workspaceRoot,
-      ignoreInitial: false,
-    });
+    let process: ReturnType<typeof runTask>;
 
     if (this.isLongRunningTask(task)) {
+      // Spin up a chokidar watcher to notify us when the output files for the task are written
+      const node = projectGraph.nodes[task.target.project];
+      if (!node) throw new Error(`Can't find node for ${task.target.project}`);
+      // For some reason getOutputsForTargetAndConfiguration is typed as returning `any`
+      const outputs = getOutputsForTargetAndConfiguration(task, node);
+      const watcher = watch(outputs, {
+        cwd: workspaceRoot,
+        // Note that even if the files were already written previously, we still wait for them to be
+        // re-written, as this ensures we're not continuing with stale output and avoids multiple
+        // executions from being triggered when eg vite builds a downstream package then this build
+        // completes and even if nothing changes it still re-writes the files, causing the
+        // downstream to build again
+        ignoreInitial: true,
+      });
+
       // Assuming the task has outputs, make sure the task has written the outputs at least once
       // before moving on and starting subsequent tasks
-      await Promise.all(
+      const ready = Promise.all(
         outputs.map(
           (f) => new Promise<void>((resolve) => {
             watcher.on('add', (path) => {
               if (path.startsWith(f)) resolve();
             });
+            watcher.on('change', (path) => {
+              if (path.startsWith(f)) resolve();
+            });
           }),
         ),
       );
+
+      process = runTask();
+      await ready;
+      await watcher.close();
     } else {
+      process = runTask();
       // Wait for the task to exit
       await process;
     }
