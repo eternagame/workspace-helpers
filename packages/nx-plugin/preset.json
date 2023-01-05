@@ -71,7 +71,7 @@
       "outputs": ["{projectRoot}/dist"]
     },
     "_dev": {
-      "dependsOn": ["build:watch"]
+      "dependsOn": ["build:watch", "^build:watch"]
     },
     "start": {
       "dependsOn": ["build"]
