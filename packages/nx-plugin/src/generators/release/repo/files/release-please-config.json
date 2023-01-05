@@ -3,8 +3,8 @@
   "plugins": [
     "node-workspace"
   ],
-  "pull-request-title-pattern": "chore(repo): Release latest on ${branch}",
   "group-pull-request-title-pattern": "chore(repo): Release latest on ${branch}",
+  "separate-pull-requests": false,
   "changelog-sections": [
     {
       "type": "feat",
