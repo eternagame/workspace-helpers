@@ -241,8 +241,7 @@ export default class TaskOrchestrator {
       // Spin up a chokidar watcher to notify us when the output files for the task are written
       const node = projectGraph.nodes[task.target.project];
       if (!node) throw new Error(`Can't find node for ${task.target.project}`);
-      // For some reason getOutputsForTargetAndConfiguration is typed as returning `any`
-      const outputs = getOutputsForTargetAndConfiguration(task, node) as string[];
+      const outputs = getOutputsForTargetAndConfiguration(task, node);
       const watcher = watch(outputs, {
         cwd: workspaceRoot,
         // Note that even if the files were already written previously, we still wait for them to be
