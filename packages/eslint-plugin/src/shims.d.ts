@@ -24,6 +24,23 @@ interface AirBnbImportsConfig {
   };
 }
 
-declare module 'eslint-config-airbnb-typescript/lib/shared' {}
+interface AirBnbStyleConfig {
+  rules: {
+    '@typescript-eslint/indent': [
+      string,
+      number,
+      {
+        ignoredNodes: string[]
+      },
+    ]
+  }
+}
 
-declare module 'eslint-config-airbnb-base/rules/imports' {}
+declare module 'eslint-config-airbnb-typescript/lib/shared' {
+  type FullConfig = AirBnbImportsConfig & AirBnbStyleConfig;
+  export = {} as FullConfig;
+}
+
+declare module 'eslint-config-airbnb-base/rules/imports' {
+  export = {} as AirBnbImportsConfig;
+}
