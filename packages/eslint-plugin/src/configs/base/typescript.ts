@@ -1,3 +1,7 @@
+import base from 'eslint-config-airbnb-typescript/lib/shared';
+
+const [indentLevel, indentAmount, indentConfig] = base.rules['@typescript-eslint/indent'];
+
 export default {
   parserOptions: {
     project: ['tsconfig.*?.json', 'tsconfig.json'],
@@ -28,5 +32,17 @@ export default {
     // Similar deal as the above - the import plugin won't resolve our aliases properly, plus
     // tsc already places limitations on allowed extensions
     'import/extensions': 'off',
+    // See https://github.com/typescript-eslint/typescript-eslint/issues/1824
+    '@typescript-eslint/indent': [
+      indentLevel,
+      indentAmount,
+      {
+        ...indentConfig,
+        ignoredNodes: [
+          ...indentConfig.ignoredNodes,
+          'FunctionExpression[params]:has(Identifier[decorators])',
+        ],
+      },
+    ],
   },
 };
