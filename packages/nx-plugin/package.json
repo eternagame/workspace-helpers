@@ -1,7 +1,7 @@
 {
   "name": "@eternagame/nx-plugin",
   "description": "Eterna standard Nx setup and utilities",
-  "version": "2.0.0-dev",
+  "version": "2.0.0",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",

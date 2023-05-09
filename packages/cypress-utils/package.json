@@ -1,7 +1,7 @@
 {
   "name": "@eternagame/cypress-utils",
   "description": "Eterna standard Cypress setup and utilities",
-  "version": "1.0.0-dev",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/eternagame/workspace-helpers.git",
