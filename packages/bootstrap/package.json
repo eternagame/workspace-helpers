@@ -1,7 +1,7 @@
 {
   "name": "@eternagame/bootstrap",
   "description": "Bootstrap a new repository using the Eternagame standards",
-  "version": "1.0.0-dev",
+  "version": "1.0.0",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",

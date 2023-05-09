@@ -1,7 +1,7 @@
 {
   "name": "@eternagame/eslint-plugin",
   "description": "Eterna standard ESLint setup and utilities",
-  "version": "2.0.0-dev",
+  "version": "2.0.0",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
